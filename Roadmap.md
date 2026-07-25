@@ -15,6 +15,7 @@ This roadmap is a planning aid for agents and contributors. It should guide prio
 - Public funnel preview route at `/f/{slug}`.
 - Custom domain mapping at the Laravel/React application layer.
 - CRM-lite contacts table, contacts page, contact detail page, notes, statuses, and submission timeline.
+- Contact search, status/funnel/date filters, and filtered CSV export.
 - Funnel form submissions that capture leads and increment conversion counters.
 - Configurable form fields for contact details, custom answers, dropdowns, checkboxes, and hidden values.
 - Email notification and optional webhook for new lead submissions.
@@ -32,7 +33,7 @@ This roadmap is a planning aid for agents and contributors. It should guide prio
 - Harden funnel CRUD behavior with focused feature tests.
 - Expand conditional operators and add reusable form-step presets.
 - Move starter layout definitions out of the editor page once the template library grows.
-- Add contact search, filters, CSV import/export, and duplicate management.
+- Add CSV contact import and duplicate management.
 - Add configurable lead notification settings in the UI.
 - Improve autosave/manual save flows in the editor.
 - Expand editor block coverage and block-level property editing.
@@ -62,7 +63,7 @@ This roadmap is a planning aid for agents and contributors. It should guide prio
 
 ### CRM And Lead Capture
 
-- Contact search, filtering, CSV import/export, and duplicate management.
+- CSV contact import and duplicate management.
 - Custom fields attached to contacts.
 - Lead source and UTM capture from published funnels.
 - Team assignment and task follow-up.

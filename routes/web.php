@@ -90,6 +90,7 @@ Route::domain($appDomain)->group(function () {
 
         // Exclude 'show' — it is handled by the public route above.
         Route::get('contacts', [ContactController::class, 'index'])->name('contacts.index');
+        Route::get('contacts/export', [ContactController::class, 'export'])->name('contacts.export');
         Route::get('contacts/{contact}', [ContactController::class, 'show'])->name('contacts.show');
         Route::patch('contacts/{contact}', [ContactController::class, 'update'])->name('contacts.update');
         Route::post('contacts/{contact}/notes', [ContactController::class, 'storeNote'])->name('contacts.notes.store');

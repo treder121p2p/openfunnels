@@ -14,6 +14,7 @@ OpenFunnels follows a rolling development model. Notable user-facing changes are
 - Optional provider-neutral AI funnel generation.
 - Isolated guest sandbox with automatic expiry.
 - Docker evaluation stack and contributor community files.
+- Contact search, funnel/status/date filters, pagination, and filtered CSV export.
 
 ### Changed
 
