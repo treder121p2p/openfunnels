@@ -20,6 +20,7 @@ OpenFunnels is a Laravel 13 + Inertia.js SaaS application for building and publi
 - `app/Models/Funnel.php`: funnel model, JSON casts, publishing helpers, view/conversion counters.
 - `app/Models/Contact.php`: captured lead/contact records owned by users and optionally tied to funnels.
 - `app/Models/ContactSubmission.php`: immutable-ish submission timeline records created from funnel form posts.
+- `app/Models/Opportunity.php`: contact-linked CRM deals with pipeline stage, value, outcome, and activity history.
 - `app/Mail/NewLeadCaptured.php`: email notification for new form submissions.
 - `app/Policies/FunnelPolicy.php`: funnel authorization rules.
 - `routes/web.php`: public home, public `/f/{funnel:slug}` route, authenticated funnel/dashboard/editor routes.
@@ -43,6 +44,7 @@ General companion docs:
 - Design guidance: `DESIGN.md`
 - Product roadmap: `Roadmap.md`
 - MVP funnel/CRM PRD: `docs/prds/mvp-funnel-crm.md`
+- Opportunities CRM PRD: `docs/prds/opportunities-pipeline.md`
 
 ### Custom Domain Mapping
 

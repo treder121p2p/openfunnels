@@ -3,6 +3,7 @@ import AiFunnelModal from '@/components/editor/AiFunnelModal';
 import ContentBlockLibrary from '@/components/editor/ContentBlockLibrary';
 import ExperimentModal, { type ExperimentVariant } from '@/components/editor/ExperimentModal';
 import ExportModal from '@/components/editor/ExportModal';
+import FunnelCrmModal, { type CrmAutomationSettings, type CrmPipelineOption } from '@/components/editor/FunnelCrmModal';
 import FunnelSettingsModal from '@/components/editor/FunnelSettingsModal';
 import LayoutBuilder from '@/components/editor/LayoutBuilder';
 import PropertiesPanel from '@/components/editor/PropertiesPanel';
@@ -10,6 +11,7 @@ import { Head, Link } from '@inertiajs/react';
 import {
     ArrowLeft,
     Beaker,
+    BriefcaseBusiness,
     CalendarDays,
     ClipboardList,
     Download,
@@ -61,6 +63,8 @@ interface EnhancedFunnelEditorProps {
         variants: ExperimentVariant[];
     };
     domainMapping?: DomainMappingSettings;
+    crmAutomation?: CrmAutomationSettings;
+    pipelineOptions?: CrmPipelineOption[];
 }
 
 interface DomainMapping {
@@ -1248,12 +1252,23 @@ function StarterTemplatePreview({ variant }: { variant: StarterTemplate['preview
     );
 }
 
-export default function EnhancedFunnelEditor({ funnel: initialFunnel, domainMapping }: EnhancedFunnelEditorProps) {
+export default function EnhancedFunnelEditor({
+    funnel: initialFunnel,
+    domainMapping,
+    crmAutomation = {
+        enabled: false,
+        pipeline_id: null,
+        pipeline_stage_id: null,
+        default_value_cents: 0,
+    },
+    pipelineOptions = [],
+}: EnhancedFunnelEditorProps) {
     // Editor state
     const [editorMode, setEditorMode] = useState<EditorMode>('editor');
     const [isExportModalOpen, setIsExportModalOpen] = useState(false);
     const [isAiModalOpen, setIsAiModalOpen] = useState(false);
     const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
+    const [isCrmModalOpen, setIsCrmModalOpen] = useState(false);
     const [isExperimentModalOpen, setIsExperimentModalOpen] = useState(false);
     const [isStarterOpen, setIsStarterOpen] = useState(!initialFunnel);
     const [starterStep, setStarterStep] = useState<'choice' | 'templates'>('choice');
@@ -1655,6 +1670,15 @@ export default function EnhancedFunnelEditor({ funnel: initialFunnel, domainMapp
                                     <span>Domain Settings</span>
                                 </button>
                                 <button
+                                    onClick={() => setIsCrmModalOpen(true)}
+                                    disabled={!initialFunnel?.id}
+                                    className="flex items-center space-x-2 rounded-lg bg-muted px-4 py-2 text-foreground hover:bg-muted/80 disabled:cursor-not-allowed disabled:opacity-50"
+                                    title={initialFunnel?.id ? 'Configure CRM automation' : 'Save the funnel first to configure CRM automation'}
+                                >
+                                    <BriefcaseBusiness className="h-4 w-4" />
+                                    <span>CRM</span>
+                                </button>
+                                <button
                                     onClick={() => setIsExperimentModalOpen(true)}
                                     disabled={!initialFunnel?.id}
                                     className="flex items-center space-x-2 rounded-lg bg-muted px-3 py-2 text-foreground transition-colors hover:bg-muted/80 disabled:cursor-not-allowed disabled:opacity-50"
@@ -1926,6 +1950,15 @@ export default function EnhancedFunnelEditor({ funnel: initialFunnel, domainMapp
                         domains: initialFunnel.domains,
                     }}
                     domainMapping={domainMapping}
+                />
+            )}
+            {initialFunnel?.id && (
+                <FunnelCrmModal
+                    isOpen={isCrmModalOpen}
+                    onClose={() => setIsCrmModalOpen(false)}
+                    funnelId={initialFunnel.id}
+                    settings={crmAutomation}
+                    pipelines={pipelineOptions}
                 />
             )}
         </DndProvider>

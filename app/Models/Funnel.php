@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Str;
 
 class Funnel extends Model
@@ -81,6 +82,16 @@ class Funnel extends Model
     public function variants(): HasMany
     {
         return $this->hasMany(FunnelVariant::class);
+    }
+
+    public function opportunities(): HasMany
+    {
+        return $this->hasMany(Opportunity::class);
+    }
+
+    public function opportunitySetting(): HasOne
+    {
+        return $this->hasOne(FunnelOpportunitySetting::class);
     }
 
     public function incrementViews(): void

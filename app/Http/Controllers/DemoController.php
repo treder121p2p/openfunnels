@@ -52,6 +52,32 @@ class DemoController extends Controller
             'attribution' => ['utm_source' => 'community'],
             'source' => 'funnel_form',
         ]);
+        $pipeline = $user->pipelines()->create([
+            'name' => 'Growth Sales',
+            'currency' => 'USD',
+        ]);
+        $pipeline->stages()->createMany([
+            ['name' => 'New Lead', 'position' => 0, 'probability' => 10],
+            ['name' => 'Contacted', 'position' => 1, 'probability' => 25],
+            ['name' => 'Qualified', 'position' => 2, 'probability' => 50],
+            ['name' => 'Proposal', 'position' => 3, 'probability' => 75],
+        ]);
+        $opportunity = $user->opportunities()->create([
+            'pipeline_id' => $pipeline->id,
+            'pipeline_stage_id' => $pipeline->stages()->where('name', 'Qualified')->value('id'),
+            'contact_id' => $contact->id,
+            'funnel_id' => $funnel->id,
+            'title' => 'Acme Labs growth audit',
+            'value_cents' => 350000,
+            'status' => 'open',
+            'source' => 'funnel_form',
+            'expected_close_date' => now()->addDays(14)->toDateString(),
+            'stage_changed_at' => now()->subHour(),
+        ]);
+        $opportunity->recordActivity('created', [
+            'source' => 'demo_seed',
+            'stage_name' => 'Qualified',
+        ], $user->id);
         foreach (range(6, 0) as $daysAgo) {
             $funnel->events()->create([
                 'event_type' => 'view',

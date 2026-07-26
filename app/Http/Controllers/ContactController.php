@@ -123,6 +123,9 @@ class ContactController extends Controller
         $contact->load([
             'funnel:id,name,slug',
             'submissions' => fn ($query) => $query->with('funnel:id,name,slug')->latest(),
+            'opportunities' => fn ($query) => $query
+                ->with(['pipeline:id,name,currency', 'stage:id,name'])
+                ->latest(),
         ]);
 
         return Inertia::render('contact-detail', [
@@ -160,6 +163,22 @@ class ContactController extends Controller
                         'name' => $submission->funnel->name,
                         'slug' => $submission->funnel->slug,
                     ] : null,
+                ]),
+                'opportunities' => $contact->opportunities->map(fn ($opportunity) => [
+                    'id' => $opportunity->id,
+                    'title' => $opportunity->title,
+                    'value_cents' => $opportunity->value_cents,
+                    'status' => $opportunity->status,
+                    'expected_close_date' => $opportunity->expected_close_date?->format('Y-m-d'),
+                    'pipeline' => [
+                        'id' => $opportunity->pipeline->id,
+                        'name' => $opportunity->pipeline->name,
+                        'currency' => $opportunity->pipeline->currency,
+                    ],
+                    'stage' => [
+                        'id' => $opportunity->stage->id,
+                        'name' => $opportunity->stage->name,
+                    ],
                 ]),
             ],
             'statusOptions' => ['new', 'contacted', 'qualified', 'won', 'lost'],

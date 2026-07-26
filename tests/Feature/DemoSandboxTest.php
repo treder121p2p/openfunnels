@@ -20,6 +20,8 @@ test('guests can enter an isolated seeded editor sandbox', function () {
         ->and($user->email_verified_at)->not->toBeNull()
         ->and($user->funnels)->toHaveCount(1)
         ->and($user->contacts)->toHaveCount(1)
+        ->and($user->pipelines)->toHaveCount(1)
+        ->and($user->opportunities)->toHaveCount(1)
         ->and($user->demo_expires_at?->isFuture())->toBeTrue();
 });
 

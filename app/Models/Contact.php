@@ -43,4 +43,9 @@ class Contact extends Model
     {
         return $this->hasMany(ContactSubmission::class);
     }
+
+    public function opportunities(): HasMany
+    {
+        return $this->hasMany(Opportunity::class);
+    }
 }

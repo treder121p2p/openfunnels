@@ -1,14 +1,19 @@
 <?php
 
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ContactLookupController;
 use App\Http\Controllers\DemoController;
 use App\Http\Controllers\DomainController;
 use App\Http\Controllers\FunnelAnalyticsController;
 use App\Http\Controllers\FunnelController;
 use App\Http\Controllers\FunnelGenerationController;
+use App\Http\Controllers\FunnelOpportunitySettingController;
 use App\Http\Controllers\FunnelResponseController;
 use App\Http\Controllers\FunnelVariantController;
 use App\Http\Controllers\LeadCaptureController;
+use App\Http\Controllers\OpportunityController;
+use App\Http\Controllers\PipelineController;
+use App\Http\Controllers\PipelineStageController;
 use App\Models\Domain;
 use App\Models\FunnelEvent;
 use App\Services\FunnelPublicUrlResolver;
@@ -90,12 +95,25 @@ Route::domain($appDomain)->group(function () {
 
         // Exclude 'show' — it is handled by the public route above.
         Route::get('contacts', [ContactController::class, 'index'])->name('contacts.index');
+        Route::get('contacts/lookup', ContactLookupController::class)->name('contacts.lookup');
         Route::get('contacts/export', [ContactController::class, 'export'])->name('contacts.export');
         Route::get('contacts/{contact}', [ContactController::class, 'show'])->name('contacts.show');
         Route::patch('contacts/{contact}', [ContactController::class, 'update'])->name('contacts.update');
         Route::post('contacts/{contact}/notes', [ContactController::class, 'storeNote'])->name('contacts.notes.store');
+        Route::get('opportunities', [OpportunityController::class, 'index'])->name('opportunities.index');
+        Route::post('opportunities', [OpportunityController::class, 'store'])->name('opportunities.store');
+        Route::patch('opportunities/{opportunity}', [OpportunityController::class, 'update'])->name('opportunities.update');
+        Route::delete('opportunities/{opportunity}', [OpportunityController::class, 'destroy'])->name('opportunities.destroy');
+        Route::post('pipelines', [PipelineController::class, 'store'])->name('pipelines.store');
+        Route::patch('pipelines/{pipeline}', [PipelineController::class, 'update'])->name('pipelines.update');
+        Route::delete('pipelines/{pipeline}', [PipelineController::class, 'destroy'])->name('pipelines.destroy');
+        Route::post('pipelines/{pipeline}/stages', [PipelineStageController::class, 'store'])->name('pipeline-stages.store');
+        Route::put('pipelines/{pipeline}/stages/reorder', [PipelineStageController::class, 'reorder'])->name('pipeline-stages.reorder');
+        Route::patch('pipeline-stages/{stage}', [PipelineStageController::class, 'update'])->name('pipeline-stages.update');
+        Route::delete('pipeline-stages/{stage}', [PipelineStageController::class, 'destroy'])->name('pipeline-stages.destroy');
         Route::resource('funnels', FunnelController::class)->except(['show']);
         Route::put('funnels/{funnel}/autosave', [FunnelController::class, 'autosave'])->name('funnels.autosave');
+        Route::patch('funnels/{funnel}/crm-settings', [FunnelOpportunitySettingController::class, 'update'])->name('funnels.crm-settings.update');
         Route::get('funnels/{funnel}/responses', [FunnelResponseController::class, 'index'])->name('funnels.responses');
         Route::get('funnel-editor', [FunnelController::class, 'create'])->name('funnel-editor');
         Route::post('funnels/generate', FunnelGenerationController::class)->middleware('throttle:10,1')->name('funnels.generate');

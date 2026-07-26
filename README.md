@@ -49,6 +49,7 @@ See the [Docker evaluation guide](docs/docker-evaluation.md) for more details.
 - **Funnels:** Create pages with a drag-and-drop section, column, and block editor; undo and redo changes; autosave; and preview responsive layouts.
 - **Templates:** Start from 15 categorized layouts or import and export versioned `.openfunnels.json` template packs.
 - **Forms and contacts:** Capture configurable and conditional fields, preserve every submission, collect UTM and referrer attribution, manage lead statuses and notes, and export filtered contact segments to CSV.
+- **Opportunities CRM:** Promote contacts into configurable sales pipelines, forecast deal value, track won/lost outcomes, and optionally create opportunities from individual funnels.
 - **Publishing:** Publish to slug-based URLs or verified custom domains, preview drafts, and unpublish without deleting content.
 - **Analytics and experiments:** Track privacy-conscious events, conversion trends, traffic sources, drop-off, and stable A/B variant assignments.
 - **Operations:** Send new-lead email notifications or webhooks, recover offline editor changes, and export to several web and commerce targets.

@@ -65,4 +65,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Contact::class);
     }
+
+    public function pipelines(): HasMany
+    {
+        return $this->hasMany(Pipeline::class);
+    }
+
+    public function opportunities(): HasMany
+    {
+        return $this->hasMany(Opportunity::class);
+    }
 }

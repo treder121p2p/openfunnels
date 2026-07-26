@@ -41,6 +41,7 @@ OpenFunnels is currently positioned as an open-source funnel builder for launchi
 
 - Contacts index shows captured leads, source funnel, status, submission count, and last activity.
 - Contacts can be searched by name, email, or phone; filtered by status, funnel, and capture date; and exported as a filtered CSV segment.
+- Qualified contacts can be promoted into opportunities and managed through configurable sales pipelines.
 - Contact detail page shows:
     - Profile fields.
     - Source funnel.

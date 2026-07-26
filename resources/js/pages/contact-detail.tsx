@@ -1,7 +1,7 @@
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router, useForm } from '@inertiajs/react';
-import { ArrowLeft, Clock, Mail, MessageSquare, Phone, Send, UserRound } from 'lucide-react';
+import { ArrowLeft, BriefcaseBusiness, Clock, Mail, MessageSquare, Phone, Plus, Send, UserRound } from 'lucide-react';
 
 interface ContactSubmission {
     id: number;
@@ -45,8 +45,32 @@ interface ContactDetailProps {
         created_at: string;
         updated_at: string;
         submissions: ContactSubmission[];
+        opportunities: Array<{
+            id: number;
+            title: string;
+            value_cents: number;
+            status: string;
+            expected_close_date: string | null;
+            pipeline: {
+                id: number;
+                name: string;
+                currency: string;
+            };
+            stage: {
+                id: number;
+                name: string;
+            };
+        }>;
     };
     statusOptions: string[];
+}
+
+function formatOpportunityValue(cents: number, currency: string): string {
+    try {
+        return new Intl.NumberFormat(undefined, { style: 'currency', currency }).format(cents / 100);
+    } catch {
+        return `${currency} ${(cents / 100).toFixed(2)}`;
+    }
 }
 
 export default function ContactDetail({ contact, statusOptions }: ContactDetailProps) {
@@ -131,6 +155,61 @@ export default function ContactDetail({ contact, statusOptions }: ContactDetailP
                                     <div className="text-muted-foreground">IP address</div>
                                     <div className="text-foreground">{contact.ip_address || 'Not available'}</div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div className="rounded-xl border border-border bg-card p-5">
+                            <div className="mb-4 flex items-center justify-between gap-3">
+                                <h2 className="flex items-center gap-2 font-semibold text-foreground">
+                                    <BriefcaseBusiness className="h-4 w-4" />
+                                    Opportunities
+                                </h2>
+                                <Link
+                                    href={route('opportunities.index', { create_for_contact: contact.id })}
+                                    className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:text-primary/80"
+                                >
+                                    <Plus className="h-3.5 w-3.5" />
+                                    New
+                                </Link>
+                            </div>
+                            <div className="space-y-3">
+                                {contact.opportunities.map((opportunity) => (
+                                    <Link
+                                        key={opportunity.id}
+                                        href={route('opportunities.index', {
+                                            pipeline_id: opportunity.pipeline.id,
+                                            status: opportunity.status,
+                                            search: opportunity.title,
+                                        })}
+                                        className="block rounded-lg border border-border bg-background p-3 hover:bg-muted"
+                                    >
+                                        <div className="flex items-start justify-between gap-2">
+                                            <div className="min-w-0">
+                                                <div className="truncate text-sm font-medium text-foreground">{opportunity.title}</div>
+                                                <div className="text-xs text-muted-foreground">
+                                                    {opportunity.pipeline.name} · {opportunity.stage.name}
+                                                </div>
+                                            </div>
+                                            <span
+                                                className={`rounded-full px-2 py-0.5 text-xs font-medium ${
+                                                    opportunity.status === 'won'
+                                                        ? 'bg-emerald-500/10 text-emerald-500'
+                                                        : opportunity.status === 'lost'
+                                                          ? 'bg-red-500/10 text-red-500'
+                                                          : 'bg-sky-500/10 text-sky-500'
+                                                }`}
+                                            >
+                                                {opportunity.status}
+                                            </span>
+                                        </div>
+                                        <div className="mt-2 text-sm font-medium text-foreground">
+                                            {formatOpportunityValue(opportunity.value_cents, opportunity.pipeline.currency)}
+                                        </div>
+                                    </Link>
+                                ))}
+                                {contact.opportunities.length === 0 && (
+                                    <p className="text-sm text-muted-foreground">No opportunities are linked to this contact.</p>
+                                )}
                             </div>
                         </div>
 

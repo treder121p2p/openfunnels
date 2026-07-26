@@ -15,6 +15,7 @@ OpenFunnels follows a rolling development model. Notable user-facing changes are
 - Isolated guest sandbox with automatic expiry.
 - Docker evaluation stack and contributor community files.
 - Contact search, funnel/status/date filters, pagination, and filtered CSV export.
+- Funnel-linked opportunity pipelines with Kanban stage management, value forecasting, activity history, contact integration, and opt-in lead automation.
 
 ### Changed
 

@@ -16,6 +16,7 @@ This roadmap is a planning aid for agents and contributors. It should guide prio
 - Custom domain mapping at the Laravel/React application layer.
 - CRM-lite contacts table, contacts page, contact detail page, notes, statuses, and submission timeline.
 - Contact search, status/funnel/date filters, and filtered CSV export.
+- Funnel-linked opportunity pipelines with configurable stages, deal values, forecasts, outcomes, activity history, and opt-in lead automation.
 - Funnel form submissions that capture leads and increment conversion counters.
 - Configurable form fields for contact details, custom answers, dropdowns, checkboxes, and hidden values.
 - Email notification and optional webhook for new lead submissions.
@@ -66,6 +67,7 @@ This roadmap is a planning aid for agents and contributors. It should guide prio
 - CSV contact import and duplicate management.
 - Custom fields attached to contacts.
 - Lead source and UTM capture from published funnels.
+- Opportunity list view, advanced filters, tasks, and lost-reason reporting.
 - Team assignment and task follow-up.
 
 ### Automation

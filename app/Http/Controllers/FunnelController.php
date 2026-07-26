@@ -138,6 +138,7 @@ class FunnelController extends Controller
         $this->authorize('update', $funnel);
 
         $funnel->load(['domains' => fn ($query) => $query->orderByDesc('created_at')]);
+        $funnel->load('opportunitySetting');
         $funnel->load(['variants' => fn ($query) => $query->withCount([
             'events as views_count' => fn ($events) => $events->where('event_type', 'view'),
             'events as conversions_count' => fn ($events) => $events->where('event_type', 'conversion'),
@@ -176,6 +177,26 @@ class FunnelController extends Controller
                 'cnameTarget' => config('services.domain_mapping.cname_target'),
                 'aRecordIp' => config('services.domain_mapping.a_record_ip'),
             ],
+            'crmAutomation' => [
+                'enabled' => $funnel->opportunitySetting?->enabled ?? false,
+                'pipeline_id' => $funnel->opportunitySetting?->pipeline_id,
+                'pipeline_stage_id' => $funnel->opportunitySetting?->pipeline_stage_id,
+                'default_value_cents' => $funnel->opportunitySetting?->default_value_cents ?? 0,
+            ],
+            'pipelineOptions' => $funnel->user
+                ->pipelines()
+                ->with('stages')
+                ->orderBy('name')
+                ->get()
+                ->map(fn ($pipeline) => [
+                    'id' => $pipeline->id,
+                    'name' => $pipeline->name,
+                    'currency' => $pipeline->currency,
+                    'stages' => $pipeline->stages->map(fn ($stage) => [
+                        'id' => $stage->id,
+                        'name' => $stage->name,
+                    ]),
+                ]),
         ]);
     }
 

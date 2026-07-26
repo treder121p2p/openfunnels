@@ -6,6 +6,7 @@ use App\Mail\NewLeadCaptured;
 use App\Models\Contact;
 use App\Models\ContactSubmission;
 use App\Models\Funnel;
+use App\Services\OpportunityAutomationService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -15,7 +16,7 @@ class LeadCaptureController extends Controller
 {
     use AuthorizesRequests;
 
-    public function store(Request $request, Funnel $funnel)
+    public function store(Request $request, Funnel $funnel, OpportunityAutomationService $opportunityAutomation)
     {
         if (! $funnel->is_published) {
             $this->authorize('update', $funnel);
@@ -94,6 +95,7 @@ class LeadCaptureController extends Controller
             'attribution' => $validated['attribution'] ?? [],
             'occurred_at' => now(),
         ]);
+        $opportunityAutomation->createFromSubmission($contact, $funnel);
         $this->notifyLeadCaptured($contact, $funnel, $submission);
 
         return back()->with('success', 'Thanks. Your information was submitted.');
