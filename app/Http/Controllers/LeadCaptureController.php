@@ -2,22 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\NewLeadCaptured;
+use App\Jobs\SendLeadCaptureNotifications;
 use App\Models\Contact;
-use App\Models\ContactSubmission;
+use App\Models\ContactEmailPreference;
 use App\Models\Funnel;
+use App\Services\Automation\AutomationEventRecorder;
 use App\Services\OpportunityAutomationService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class LeadCaptureController extends Controller
 {
     use AuthorizesRequests;
 
-    public function store(Request $request, Funnel $funnel, OpportunityAutomationService $opportunityAutomation)
-    {
+    public function store(
+        Request $request,
+        Funnel $funnel,
+        OpportunityAutomationService $opportunityAutomation,
+        AutomationEventRecorder $automationEvents,
+    ) {
         if (! $funnel->is_published) {
             $this->authorize('update', $funnel);
         }
@@ -44,100 +49,110 @@ class LeadCaptureController extends Controller
             abort(422, 'Invalid experiment variant.');
         }
 
-        $email = strtolower($validated['email']);
-        $contact = Contact::firstOrNew([
-            'user_id' => $funnel->user_id,
-            'email' => $email,
-        ]);
+        [$contact, $submission] = DB::transaction(function () use (
+            $request,
+            $validated,
+            $funnel,
+            $opportunityAutomation,
+            $automationEvents,
+        ) {
+            $email = strtolower($validated['email']);
+            $contact = Contact::firstOrNew([
+                'user_id' => $funnel->user_id,
+                'email' => $email,
+            ]);
+            $isNewContact = ! $contact->exists;
+            $metadata = $contact->metadata ?? [];
+            $submissionCount = (int) data_get($metadata, 'submission_count', 0) + 1;
 
-        $metadata = $contact->metadata ?? [];
-        $submissionCount = (int) data_get($metadata, 'submission_count', 0) + 1;
+            $contact->fill([
+                'funnel_id' => $funnel->id,
+                'email' => $email,
+                'name' => $validated['name'] ?? $contact->name,
+                'phone' => $validated['phone'] ?? $contact->phone,
+                'source' => 'funnel_form',
+                'status' => $contact->status ?: 'new',
+                'metadata' => [
+                    ...$metadata,
+                    'submission_count' => $submissionCount,
+                    'last_form_id' => $validated['form_id'] ?? null,
+                    'last_fields' => $validated['fields'] ?? [],
+                    'last_url' => $request->headers->get('referer'),
+                    'last_attribution' => $validated['attribution'] ?? [],
+                ],
+                'ip_address' => $request->ip(),
+                'user_agent' => (string) $request->userAgent(),
+                'last_submitted_at' => now(),
+            ]);
+            $contact->save();
 
-        $contact->fill([
-            'funnel_id' => $funnel->id,
-            'email' => $email,
-            'name' => $validated['name'] ?? $contact->name,
-            'phone' => $validated['phone'] ?? $contact->phone,
-            'source' => 'funnel_form',
-            'status' => $contact->status ?: 'new',
-            'metadata' => [
-                ...$metadata,
-                'submission_count' => $submissionCount,
-                'last_form_id' => $validated['form_id'] ?? null,
-                'last_fields' => $validated['fields'] ?? [],
-                'last_url' => $request->headers->get('referer'),
-                'last_attribution' => $validated['attribution'] ?? [],
-            ],
-            'ip_address' => $request->ip(),
-            'user_agent' => (string) $request->userAgent(),
-            'last_submitted_at' => now(),
-        ]);
+            $submission = $contact->submissions()->create([
+                'funnel_id' => $funnel->id,
+                'variant_id' => $validated['variant_id'] ?? null,
+                'form_id' => $validated['form_id'] ?? null,
+                'fields' => $validated['fields'] ?? [],
+                'attribution' => $validated['attribution'] ?? [],
+                'source' => 'funnel_form',
+                'url' => $request->headers->get('referer'),
+                'ip_address' => $request->ip(),
+                'user_agent' => (string) $request->userAgent(),
+            ]);
 
-        $contact->save();
-        $submission = $contact->submissions()->create([
-            'funnel_id' => $funnel->id,
-            'variant_id' => $validated['variant_id'] ?? null,
-            'form_id' => $validated['form_id'] ?? null,
-            'fields' => $validated['fields'] ?? [],
-            'attribution' => $validated['attribution'] ?? [],
-            'source' => 'funnel_form',
-            'url' => $request->headers->get('referer'),
-            'ip_address' => $request->ip(),
-            'user_agent' => (string) $request->userAgent(),
-        ]);
+            if ($this->isAffirmative(data_get($validated, 'fields.marketing_consent'))) {
+                ContactEmailPreference::updateOrCreate(
+                    ['user_id' => $funnel->user_id, 'contact_id' => $contact->id],
+                    ['status' => 'subscribed', 'source' => 'funnel_form', 'consented_at' => now(), 'unsubscribed_at' => null],
+                );
+            }
 
-        $funnel->incrementConversions();
-        $funnel->events()->create([
-            'event_type' => 'conversion',
-            'variant_id' => $validated['variant_id'] ?? null,
-            'session_id' => isset($validated['session_id']) ? hash('sha256', $validated['session_id']) : null,
-            'form_id' => $validated['form_id'] ?? null,
-            'attribution' => $validated['attribution'] ?? [],
-            'occurred_at' => now(),
-        ]);
-        $opportunityAutomation->createFromSubmission($contact, $funnel);
-        $this->notifyLeadCaptured($contact, $funnel, $submission);
+            $funnel->incrementConversions();
+            $funnel->events()->create([
+                'event_type' => 'conversion',
+                'variant_id' => $validated['variant_id'] ?? null,
+                'session_id' => isset($validated['session_id']) ? hash('sha256', $validated['session_id']) : null,
+                'form_id' => $validated['form_id'] ?? null,
+                'attribution' => $validated['attribution'] ?? [],
+                'occurred_at' => now(),
+            ]);
+
+            if ($isNewContact) {
+                $automationEvents->record(
+                    $funnel->user,
+                    'contact.created',
+                    contact: $contact,
+                    funnel: $funnel,
+                    payload: ['source' => 'funnel_form'],
+                );
+            }
+
+            $opportunityAutomation->createFromSubmission($contact, $funnel);
+            $automationEvents->record(
+                $funnel->user,
+                'funnel.form_submitted',
+                contact: $contact,
+                funnel: $funnel,
+                submission: $submission,
+                payload: [
+                    'is_new_contact' => $isNewContact,
+                    'submission_count' => $submissionCount,
+                ],
+            );
+
+            return [$contact, $submission];
+        });
+
+        try {
+            SendLeadCaptureNotifications::dispatch($contact->id, $funnel->id, $submission->id)
+                ->onQueue(config('automation.queue', 'default'));
+        } catch (Throwable $exception) {
+            report($exception);
+        }
 
         return back()->with('success', 'Thanks. Your information was submitted.');
     }
 
-    private function notifyLeadCaptured(Contact $contact, Funnel $funnel, ContactSubmission $submission): void
+    private function isAffirmative(mixed $value): bool
     {
-        if ($funnel->user->is_demo) {
-            return;
-        }
-
-        $recipient = config('services.lead_capture.notification_email') ?: $funnel->user->email;
-
-        if ($recipient) {
-            Mail::to($recipient)->send(new NewLeadCaptured($contact, $funnel, $submission));
-        }
-
-        $webhookUrl = config('services.lead_capture.webhook_url');
-
-        if ($webhookUrl) {
-            Http::timeout(5)->post($webhookUrl, [
-                'event' => 'lead.captured',
-                'contact' => [
-                    'id' => $contact->id,
-                    'email' => $contact->email,
-                    'name' => $contact->name,
-                    'phone' => $contact->phone,
-                    'status' => $contact->status,
-                ],
-                'funnel' => [
-                    'id' => $funnel->id,
-                    'name' => $funnel->name,
-                    'slug' => $funnel->slug,
-                ],
-                'submission' => [
-                    'id' => $submission->id,
-                    'form_id' => $submission->form_id,
-                    'fields' => $submission->fields,
-                    'url' => $submission->url,
-                    'created_at' => $submission->created_at?->toISOString(),
-                ],
-            ]);
-        }
+        return in_array(strtolower(trim((string) $value)), ['1', 'true', 'yes', 'on', 'subscribed'], true);
     }
 }

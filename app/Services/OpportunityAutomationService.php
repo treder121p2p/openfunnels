@@ -5,10 +5,13 @@ namespace App\Services;
 use App\Models\Contact;
 use App\Models\Funnel;
 use App\Models\Opportunity;
+use App\Services\Automation\AutomationEventRecorder;
 use Throwable;
 
 class OpportunityAutomationService
 {
+    public function __construct(private AutomationEventRecorder $automationEvents) {}
+
     public function createFromSubmission(Contact $contact, Funnel $funnel): ?Opportunity
     {
         try {
@@ -56,6 +59,14 @@ class OpportunityAutomationService
                 'source' => 'funnel_automation',
                 'stage_id' => $setting->pipeline_stage_id,
             ]);
+            $this->automationEvents->record(
+                $funnel->user,
+                'opportunity.created',
+                contact: $contact,
+                funnel: $funnel,
+                opportunity: $opportunity,
+                payload: ['source' => 'funnel_automation'],
+            );
 
             return $opportunity;
         } catch (Throwable $exception) {

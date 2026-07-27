@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Contact extends Model
 {
@@ -29,6 +30,16 @@ class Contact extends Model
         'last_submitted_at' => 'datetime',
     ];
 
+    protected static function booted(): void
+    {
+        static::deleting(function (Contact $contact): void {
+            $contact->automationRuns()->update([
+                'contact_id' => null,
+                'context' => '[]',
+            ]);
+        });
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -47,5 +58,15 @@ class Contact extends Model
     public function opportunities(): HasMany
     {
         return $this->hasMany(Opportunity::class);
+    }
+
+    public function emailPreference(): HasOne
+    {
+        return $this->hasOne(ContactEmailPreference::class);
+    }
+
+    public function automationRuns(): HasMany
+    {
+        return $this->hasMany(AutomationRun::class);
     }
 }

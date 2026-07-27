@@ -9,7 +9,7 @@
 
 OpenFunnels is a self-hosted, open-source funnel builder for creating, publishing, and improving conversion journeys while keeping customer data under your control.
 
-It combines a visual page editor with lead-capture forms, a lightweight CRM, attribution analytics, A/B experiments, custom domains, portable templates, and optional AI-assisted drafts. The application is built on Laravel, Inertia, React, and TypeScript.
+It combines a visual page editor with lead-capture forms, a lightweight CRM, durable workflow automation, attribution analytics, A/B experiments, custom domains, portable templates, and optional AI-assisted drafts. The application is built on Laravel, Inertia, React, and TypeScript.
 
 ## Screenshots
 
@@ -50,6 +50,7 @@ See the [Docker evaluation guide](docs/docker-evaluation.md) for more details.
 - **Templates:** Start from 15 categorized layouts or import and export versioned `.openfunnels.json` template packs.
 - **Forms and contacts:** Capture configurable and conditional fields, preserve every submission, collect UTM and referrer attribution, manage lead statuses and notes, and export filtered contact segments to CSV.
 - **Opportunities CRM:** Promote contacts into configurable sales pipelines, forecast deal value, track won/lost outcomes, and optionally create opportunities from individual funnels.
+- **Automation Studio:** Build versioned trigger-and-action workflows with waits, yes/no branches, CRM updates, email, secure webhooks, run timelines, retries, and starter recipes.
 - **Publishing:** Publish to slug-based URLs or verified custom domains, preview drafts, and unpublish without deleting content.
 - **Analytics and experiments:** Track privacy-conscious events, conversion trends, traffic sources, drop-off, and stable A/B variant assignments.
 - **Operations:** Send new-lead email notifications or webhooks, recover offline editor changes, and export to several web and commerce targets.
@@ -117,6 +118,11 @@ The default `.env.example` uses SQLite, database-backed queues, sessions and cac
 | `FUNNEL_CUSTOM_DOMAIN_SCHEME`     | `https`                 | Scheme used for verified custom-domain URLs      |
 | `LEAD_CAPTURE_NOTIFICATION_EMAIL` | empty                   | Overrides the funnel owner's new-lead recipient  |
 | `LEAD_CAPTURE_WEBHOOK_URL`        | empty                   | Receives new-lead webhook payloads               |
+| `AUTOMATION_QUEUE`                | `default`               | Queue used by Automation Studio jobs             |
+| `AUTOMATION_RUN_RETENTION_DAYS`   | `90`                    | Retention for detailed automation run logs       |
+| `AUTOMATION_MAX_NODES`            | `50`                    | Maximum steps in a published workflow            |
+| `AUTOMATION_EVENT_DAILY_LIMIT`    | `10000`                 | Per-owner automation event safety threshold      |
+| `AUTOMATION_WEBHOOK_ALLOW_HTTP`   | `false`                 | Allows non-TLS workflow webhook targets          |
 | `FUNNEL_AI_DRIVER`                | `disabled`              | Enables a configured funnel-generation driver    |
 | `FUNNEL_AI_ENDPOINT`              | OpenAI Responses API    | Responses-compatible generation endpoint         |
 | `FUNNEL_AI_API_KEY`               | empty                   | Server-side generation credential                |

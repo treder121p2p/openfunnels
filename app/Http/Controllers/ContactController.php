@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Services\Automation\AutomationEventRecorder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -122,6 +124,7 @@ class ContactController extends Controller
 
         $contact->load([
             'funnel:id,name,slug',
+            'emailPreference:id,contact_id,status,source,consented_at,unsubscribed_at',
             'submissions' => fn ($query) => $query->with('funnel:id,name,slug')->latest(),
             'opportunities' => fn ($query) => $query
                 ->with(['pipeline:id,name,currency', 'stage:id,name'])
@@ -139,6 +142,17 @@ class ContactController extends Controller
                 'tags' => $contact->tags ?? [],
                 'metadata' => $contact->metadata ?? [],
                 'notes' => data_get($contact->metadata, 'notes', []),
+                'email_preference' => $contact->emailPreference ? [
+                    'status' => $contact->emailPreference->status,
+                    'source' => $contact->emailPreference->source,
+                    'consented_at' => $contact->emailPreference->consented_at?->format('M j, Y g:i A'),
+                    'unsubscribed_at' => $contact->emailPreference->unsubscribed_at?->format('M j, Y g:i A'),
+                ] : [
+                    'status' => 'unknown',
+                    'source' => null,
+                    'consented_at' => null,
+                    'unsubscribed_at' => null,
+                ],
                 'funnel' => $contact->funnel ? [
                     'id' => $contact->funnel->id,
                     'name' => $contact->funnel->name,
@@ -185,7 +199,7 @@ class ContactController extends Controller
         ]);
     }
 
-    public function update(Request $request, Contact $contact)
+    public function update(Request $request, Contact $contact, AutomationEventRecorder $automationEvents)
     {
         abort_unless($contact->user_id === $request->user()->id, 403);
 
@@ -193,7 +207,20 @@ class ContactController extends Controller
             'status' => ['required', 'string', 'in:new,contacted,qualified,won,lost'],
         ]);
 
-        $contact->update($validated);
+        DB::transaction(function () use ($request, $contact, $validated, $automationEvents): void {
+            $previousStatus = $contact->status;
+            $contact->update($validated);
+
+            if ($contact->status !== $previousStatus) {
+                $automationEvents->record(
+                    $request->user(),
+                    'contact.status_changed',
+                    contact: $contact,
+                    funnel: $contact->funnel,
+                    payload: ['from_status' => $previousStatus, 'to_status' => $contact->status],
+                );
+            }
+        });
 
         return back()->with('success', 'Contact updated.');
     }

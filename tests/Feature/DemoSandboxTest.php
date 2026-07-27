@@ -22,6 +22,8 @@ test('guests can enter an isolated seeded editor sandbox', function () {
         ->and($user->contacts)->toHaveCount(1)
         ->and($user->pipelines)->toHaveCount(1)
         ->and($user->opportunities)->toHaveCount(1)
+        ->and($user->automationWorkflows)->toHaveCount(1)
+        ->and($user->automationRuns)->toHaveCount(1)
         ->and($user->demo_expires_at?->isFuture())->toBeTrue();
 });
 

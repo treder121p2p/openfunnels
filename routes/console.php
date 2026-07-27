@@ -1,5 +1,10 @@
 <?php
 
+use App\Jobs\DispatchAutomationEvent;
+use App\Jobs\ExecuteAutomationRun;
+use App\Models\AutomationEvent;
+use App\Models\AutomationRun;
+use App\Models\AutomationStepRun;
 use App\Models\User;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
@@ -16,3 +21,41 @@ Schedule::call(fn () => User::query()
     ->hourly()
     ->name('cleanup-expired-demo-users')
     ->withoutOverlapping();
+
+Schedule::call(fn () => AutomationEvent::query()
+    ->whereIn('status', ['pending', 'dispatching'])
+    ->where('available_at', '<=', now())
+    ->where(fn ($query) => $query->whereNull('updated_at')->orWhere('updated_at', '<=', now()->subMinutes(2)))
+    ->limit(500)
+    ->get('id')
+    ->each(fn (AutomationEvent $event) => DispatchAutomationEvent::dispatch($event->id)
+        ->onQueue(config('automation.queue', 'default'))))
+    ->everyMinute()
+    ->name('recover-pending-automation-events')
+    ->withoutOverlapping();
+
+Schedule::call(fn () => AutomationRun::query()
+    ->where('status', 'waiting')
+    ->where('next_resume_at', '<=', now())
+    ->limit(500)
+    ->get('id')
+    ->each(fn (AutomationRun $run) => ExecuteAutomationRun::dispatch($run->id)
+        ->onQueue(config('automation.queue', 'default'))))
+    ->everyMinute()
+    ->name('recover-waiting-automation-runs')
+    ->withoutOverlapping();
+
+Schedule::call(function (): void {
+    $cutoff = now()->subDays(config('automation.run_retention_days', 90));
+    AutomationEvent::query()
+        ->where('status', 'processed')
+        ->where('processed_at', '<', $cutoff)
+        ->whereNotNull('payload')
+        ->update(['payload' => null, 'last_error' => null]);
+    AutomationStepRun::query()
+        ->where('finished_at', '<', $cutoff)
+        ->update(['input_summary' => null, 'output_summary' => null, 'error_message' => null]);
+    AutomationRun::query()
+        ->where('finished_at', '<', $cutoff)
+        ->update(['context' => '[]', 'last_error' => null]);
+})->daily()->name('prune-automation-run-details')->withoutOverlapping();

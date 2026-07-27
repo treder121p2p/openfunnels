@@ -1,7 +1,7 @@
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router, useForm } from '@inertiajs/react';
-import { ArrowLeft, BriefcaseBusiness, Clock, Mail, MessageSquare, Phone, Plus, Send, UserRound } from 'lucide-react';
+import { ArrowLeft, BriefcaseBusiness, Clock, Mail, MessageSquare, Phone, Plus, Send, UserRound, Workflow } from 'lucide-react';
 
 interface ContactSubmission {
     id: number;
@@ -34,6 +34,12 @@ interface ContactDetailProps {
             body: string;
             created_at: string;
         }>;
+        email_preference: {
+            status: 'unknown' | 'subscribed' | 'unsubscribed' | 'bounced';
+            source: string | null;
+            consented_at: string | null;
+            unsubscribed_at: string | null;
+        };
         funnel: {
             id: number;
             name: string;
@@ -125,6 +131,16 @@ export default function ContactDetail({ contact, statusOptions }: ContactDetailP
                     </select>
                 </div>
 
+                <div className="flex justify-end">
+                    <Link
+                        href={route('automation-runs.index', { search: contact.email })}
+                        className="inline-flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
+                    >
+                        <Workflow className="h-4 w-4" />
+                        Automation history
+                    </Link>
+                </div>
+
                 <div className="grid gap-6 lg:grid-cols-[360px_minmax(0,1fr)]">
                     <div className="space-y-6">
                         <div className="rounded-xl border border-border bg-card p-5">
@@ -156,6 +172,26 @@ export default function ContactDetail({ contact, statusOptions }: ContactDetailP
                                     <div className="text-foreground">{contact.ip_address || 'Not available'}</div>
                                 </div>
                             </div>
+                        </div>
+
+                        <div className="rounded-xl border border-border bg-card p-5">
+                            <h2 className="flex items-center gap-2 font-semibold">
+                                <Mail className="h-4 w-4 text-primary" />
+                                Email preference
+                            </h2>
+                            <div className="mt-4 flex items-center justify-between gap-3">
+                                <span className="text-sm text-muted-foreground">Marketing status</span>
+                                <span className="rounded-full border border-border bg-muted px-2.5 py-1 text-xs font-medium capitalize">
+                                    {contact.email_preference.status}
+                                </span>
+                            </div>
+                            {(contact.email_preference.consented_at || contact.email_preference.unsubscribed_at) && (
+                                <p className="mt-3 text-xs text-muted-foreground">
+                                    {contact.email_preference.unsubscribed_at
+                                        ? `Unsubscribed ${contact.email_preference.unsubscribed_at}`
+                                        : `Consented ${contact.email_preference.consented_at}`}
+                                </p>
+                            )}
                         </div>
 
                         <div className="rounded-xl border border-border bg-card p-5">

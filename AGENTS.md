@@ -17,10 +17,16 @@ OpenFunnels is a Laravel 13 + Inertia.js SaaS application for building and publi
 - `app/Http/Controllers/FunnelController.php`: funnel CRUD, preview, publish/unpublish, duplication, and public funnel rendering.
 - `app/Http/Controllers/LeadCaptureController.php`: public funnel form submissions that create/update contacts and increment conversions.
 - `app/Http/Controllers/ContactController.php`: authenticated contacts/CRM-lite index, detail page, status updates, and notes.
+- `app/Http/Controllers/AutomationController.php`: workflow creation, draft autosave, validation, simulation, publishing, and lifecycle actions.
+- `app/Http/Controllers/AutomationRunController.php`: automation run history, detail timelines, retries, and cancellation.
 - `app/Models/Funnel.php`: funnel model, JSON casts, publishing helpers, view/conversion counters.
 - `app/Models/Contact.php`: captured lead/contact records owned by users and optionally tied to funnels.
 - `app/Models/ContactSubmission.php`: immutable-ish submission timeline records created from funnel form posts.
 - `app/Models/Opportunity.php`: contact-linked CRM deals with pipeline stage, value, outcome, and activity history.
+- `app/Models/AutomationWorkflow.php`: owned workflow drafts and active immutable version pointer.
+- `app/Models/AutomationEvent.php`: durable transactional outbox records that enroll matching workflows.
+- `app/Models/AutomationRun.php`: version-bound workflow executions with resumable state.
+- `app/Services/Automation`: validation, matching, publishing, simulation, execution, and action implementations.
 - `app/Mail/NewLeadCaptured.php`: email notification for new form submissions.
 - `app/Policies/FunnelPolicy.php`: funnel authorization rules.
 - `routes/web.php`: public home, public `/f/{funnel:slug}` route, authenticated funnel/dashboard/editor routes.
@@ -45,6 +51,20 @@ General companion docs:
 - Product roadmap: `Roadmap.md`
 - MVP funnel/CRM PRD: `docs/prds/mvp-funnel-crm.md`
 - Opportunities CRM PRD: `docs/prds/opportunities-pipeline.md`
+
+### Automation Studio
+
+- PRD: `docs/prds/automation-studio.md`
+- Agent rules: `docs/ai-instructions/automation-studio-agent-rules.md`
+
+Key constraints for Automation Studio:
+
+- Build the durable event outbox and queue-backed runtime before the editor.
+- Keep published workflow versions immutable and runs bound to a specific version.
+- Do not perform email, webhook, or other external I/O during public lead capture.
+- Enforce ownership at draft validation, publish, simulation, and execution.
+- Keep the first editor vertical and dependency-light; no infinite canvas is required.
+- Treat marketing suppression and outbound webhook SSRF controls as release requirements.
 
 ### Custom Domain Mapping
 

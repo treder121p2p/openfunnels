@@ -18,8 +18,9 @@ This roadmap is a planning aid for agents and contributors. It should guide prio
 - Contact search, status/funnel/date filters, and filtered CSV export.
 - Funnel-linked opportunity pipelines with configurable stages, deal values, forecasts, outcomes, activity history, and opt-in lead automation.
 - Funnel form submissions that capture leads and increment conversion counters.
+- Durable Automation Studio workflows with immutable published versions, event outbox enrollment, waits, branches, CRM actions, consent-aware email, signed webhooks, and observable run history.
 - Configurable form fields for contact details, custom answers, dropdowns, checkboxes, and hidden values.
-- Email notification and optional webhook for new lead submissions.
+- Queue-backed email notification and optional webhook for new lead submissions.
 - Exporter modules for multiple output targets.
 - Resilient autosave with local recovery and optimistic concurrency.
 - Portable, versioned community template import and export.
@@ -72,11 +73,11 @@ This roadmap is a planning aid for agents and contributors. It should guide prio
 
 ### Automation
 
-- UI-managed webhook actions for new lead events.
-- UI-managed email notification action for funnel submissions.
-- Visual workflow builder with triggers, wait steps, if/else branches, and actions.
+- Automation Studio product specification: `docs/prds/automation-studio.md`.
 - Automation templates bundled with funnel templates.
-- Audit logs and retry handling for workflow runs.
+- More communication actions, including SMS through a separate provider integration.
+- Reusable workflow fragments and richer condition groups.
+- Team assignment, task creation, and appointment actions as those CRM modules become available.
 
 ### Messaging And Appointments
 

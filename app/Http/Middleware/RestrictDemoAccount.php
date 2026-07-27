@@ -25,6 +25,8 @@ class RestrictDemoAccount
         $blocked = [
             'domains.store', 'domains.verify', 'domains.destroy',
             'funnels.publish', 'funnels.unpublish', 'funnels.generate',
+            'automations.publish', 'automations.resume',
+            'automation-runs.retry',
             'profile.update', 'profile.destroy', 'password.update',
         ];
 

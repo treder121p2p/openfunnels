@@ -75,4 +75,24 @@ class User extends Authenticatable
     {
         return $this->hasMany(Opportunity::class);
     }
+
+    public function automationWorkflows(): HasMany
+    {
+        return $this->hasMany(AutomationWorkflow::class);
+    }
+
+    public function automationEvents(): HasMany
+    {
+        return $this->hasMany(AutomationEvent::class);
+    }
+
+    public function automationRuns(): HasMany
+    {
+        return $this->hasMany(AutomationRun::class);
+    }
+
+    public function contactEmailPreferences(): HasMany
+    {
+        return $this->hasMany(ContactEmailPreference::class);
+    }
 }

@@ -11,6 +11,8 @@ OpenFunnels is currently positioned as an open-source funnel builder for launchi
 5. Notify the funnel owner and optionally send a webhook.
 6. Review contact details, submissions, notes, and lifecycle status.
 
+Automation Studio was delivered after this original MVP. See `docs/prds/automation-studio.md` for its current scope.
+
 ## 2. Implemented MVP Scope
 
 ### Funnel Builder
@@ -59,7 +61,7 @@ OpenFunnels is currently positioned as an open-source funnel builder for launchi
 
 ### Notifications And Webhooks
 
-- New lead submissions send a `NewLeadCaptured` email.
+- New lead submissions queue a `NewLeadCaptured` email.
 - Notification recipient is `LEAD_CAPTURE_NOTIFICATION_EMAIL` if configured, otherwise the funnel owner's email.
 - New lead submissions optionally POST a webhook payload to `LEAD_CAPTURE_WEBHOOK_URL`.
 
@@ -69,9 +71,9 @@ OpenFunnels is currently positioned as an open-source funnel builder for launchi
 - DNS verification uses `dns_get_record()`.
 - Verified domains can render published funnels through the fallback route.
 
-## 3. Non-goals For Current MVP
+## 3. Original MVP Non-goals
 
-- No visual automation builder.
+- Visual automation was outside the original MVP and is now implemented as Automation Studio.
 - No SMS provider integration.
 - No campaign email sequences.
 - No calendar scheduling.
@@ -79,7 +81,7 @@ OpenFunnels is currently positioned as an open-source funnel builder for launchi
 - No agency sub-accounts or white-label SaaS mode.
 - No advanced analytics attribution or A/B testing.
 
-These features belong in future roadmap tracks.
+The remaining features belong in future roadmap tracks.
 
 ## 4. Configuration
 

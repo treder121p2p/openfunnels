@@ -16,9 +16,11 @@ OpenFunnels follows a rolling development model. Notable user-facing changes are
 - Docker evaluation stack and contributor community files.
 - Contact search, funnel/status/date filters, pagination, and filtered CSV export.
 - Funnel-linked opportunity pipelines with Kanban stage management, value forecasting, activity history, contact integration, and opt-in lead automation.
+- Automation Studio with durable event enrollment, immutable workflow versions, waits, conditional branches, CRM actions, consent-aware email, signed webhooks, run history, retries, and starter recipes.
 
 ### Changed
 
 - Upgraded the backend runtime to Laravel 13, PHP 8.3+, Tinker 3, and Pest 4.
 - CI now runs non-mutating PHP and frontend quality checks.
 - The enhanced editor is the single canonical editor surface.
+- New-lead email and webhook notifications now run through the queue instead of delaying public funnel submissions.

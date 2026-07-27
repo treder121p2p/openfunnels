@@ -10,6 +10,7 @@ OpenFunnels can run as a standalone Laravel application on a VPS. The applicatio
 - A process supervisor for `php artisan queue:work`.
 - Cron running `php artisan schedule:run` every minute.
 - SMTP or another Laravel mail transport for lead notifications and account email.
+- Outbound HTTPS access for Automation Studio webhook actions. Private-network webhook targets are blocked by default.
 - Node.js and pnpm during deployment to build frontend assets; Node.js is not required by the running PHP application after the build.
 
 Laravel exposes `GET /up` for load-balancer and uptime checks.
@@ -64,6 +65,19 @@ Run a supervised worker and restart it after each release:
 ```bash
 php artisan queue:work --sleep=3 --tries=3 --max-time=3600
 ```
+
+Automation Studio uses the queue for event matching, email, webhooks, waits, and CRM actions. It also relies on the scheduler to recover a pending outbox event or delayed run when a queue job is lost. Do not deploy automations without both the worker and the minute-level scheduler.
+
+Useful automation settings include:
+
+```env
+AUTOMATION_QUEUE=default
+AUTOMATION_RUN_RETENTION_DAYS=90
+AUTOMATION_WEBHOOK_ALLOW_PRIVATE_NETWORKS=false
+AUTOMATION_WEBHOOK_ALLOW_HTTP=false
+```
+
+Marketing workflow email includes an account-scoped unsubscribe link and suppresses unsubscribed or bounced contacts. Operators remain responsible for collecting appropriate consent, configuring a valid sender identity, and following the laws that apply to their recipients.
 
 Add this cron entry:
 

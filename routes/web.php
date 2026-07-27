@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\AutomationController;
+use App\Http\Controllers\AutomationRunController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContactLookupController;
 use App\Http\Controllers\DemoController;
 use App\Http\Controllers\DomainController;
+use App\Http\Controllers\EmailPreferenceController;
 use App\Http\Controllers\FunnelAnalyticsController;
 use App\Http\Controllers\FunnelController;
 use App\Http\Controllers\FunnelGenerationController;
@@ -39,6 +42,12 @@ Route::domain($appDomain)->group(function () {
     // Public funnel view — accessible without authentication.
     // Published funnels are open to all; unpublished funnels require ownership (enforced in controller).
     Route::get('/f/{funnel:slug}', [FunnelController::class, 'show'])->name('funnels.show');
+    Route::get('email/unsubscribe/{preference}', [EmailPreferenceController::class, 'show'])
+        ->middleware('signed')
+        ->name('email.unsubscribe.show');
+    Route::post('email/unsubscribe/{preference}', [EmailPreferenceController::class, 'update'])
+        ->middleware('signed')
+        ->name('email.unsubscribe.update');
 
     Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('dashboard', function () {
@@ -111,6 +120,21 @@ Route::domain($appDomain)->group(function () {
         Route::put('pipelines/{pipeline}/stages/reorder', [PipelineStageController::class, 'reorder'])->name('pipeline-stages.reorder');
         Route::patch('pipeline-stages/{stage}', [PipelineStageController::class, 'update'])->name('pipeline-stages.update');
         Route::delete('pipeline-stages/{stage}', [PipelineStageController::class, 'destroy'])->name('pipeline-stages.destroy');
+        Route::get('automations', [AutomationController::class, 'index'])->name('automations.index');
+        Route::post('automations', [AutomationController::class, 'store'])->name('automations.store');
+        Route::get('automations/runs', [AutomationRunController::class, 'index'])->name('automation-runs.index');
+        Route::get('automations/runs/{run}', [AutomationRunController::class, 'show'])->name('automation-runs.show');
+        Route::post('automations/runs/{run}/retry', [AutomationRunController::class, 'retry'])->name('automation-runs.retry');
+        Route::post('automations/runs/{run}/cancel', [AutomationRunController::class, 'cancel'])->name('automation-runs.cancel');
+        Route::get('automations/{workflow}/edit', [AutomationController::class, 'edit'])->name('automations.edit');
+        Route::put('automations/{workflow}/autosave', [AutomationController::class, 'autosave'])->name('automations.autosave');
+        Route::post('automations/{workflow}/validate', [AutomationController::class, 'validateDefinition'])->name('automations.validate');
+        Route::post('automations/{workflow}/simulate', [AutomationController::class, 'simulate'])->name('automations.simulate');
+        Route::post('automations/{workflow}/publish', [AutomationController::class, 'publish'])->name('automations.publish');
+        Route::post('automations/{workflow}/pause', [AutomationController::class, 'pause'])->name('automations.pause');
+        Route::post('automations/{workflow}/resume', [AutomationController::class, 'resume'])->name('automations.resume');
+        Route::post('automations/{workflow}/duplicate', [AutomationController::class, 'duplicate'])->name('automations.duplicate');
+        Route::delete('automations/{workflow}', [AutomationController::class, 'destroy'])->name('automations.destroy');
         Route::resource('funnels', FunnelController::class)->except(['show']);
         Route::put('funnels/{funnel}/autosave', [FunnelController::class, 'autosave'])->name('funnels.autosave');
         Route::patch('funnels/{funnel}/crm-settings', [FunnelOpportunitySettingController::class, 'update'])->name('funnels.crm-settings.update');

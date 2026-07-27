@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Opportunity;
 use App\Models\Pipeline;
 use App\Models\PipelineStage;
+use App\Services\Automation\AutomationEventRecorder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
@@ -125,7 +126,7 @@ class OpportunityController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request, AutomationEventRecorder $automationEvents)
     {
         $this->authorize('create', Opportunity::class);
 
@@ -146,7 +147,7 @@ class OpportunityController extends Controller
             ? $request->user()->funnels()->findOrFail($validated['funnel_id'])
             : null;
 
-        $opportunity = DB::transaction(function () use ($request, $validated, $contact, $pipeline, $stage, $funnel) {
+        $opportunity = DB::transaction(function () use ($request, $validated, $contact, $pipeline, $stage, $funnel, $automationEvents) {
             $opportunity = $request->user()->opportunities()->create([
                 'pipeline_id' => $pipeline->id,
                 'pipeline_stage_id' => $stage->id,
@@ -164,6 +165,14 @@ class OpportunityController extends Controller
                 'stage_id' => $stage->id,
                 'stage_name' => $stage->name,
             ], $request->user()->id);
+            $automationEvents->record(
+                $request->user(),
+                'opportunity.created',
+                contact: $contact,
+                funnel: $funnel,
+                opportunity: $opportunity,
+                payload: ['source' => $opportunity->source],
+            );
 
             return $opportunity;
         });
@@ -171,7 +180,7 @@ class OpportunityController extends Controller
         return back()->with('success', "Opportunity {$opportunity->title} created.");
     }
 
-    public function update(Request $request, Opportunity $opportunity)
+    public function update(Request $request, Opportunity $opportunity, AutomationEventRecorder $automationEvents)
     {
         $this->authorize('update', $opportunity);
 
@@ -187,7 +196,10 @@ class OpportunityController extends Controller
             ? $opportunity->pipeline->stages()->findOrFail($validated['pipeline_stage_id'])
             : null;
 
-        DB::transaction(function () use ($request, $validated, $opportunity, $stage): void {
+        DB::transaction(function () use ($request, $validated, $opportunity, $stage, $automationEvents): void {
+            $stageChange = null;
+            $statusChange = null;
+
             if ($stage && $stage->id !== $opportunity->pipeline_stage_id) {
                 $previousStage = $opportunity->stage;
                 $opportunity->pipeline_stage_id = $stage->id;
@@ -198,6 +210,10 @@ class OpportunityController extends Controller
                     'to_stage_id' => $stage->id,
                     'to_stage_name' => $stage->name,
                 ], $request->user()->id);
+                $stageChange = [
+                    'from_stage_id' => $previousStage?->id,
+                    'to_stage_id' => $stage->id,
+                ];
             }
 
             if (isset($validated['status']) && $validated['status'] !== $opportunity->status) {
@@ -208,6 +224,10 @@ class OpportunityController extends Controller
                     'from' => $previousStatus,
                     'to' => $validated['status'],
                 ], $request->user()->id);
+                $statusChange = [
+                    'from_status' => $previousStatus,
+                    'to_status' => $validated['status'],
+                ];
             }
 
             if (array_key_exists('value', $validated)) {
@@ -231,6 +251,28 @@ class OpportunityController extends Controller
             }
 
             $opportunity->save();
+
+            if ($stageChange) {
+                $automationEvents->record(
+                    $request->user(),
+                    'opportunity.stage_changed',
+                    contact: $opportunity->contact,
+                    funnel: $opportunity->funnel,
+                    opportunity: $opportunity,
+                    payload: $stageChange,
+                );
+            }
+
+            if ($statusChange) {
+                $automationEvents->record(
+                    $request->user(),
+                    'opportunity.status_changed',
+                    contact: $opportunity->contact,
+                    funnel: $opportunity->funnel,
+                    opportunity: $opportunity,
+                    payload: $statusChange,
+                );
+            }
         });
 
         return back()->with('success', 'Opportunity updated.');
