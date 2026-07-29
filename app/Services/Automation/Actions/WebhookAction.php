@@ -51,9 +51,12 @@ class WebhookAction implements WorkflowAction
             'stream' => true,
         ];
 
-        if (defined('CURLOPT_RESOLVE') && isset($parts['host'], $ips[0])) {
+        if (defined('CURLOPT_RESOLVE')
+            && isset($parts['host'], $ips[0])
+            && filter_var($parts['host'], FILTER_VALIDATE_IP) === false) {
+            $resolvedIp = str_contains($ips[0], ':') ? "[{$ips[0]}]" : $ips[0];
             $options['curl'] = [
-                CURLOPT_RESOLVE => ["{$parts['host']}:{$port}:{$ips[0]}"],
+                CURLOPT_RESOLVE => ["{$parts['host']}:{$port}:{$resolvedIp}"],
             ];
         }
 
@@ -67,12 +70,19 @@ class WebhookAction implements WorkflowAction
                     'X-OpenFunnels-Signature' => 'sha256='.$signature,
                     'User-Agent' => 'OpenFunnels-Automation/1.0',
                 ])
-                ->post($url, $payload);
-        } catch (ConnectionException $exception) {
-            throw new RetryableAutomationException('The webhook connection failed.', 'webhook_connection', previous: $exception);
+                ->withBody($encoded, 'application/json')
+                ->post($url);
+        } catch (ConnectionException) {
+            throw new RetryableAutomationException('The webhook connection failed.', 'webhook_connection');
         }
 
         $status = $response->status();
+        $response->toPsrResponse()->getBody()->close();
+
+        if ($status >= 300 && $status < 400) {
+            throw new PermanentAutomationException("The webhook returned a redirect (HTTP {$status}); redirects are not followed.", 'webhook_redirect');
+        }
+
         if ($status === 408 || $status === 429 || $status >= 500) {
             throw new RetryableAutomationException("The webhook returned HTTP {$status}.", 'webhook_retryable_status');
         }

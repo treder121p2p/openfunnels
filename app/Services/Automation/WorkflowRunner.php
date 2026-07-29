@@ -22,6 +22,12 @@ class WorkflowRunner
             return;
         }
 
+        if ($run->status === 'queued' && $run->next_resume_at?->isFuture()) {
+            $this->dispatchAt($run, $run->next_resume_at);
+
+            return;
+        }
+
         $definition = $run->version?->definition ?? [];
         $node = collect($definition['nodes'] ?? [])->firstWhere('id', $run->current_node_id);
         if (! is_array($node)) {
@@ -63,9 +69,20 @@ class WorkflowRunner
                 return false;
             }
 
-            $step->update([
+            $lockedStep = AutomationStepRun::query()->lockForUpdate()->findOrFail($step->id);
+            $staleBefore = now()->subMinutes(max(1, (int) config('automation.stale_run_after_minutes', 5)));
+            if ($lockedStep->status === 'running' && $lockedStep->updated_at?->isAfter($staleBefore)) {
+                return false;
+            }
+
+            if (! in_array($lockedStep->status, ['queued', 'failed', 'running'], true)) {
+                return false;
+            }
+
+            $lockedStep->update([
                 'status' => 'running',
-                'attempt' => $step->attempt + 1,
+                'attempt' => $lockedStep->attempt + 1,
+                'scheduled_for' => null,
                 'started_at' => now(),
                 'finished_at' => null,
                 'error_code' => null,
@@ -75,6 +92,7 @@ class WorkflowRunner
             $locked->update([
                 'status' => 'running',
                 'started_at' => $locked->started_at ?? now(),
+                'next_resume_at' => null,
                 'last_error' => null,
             ]);
 
@@ -195,13 +213,16 @@ class WorkflowRunner
 
     private function markRetryable(AutomationRun $run, AutomationStepRun $step, string $code, string $message): void
     {
+        $retryAt = now()->addSeconds($this->retryDelaySeconds($step->attempt));
         $step->update([
             'status' => 'queued',
+            'scheduled_for' => $retryAt,
             'error_code' => $code,
             'error_message' => mb_substr($message, 0, 2000),
         ]);
         $run->update([
             'status' => 'queued',
+            'next_resume_at' => $retryAt,
             'last_error' => mb_substr($message, 0, 2000),
         ]);
     }
@@ -210,6 +231,7 @@ class WorkflowRunner
     {
         $run->update([
             'status' => 'failed',
+            'next_resume_at' => null,
             'last_error' => "{$code}: ".mb_substr($message, 0, 1900),
             'finished_at' => now(),
         ]);
@@ -238,5 +260,12 @@ class WorkflowRunner
             ->delay($time)
             ->onQueue(config('automation.queue', 'default'))
             ->afterCommit();
+    }
+
+    private function retryDelaySeconds(int $attempt): int
+    {
+        $backoff = [10, 60, 300, 900];
+
+        return $backoff[min(max($attempt, 1) - 1, count($backoff) - 1)];
     }
 }

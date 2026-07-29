@@ -2,7 +2,7 @@ packages:
   - .
 
 overrides:
-  rollup: 4.21.3
+  rollup: 4.62.3
 
 onlyBuiltDependencies:
   - '@tailwindcss/oxide'

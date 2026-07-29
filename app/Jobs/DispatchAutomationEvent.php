@@ -4,19 +4,27 @@ namespace App\Jobs;
 
 use App\Models\AutomationEvent;
 use App\Services\Automation\WorkflowMatcher;
+use Illuminate\Contracts\Queue\ShouldBeUniqueUntilProcessing;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Throwable;
 
-class DispatchAutomationEvent implements ShouldQueue
+class DispatchAutomationEvent implements ShouldBeUniqueUntilProcessing, ShouldQueue
 {
     use Queueable;
 
     public int $tries = 5;
 
+    public int $uniqueFor = 600;
+
     public array $backoff = [10, 60, 300, 900];
 
     public function __construct(public string $eventId) {}
+
+    public function uniqueId(): string
+    {
+        return $this->eventId;
+    }
 
     public function handle(WorkflowMatcher $matcher): void
     {

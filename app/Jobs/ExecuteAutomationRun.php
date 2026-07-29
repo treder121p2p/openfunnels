@@ -4,24 +4,36 @@ namespace App\Jobs;
 
 use App\Models\AutomationRun;
 use App\Services\Automation\WorkflowRunner;
+use Illuminate\Contracts\Queue\ShouldBeUniqueUntilProcessing;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Queue\Middleware\WithoutOverlapping;
 use Throwable;
 
-class ExecuteAutomationRun implements ShouldQueue
+class ExecuteAutomationRun implements ShouldBeUniqueUntilProcessing, ShouldQueue
 {
     use Queueable;
 
     public int $tries = 5;
 
+    public int $uniqueFor = 600;
+
     public array $backoff = [10, 60, 300, 900];
 
     public function __construct(public string $runId) {}
 
+    public function uniqueId(): string
+    {
+        return $this->runId;
+    }
+
     public function middleware(): array
     {
-        return [(new WithoutOverlapping("automation-run:{$this->runId}"))->expireAfter(300)];
+        $staleAfter = max(1, (int) config('automation.stale_run_after_minutes', 5));
+
+        return [(new WithoutOverlapping("automation-run:{$this->runId}"))
+            ->releaseAfter(15)
+            ->expireAfter($staleAfter * 60)];
     }
 
     public function handle(WorkflowRunner $runner): void
@@ -41,12 +53,14 @@ class ExecuteAutomationRun implements ShouldQueue
                 ->whereIn('status', ['queued', 'running'])
                 ->update([
                     'status' => 'failed',
+                    'scheduled_for' => null,
                     'finished_at' => now(),
                     'error_code' => 'retries_exhausted',
                     'error_message' => mb_substr($exception?->getMessage() ?? 'The workflow job exhausted its retries.', 0, 2000),
                 ]);
             $run->update([
                 'status' => 'failed',
+                'next_resume_at' => null,
                 'last_error' => mb_substr($exception?->getMessage() ?? 'The workflow job exhausted its retries.', 0, 2000),
                 'finished_at' => now(),
             ]);

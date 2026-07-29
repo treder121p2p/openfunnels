@@ -7,6 +7,7 @@ return [
     'max_causation_depth' => (int) env('AUTOMATION_MAX_CAUSATION_DEPTH', 5),
     'event_daily_limit' => (int) env('AUTOMATION_EVENT_DAILY_LIMIT', 10000),
     'run_retention_days' => (int) env('AUTOMATION_RUN_RETENTION_DAYS', 90),
+    'stale_run_after_minutes' => (int) env('AUTOMATION_STALE_RUN_AFTER_MINUTES', 5),
     'queue' => env('AUTOMATION_QUEUE', 'default'),
     'webhooks' => [
         'allow_private_networks' => (bool) env('AUTOMATION_WEBHOOK_ALLOW_PRIVATE_NETWORKS', false),

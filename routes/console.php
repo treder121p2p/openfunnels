@@ -8,6 +8,7 @@ use App\Models\AutomationStepRun;
 use App\Models\User;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schedule;
 
 Artisan::command('inspire', function () {
@@ -43,6 +44,52 @@ Schedule::call(fn () => AutomationRun::query()
         ->onQueue(config('automation.queue', 'default'))))
     ->everyMinute()
     ->name('recover-waiting-automation-runs')
+    ->withoutOverlapping();
+
+Schedule::call(fn () => AutomationRun::query()
+    ->where('status', 'queued')
+    ->where(fn ($query) => $query->whereNull('next_resume_at')->orWhere('next_resume_at', '<=', now()))
+    ->where('updated_at', '<=', now()->subMinutes(2))
+    ->limit(500)
+    ->get('id')
+    ->each(fn (AutomationRun $run) => ExecuteAutomationRun::dispatch($run->id)
+        ->onQueue(config('automation.queue', 'default'))))
+    ->everyMinute()
+    ->name('recover-queued-automation-runs')
+    ->withoutOverlapping();
+
+Schedule::call(function (): void {
+    $staleBefore = now()->subMinutes(max(1, (int) config('automation.stale_run_after_minutes', 5)));
+
+    AutomationRun::query()
+        ->where('status', 'running')
+        ->where('updated_at', '<=', $staleBefore)
+        ->limit(500)
+        ->get()
+        ->each(function (AutomationRun $run) use ($staleBefore): void {
+            $recovered = DB::transaction(function () use ($run, $staleBefore): bool {
+                $locked = AutomationRun::query()->lockForUpdate()->find($run->id);
+                if (! $locked || $locked->status !== 'running' || $locked->updated_at?->isAfter($staleBefore)) {
+                    return false;
+                }
+
+                $locked->steps()
+                    ->where('node_id', $locked->current_node_id)
+                    ->where('status', 'running')
+                    ->update(['status' => 'queued']);
+                $locked->update(['status' => 'queued']);
+
+                return true;
+            });
+
+            if ($recovered) {
+                ExecuteAutomationRun::dispatch($run->id)
+                    ->onQueue(config('automation.queue', 'default'));
+            }
+        });
+})
+    ->everyMinute()
+    ->name('recover-stale-automation-runs')
     ->withoutOverlapping();
 
 Schedule::call(function (): void {

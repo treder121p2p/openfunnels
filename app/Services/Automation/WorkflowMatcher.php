@@ -28,9 +28,9 @@ class WorkflowMatcher
             ->where('status', 'active')
             ->where('trigger_type', $event->event_type)
             ->whereNotNull('active_version_id')
-            ->with('activeVersion')
+            ->orderBy('id')
             ->limit(config('automation.max_matches_per_event', 20) + 1)
-            ->get();
+            ->get(['id']);
 
         if ($workflows->count() > config('automation.max_matches_per_event', 20)) {
             report(new \RuntimeException("Automation event {$event->id} exceeded the workflow match limit."));
@@ -39,30 +39,45 @@ class WorkflowMatcher
 
         $created = 0;
         foreach ($workflows as $workflow) {
-            if (! $workflow->activeVersion || ! $this->triggerMatcher->matches($workflow->activeVersion->definition, $event, $context)) {
-                continue;
-            }
-
-            if ($this->isSelfCaused($workflow, $event) || ! $this->allowsEnrollment($workflow, $event)) {
-                continue;
-            }
-
             try {
                 $run = DB::transaction(function () use ($workflow, $event, $context) {
+                    $lockedWorkflow = AutomationWorkflow::query()
+                        ->lockForUpdate()
+                        ->find($workflow->id);
+
+                    if (! $lockedWorkflow
+                        || $lockedWorkflow->status !== 'active'
+                        || $lockedWorkflow->trigger_type !== $event->event_type
+                        || ! $lockedWorkflow->active_version_id) {
+                        return null;
+                    }
+
+                    $version = $lockedWorkflow->activeVersion()->first();
+                    if (! $version
+                        || ! $this->triggerMatcher->matches($version->definition, $event, $context)
+                        || $this->isSelfCaused($lockedWorkflow, $event)
+                        || ! $this->allowsEnrollment(
+                            $lockedWorkflow,
+                            $event,
+                            $version->enrollment_policy ?? $lockedWorkflow->enrollment_policy,
+                        )) {
+                        return null;
+                    }
+
                     return AutomationRun::firstOrCreate(
                         [
-                            'workflow_version_id' => $workflow->active_version_id,
+                            'workflow_version_id' => $version->id,
                             'automation_event_id' => $event->id,
                         ],
                         [
-                            'user_id' => $workflow->user_id,
-                            'workflow_id' => $workflow->id,
+                            'user_id' => $lockedWorkflow->user_id,
+                            'workflow_id' => $lockedWorkflow->id,
                             'contact_id' => $event->contact_id,
                             'funnel_id' => $event->funnel_id,
                             'submission_id' => $event->submission_id,
                             'opportunity_id' => $event->opportunity_id,
                             'status' => 'queued',
-                            'current_node_id' => data_get($workflow->activeVersion->definition, 'start_node_id'),
+                            'current_node_id' => data_get($version->definition, 'start_node_id'),
                             'context' => $context,
                         ],
                     );
@@ -71,7 +86,7 @@ class WorkflowMatcher
                 continue;
             }
 
-            if ($run->wasRecentlyCreated) {
+            if ($run?->wasRecentlyCreated) {
                 $created++;
                 ExecuteAutomationRun::dispatch($run->id)
                     ->onQueue(config('automation.queue', 'default'))
@@ -88,15 +103,15 @@ class WorkflowMatcher
         return $created;
     }
 
-    private function allowsEnrollment(AutomationWorkflow $workflow, AutomationEvent $event): bool
+    private function allowsEnrollment(AutomationWorkflow $workflow, AutomationEvent $event, string $policy): bool
     {
-        if (! $event->contact_id || $workflow->enrollment_policy === 'every_event') {
+        if (! $event->contact_id || $policy === 'every_event') {
             return true;
         }
 
         $runs = $workflow->runs()->where('contact_id', $event->contact_id);
 
-        return match ($workflow->enrollment_policy) {
+        return match ($policy) {
             'once_per_contact' => ! $runs->exists(),
             'after_completion' => ! $runs->whereIn('status', ['queued', 'running', 'waiting'])->exists(),
             default => true,

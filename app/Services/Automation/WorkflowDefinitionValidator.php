@@ -41,6 +41,10 @@ class WorkflowDefinitionValidator
         'less_than_or_equal',
     ];
 
+    private const CONTACT_STATUSES = ['new', 'contacted', 'qualified', 'won', 'lost'];
+
+    private const OPPORTUNITY_STATUSES = ['open', 'won', 'lost'];
+
     private const CONDITION_FIELDS = [
         'contact.name',
         'contact.email',
@@ -238,23 +242,74 @@ class WorkflowDefinitionValidator
         $config = is_array($trigger['config'] ?? null) ? $trigger['config'] : [];
         $type = $trigger['type'];
 
-        if (isset($config['funnel_id']) && ! $owner->funnels()->whereKey($config['funnel_id'])->exists()) {
+        if (! is_array($trigger['config'] ?? null)) {
+            $errors[] = 'The workflow trigger needs a configuration object.';
+        }
+
+        $funnelId = $this->positiveInteger($config['funnel_id'] ?? null);
+        if (isset($config['funnel_id']) && $config['funnel_id'] !== '' && (
+            $funnelId === null || ! $owner->funnels()->whereKey($funnelId)->exists()
+        )) {
             $errors[] = 'The trigger funnel is not available.';
         }
 
-        if (isset($config['pipeline_id']) && ! $owner->pipelines()->whereKey($config['pipeline_id'])->exists()) {
+        $pipelineId = $this->positiveInteger($config['pipeline_id'] ?? null);
+        if (isset($config['pipeline_id']) && $config['pipeline_id'] !== '' && (
+            $pipelineId === null || ! $owner->pipelines()->whereKey($pipelineId)->exists()
+        )) {
             $errors[] = 'The trigger pipeline is not available.';
         }
 
         if (isset($config['stage_id'])) {
-            $stage = $owner->pipelines()->whereHas('stages', fn ($query) => $query->whereKey($config['stage_id']))->exists();
-            if (! $stage) {
+            $stageId = $this->positiveInteger($config['stage_id']);
+            $pipeline = $pipelineId ? $owner->pipelines()->find($pipelineId) : null;
+            $stageExists = $stageId && ($pipeline
+                ? $pipeline->stages()->whereKey($stageId)->exists()
+                : $owner->pipelines()->whereHas('stages', fn ($query) => $query->whereKey($stageId))->exists());
+            if (! $stageExists) {
                 $errors[] = 'The trigger stage is not available.';
             }
         }
 
         if ($type === 'funnel.form_submitted' && isset($config['form_id']) && (! is_string($config['form_id']) || strlen($config['form_id']) > 100)) {
             $errors[] = 'The trigger form ID is invalid.';
+        }
+
+        if (isset($config['contact_occurrence'])
+            && $config['contact_occurrence'] !== ''
+            && ! in_array($config['contact_occurrence'], ['new', 'repeat'], true)) {
+            $errors[] = 'The trigger contact occurrence is invalid.';
+        }
+
+        if (isset($config['source']) && $config['source'] !== '' && (! is_string($config['source']) || strlen($config['source']) > 100)) {
+            $errors[] = 'The trigger source is invalid.';
+        }
+
+        $statuses = str_starts_with($type, 'contact.') ? self::CONTACT_STATUSES : self::OPPORTUNITY_STATUSES;
+        foreach (['from_status', 'to_status', 'status'] as $key) {
+            if (isset($config[$key]) && $config[$key] !== '' && ! in_array($config[$key], $statuses, true)) {
+                $errors[] = "The trigger {$key} is invalid.";
+            }
+        }
+
+        $hasField = array_key_exists('field', $config);
+        $hasOperator = array_key_exists('operator', $config);
+        if ($hasField !== $hasOperator) {
+            $errors[] = 'Trigger field filters need both a field and an operator.';
+        } elseif ($hasField) {
+            if (! $this->isConditionField($config['field'])) {
+                $errors[] = 'The trigger filter uses an unsupported field.';
+            }
+            if (! in_array($config['operator'], self::OPERATORS, true)) {
+                $errors[] = 'The trigger filter uses an unsupported operator.';
+            }
+            if (isset($config['value']) && ! is_scalar($config['value'])) {
+                $errors[] = 'The trigger filter value must be a scalar value.';
+            }
+        }
+
+        if (isset($config['min_value']) && (! is_numeric($config['min_value']) || (float) $config['min_value'] < 0)) {
+            $errors[] = 'The trigger minimum value must be a non-negative number.';
         }
 
         return $errors;
@@ -274,6 +329,10 @@ class WorkflowDefinitionValidator
             return ["Workflow step {$id} has an unsupported type."];
         }
 
+        if (! is_array($node['config'] ?? null)) {
+            $errors[] = "Workflow step {$id} needs a configuration object.";
+        }
+
         if ($type === 'send_email') {
             if (! in_array($config['purpose'] ?? null, ['marketing', 'transactional'], true)) {
                 $errors[] = "Email step {$id} needs a purpose.";
@@ -284,18 +343,22 @@ class WorkflowDefinitionValidator
             if (! is_string($config['body'] ?? null) || trim($config['body']) === '' || strlen($config['body']) > 50000) {
                 $errors[] = "Email step {$id} needs a body under 50,000 characters.";
             }
-            if (isset($config['reply_to']) && $config['reply_to'] !== '' && filter_var($config['reply_to'], FILTER_VALIDATE_EMAIL) === false) {
+            if (isset($config['reply_to']) && $config['reply_to'] !== '' && (
+                ! is_string($config['reply_to'])
+                || strlen($config['reply_to']) > 255
+                || filter_var($config['reply_to'], FILTER_VALIDATE_EMAIL) === false
+            )) {
                 $errors[] = "Email step {$id} has an invalid reply-to address.";
             }
             $errors = [...$errors, ...$this->validateMergeFields($id, [$config['subject'] ?? '', $config['body'] ?? ''])];
         }
 
         if ($type === 'notify_owner') {
-            if (! is_string($config['subject'] ?? null) || trim($config['subject']) === '') {
-                $errors[] = "Owner notification {$id} needs a subject.";
+            if (! is_string($config['subject'] ?? null) || trim($config['subject']) === '' || strlen($config['subject']) > 255) {
+                $errors[] = "Owner notification {$id} needs a subject under 255 characters.";
             }
-            if (! is_string($config['body'] ?? null) || trim($config['body']) === '') {
-                $errors[] = "Owner notification {$id} needs a body.";
+            if (! is_string($config['body'] ?? null) || trim($config['body']) === '' || strlen($config['body']) > 50000) {
+                $errors[] = "Owner notification {$id} needs a body under 50,000 characters.";
             }
             $errors = [...$errors, ...$this->validateMergeFields($id, [$config['subject'] ?? '', $config['body'] ?? ''])];
         }
@@ -322,6 +385,9 @@ class WorkflowDefinitionValidator
             if (! in_array($config['operator'] ?? null, self::OPERATORS, true)) {
                 $errors[] = "Condition {$id} uses an unsupported operator.";
             }
+            if (isset($config['value']) && ! is_scalar($config['value'])) {
+                $errors[] = "Condition {$id} needs a scalar comparison value.";
+            }
         }
 
         if ($type === 'update_contact') {
@@ -332,6 +398,13 @@ class WorkflowDefinitionValidator
             foreach (['add_tags', 'remove_tags'] as $key) {
                 if (isset($config[$key]) && (! is_array($config[$key]) || count($config[$key]) > 20)) {
                     $errors[] = "Contact update {$id} has invalid tags.";
+                } elseif (isset($config[$key])) {
+                    foreach ($config[$key] as $tag) {
+                        if (! is_string($tag) || trim($tag) === '' || mb_strlen($tag) > 100) {
+                            $errors[] = "Contact update {$id} has invalid tags.";
+                            break;
+                        }
+                    }
                 }
             }
             if ($status === null && empty($config['add_tags']) && empty($config['remove_tags'])) {
@@ -340,26 +413,39 @@ class WorkflowDefinitionValidator
         }
 
         if (in_array($type, ['create_opportunity', 'move_opportunity'], true)) {
-            $pipeline = isset($config['pipeline_id']) ? $owner->pipelines()->find($config['pipeline_id']) : null;
+            $pipelineId = $this->positiveInteger($config['pipeline_id'] ?? null);
+            $stageId = $this->positiveInteger($config['stage_id'] ?? null);
+            $pipeline = $pipelineId ? $owner->pipelines()->find($pipelineId) : null;
             if (! $pipeline) {
                 $errors[] = "Opportunity step {$id} needs an owned pipeline.";
-            } elseif (! isset($config['stage_id']) || ! $pipeline->stages()->whereKey($config['stage_id'])->exists()) {
+            } elseif (! $stageId || ! $pipeline->stages()->whereKey($stageId)->exists()) {
                 $errors[] = "Opportunity step {$id} needs a stage from its pipeline.";
             }
 
-            if ($type === 'create_opportunity' && (float) ($config['value'] ?? 0) < 0) {
-                $errors[] = "Opportunity step {$id} cannot use a negative value.";
-            }
             if ($type === 'create_opportunity') {
-                $errors = [...$errors, ...$this->validateMergeFields($id, [(string) ($config['title'] ?? '')])];
+                if (! is_numeric($config['value'] ?? null)
+                    || (float) $config['value'] < 0
+                    || (float) $config['value'] > 99999999.99) {
+                    $errors[] = "Opportunity step {$id} needs a value between 0 and 99,999,999.99.";
+                }
+                if (isset($config['title']) && (! is_string($config['title']) || mb_strlen($config['title']) > 255)) {
+                    $errors[] = "Opportunity step {$id} needs a title under 255 characters.";
+                }
+                if (is_string($config['title'] ?? '')) {
+                    $errors = [...$errors, ...$this->validateMergeFields($id, [$config['title'] ?? ''])];
+                }
             }
         }
 
         if ($type === 'webhook') {
-            try {
-                $this->webhookUrlGuard->assertSafe((string) ($config['url'] ?? ''), $resolveWebhookHosts);
-            } catch (\InvalidArgumentException $exception) {
-                $errors[] = "Webhook step {$id}: {$exception->getMessage()}";
+            if (! is_string($config['url'] ?? null)) {
+                $errors[] = "Webhook step {$id}: Enter a valid webhook URL.";
+            } else {
+                try {
+                    $this->webhookUrlGuard->assertSafe($config['url'], $resolveWebhookHosts);
+                } catch (\InvalidArgumentException $exception) {
+                    $errors[] = "Webhook step {$id}: {$exception->getMessage()}";
+                }
             }
         }
 
@@ -367,7 +453,7 @@ class WorkflowDefinitionValidator
     }
 
     /**
-     * @param  list<string>  $templates
+     * @param  list<mixed>  $templates
      * @return list<string>
      */
     private function validateMergeFields(string $nodeId, array $templates): array
@@ -375,6 +461,10 @@ class WorkflowDefinitionValidator
         $errors = [];
 
         foreach ($templates as $template) {
+            if (! is_string($template)) {
+                continue;
+            }
+
             preg_match_all('/{{\s*([^{}]+?)\s*}}/', $template, $matches);
             foreach ($matches[1] ?? [] as $field) {
                 if (! $this->isMergeField(trim($field))) {
@@ -390,15 +480,29 @@ class WorkflowDefinitionValidator
     {
         return is_string($field)
             && (in_array($field, self::MERGE_FIELDS, true)
-                || str_starts_with($field, 'submission.fields.')
-                || str_starts_with($field, 'submission.attribution.'));
+                || $this->hasNestedFieldPrefix($field, 'submission.fields.')
+                || $this->hasNestedFieldPrefix($field, 'submission.attribution.'));
     }
 
     private function isConditionField(mixed $field): bool
     {
         return is_string($field)
             && (in_array($field, self::CONDITION_FIELDS, true)
-                || str_starts_with($field, 'submission.fields.')
-                || str_starts_with($field, 'submission.attribution.'));
+                || $this->hasNestedFieldPrefix($field, 'submission.fields.')
+                || $this->hasNestedFieldPrefix($field, 'submission.attribution.'));
+    }
+
+    private function hasNestedFieldPrefix(string $field, string $prefix): bool
+    {
+        return str_starts_with($field, $prefix)
+            && strlen($field) > strlen($prefix)
+            && strlen($field) <= 255;
+    }
+
+    private function positiveInteger(mixed $value): ?int
+    {
+        $validated = filter_var($value, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
+
+        return $validated === false ? null : $validated;
     }
 }

@@ -56,6 +56,7 @@ class LeadCaptureController extends Controller
             $opportunityAutomation,
             $automationEvents,
         ) {
+            $dispatchAutomationImmediately = config('queue.default') !== 'sync';
             $email = strtolower($validated['email']);
             $contact = Contact::firstOrNew([
                 'user_id' => $funnel->user_id,
@@ -122,10 +123,11 @@ class LeadCaptureController extends Controller
                     contact: $contact,
                     funnel: $funnel,
                     payload: ['source' => 'funnel_form'],
+                    dispatch: $dispatchAutomationImmediately,
                 );
             }
 
-            $opportunityAutomation->createFromSubmission($contact, $funnel);
+            $opportunityAutomation->createFromSubmission($contact, $funnel, $dispatchAutomationImmediately);
             $automationEvents->record(
                 $funnel->user,
                 'funnel.form_submitted',
@@ -136,14 +138,18 @@ class LeadCaptureController extends Controller
                     'is_new_contact' => $isNewContact,
                     'submission_count' => $submissionCount,
                 ],
+                dispatch: $dispatchAutomationImmediately,
             );
 
             return [$contact, $submission];
         });
 
         try {
-            SendLeadCaptureNotifications::dispatch($contact->id, $funnel->id, $submission->id)
+            $notification = SendLeadCaptureNotifications::dispatch($contact->id, $funnel->id, $submission->id)
                 ->onQueue(config('automation.queue', 'default'));
+            if (config('queue.default') === 'sync') {
+                $notification->afterResponse();
+            }
         } catch (Throwable $exception) {
             report($exception);
         }

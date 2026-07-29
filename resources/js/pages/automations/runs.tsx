@@ -43,6 +43,12 @@ const statusStyles: Record<AutomationRunStatus, string> = {
     cancelled: 'border-zinc-500/30 bg-zinc-500/10 text-zinc-500',
 };
 
+function paginationLabel(label: string): string {
+    if (label.includes('Previous')) return 'Previous';
+    if (label.includes('Next')) return 'Next';
+    return label.replace(/&[^;]+;/g, '');
+}
+
 export default function AutomationRuns({ runs, workflows, filters }: Props) {
     const [search, setSearch] = useState(filters.search);
 
@@ -138,6 +144,24 @@ export default function AutomationRuns({ runs, workflows, filters }: Props) {
                         </div>
                     )}
                 </div>
+
+                {runs.links.length > 3 && (
+                    <nav className="flex flex-wrap justify-center gap-1" aria-label="Run history pagination">
+                        {runs.links.map((link, index) =>
+                            link.url ? (
+                                <Link
+                                    key={`${link.label}-${index}`}
+                                    href={link.url}
+                                    className={`rounded-md border px-3 py-1.5 text-sm ${
+                                        link.active ? 'border-primary bg-primary text-primary-foreground' : 'border-border hover:bg-muted'
+                                    }`}
+                                >
+                                    {paginationLabel(link.label)}
+                                </Link>
+                            ) : null,
+                        )}
+                    </nav>
+                )}
             </div>
         </AppLayout>
     );

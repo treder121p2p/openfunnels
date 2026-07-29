@@ -129,6 +129,8 @@ class DemoController extends Controller
             'finished_at' => now()->subMinutes(59),
         ]);
         $emailNode = collect($version->definition['nodes'])->firstWhere('type', 'send_email');
+        $waitNode = collect($version->definition['nodes'])->firstWhere('type', 'wait');
+        $notifyNode = collect($version->definition['nodes'])->firstWhere('type', 'notify_owner');
         $endNode = collect($version->definition['nodes'])->firstWhere('type', 'end');
         $run->steps()->create([
             'node_id' => $emailNode['id'],
@@ -139,6 +141,27 @@ class DemoController extends Controller
             'finished_at' => now()->subHour()->addSecond(),
             'output_summary' => ['reason' => 'Demo delivery suppressed', 'next_node_id' => $emailNode['next_node_id']],
             'idempotency_key' => hash('sha256', $run->id.':'.$emailNode['id']),
+        ]);
+        $run->steps()->create([
+            'node_id' => $waitNode['id'],
+            'node_type' => 'wait',
+            'status' => 'completed',
+            'attempt' => 1,
+            'scheduled_for' => now()->subMinutes(59),
+            'started_at' => now()->subHour()->addSeconds(2),
+            'finished_at' => now()->subMinutes(59),
+            'output_summary' => ['wait_completed' => true, 'next_node_id' => $waitNode['next_node_id']],
+            'idempotency_key' => hash('sha256', $run->id.':'.$waitNode['id']),
+        ]);
+        $run->steps()->create([
+            'node_id' => $notifyNode['id'],
+            'node_type' => 'notify_owner',
+            'status' => 'suppressed',
+            'attempt' => 1,
+            'started_at' => now()->subMinutes(59),
+            'finished_at' => now()->subMinutes(59),
+            'output_summary' => ['reason' => 'Demo delivery suppressed', 'next_node_id' => $notifyNode['next_node_id']],
+            'idempotency_key' => hash('sha256', $run->id.':'.$notifyNode['id']),
         ]);
         $run->steps()->create([
             'node_id' => $endNode['id'],

@@ -28,6 +28,7 @@ interface Run {
     last_error: string | null;
     created_at: string;
     workflow: { id: number; name: string };
+    retryable: boolean;
     workflow_version: number;
     contact: { id: number; name: string | null; email: string } | null;
     funnel: { id: number; name: string } | null;
@@ -75,7 +76,7 @@ export default function AutomationRunDetail({ run }: { run: Run }) {
                         </div>
                     </div>
                     <div className="flex gap-2">
-                        {run.status === 'failed' && (
+                        {run.status === 'failed' && run.retryable && (
                             <button
                                 type="button"
                                 onClick={() => router.post(route('automation-runs.retry', run.id))}

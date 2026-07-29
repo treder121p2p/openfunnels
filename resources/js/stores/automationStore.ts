@@ -49,6 +49,7 @@ export const useAutomationStore = create<AutomationStore>()((set, get) => {
                 history: [snapshot(draft)],
                 historyIndex: 0,
                 isDirty: false,
+                isSaving: false,
             }),
         updateMetadata: (updates) => {
             const current = get().draft;

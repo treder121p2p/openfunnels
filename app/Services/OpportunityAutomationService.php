@@ -12,7 +12,7 @@ class OpportunityAutomationService
 {
     public function __construct(private AutomationEventRecorder $automationEvents) {}
 
-    public function createFromSubmission(Contact $contact, Funnel $funnel): ?Opportunity
+    public function createFromSubmission(Contact $contact, Funnel $funnel, bool $dispatchAutomationEvent = true): ?Opportunity
     {
         try {
             $setting = $funnel->opportunitySetting()
@@ -66,6 +66,7 @@ class OpportunityAutomationService
                 funnel: $funnel,
                 opportunity: $opportunity,
                 payload: ['source' => 'funnel_automation'],
+                dispatch: $dispatchAutomationEvent,
             );
 
             return $opportunity;

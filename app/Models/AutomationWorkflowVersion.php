@@ -11,6 +11,7 @@ class AutomationWorkflowVersion extends Model
     protected $fillable = [
         'workflow_id',
         'version',
+        'enrollment_policy',
         'definition',
         'checksum',
         'published_at',

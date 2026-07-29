@@ -25,6 +25,7 @@ class AutomationEventRecorder
         ?Opportunity $opportunity = null,
         array $payload = [],
         ?AutomationRun $causedBy = null,
+        bool $dispatch = true,
     ): ?AutomationEvent {
         $depth = $causedBy ? ((int) ($causedBy->event?->causation_depth ?? 0)) + 1 : 0;
 
@@ -48,6 +49,10 @@ class AutomationEventRecorder
             'status' => 'pending',
             'available_at' => $availableAt,
         ]);
+
+        if (! $dispatch) {
+            return $event;
+        }
 
         DB::afterCommit(function () use ($event, $availableAt): void {
             try {

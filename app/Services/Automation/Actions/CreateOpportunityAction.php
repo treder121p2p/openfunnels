@@ -39,7 +39,12 @@ class CreateOpportunityAction implements WorkflowAction
                 'pipeline_stage_id' => $stage->id,
                 'contact_id' => $contact->id,
                 'funnel_id' => $context->run->funnel_id,
-                'title' => trim($this->mergeFields->render((string) ($config['title'] ?? '{{ contact.name }}'), $context)) ?: ($contact->name ?: $contact->email),
+                'title' => mb_substr(
+                    trim($this->mergeFields->render((string) ($config['title'] ?? '{{ contact.name }}'), $context))
+                        ?: ($contact->name ?: $contact->email),
+                    0,
+                    255,
+                ),
                 'value_cents' => (int) round(((float) ($config['value'] ?? 0)) * 100),
                 'status' => 'open',
                 'source' => $source,

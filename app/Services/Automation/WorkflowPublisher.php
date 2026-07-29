@@ -5,6 +5,7 @@ namespace App\Services\Automation;
 use App\Models\AutomationWorkflow;
 use App\Models\AutomationWorkflowVersion;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class WorkflowPublisher
 {
@@ -12,13 +13,25 @@ class WorkflowPublisher
 
     public function publish(AutomationWorkflow $workflow): AutomationWorkflowVersion
     {
-        $this->validator->assertValid($workflow->draft_definition, $workflow->user, true);
+        $definition = $workflow->draft_definition;
+        $revision = $workflow->revision;
+        $this->validator->assertValid($definition, $workflow->user, true);
 
-        $normalized = $this->normalize($workflow->draft_definition);
-        $checksum = hash('sha256', json_encode($normalized, JSON_THROW_ON_ERROR));
+        $normalized = $this->normalize($definition);
+        $enrollmentPolicy = $workflow->enrollment_policy;
+        $checksum = hash('sha256', json_encode([
+            'definition' => $normalized,
+            'enrollment_policy' => $enrollmentPolicy,
+        ], JSON_THROW_ON_ERROR));
 
-        return DB::transaction(function () use ($workflow, $normalized, $checksum) {
+        return DB::transaction(function () use ($workflow, $revision, $normalized, $enrollmentPolicy, $checksum) {
             $workflow = AutomationWorkflow::query()->lockForUpdate()->findOrFail($workflow->id);
+            if ($workflow->revision !== $revision) {
+                throw ValidationException::withMessages([
+                    'definition' => 'The automation draft changed while it was being published. Validate and publish the latest revision again.',
+                ]);
+            }
+
             $existing = $workflow->versions()->where('checksum', $checksum)->first();
 
             if ($existing) {
@@ -33,6 +46,7 @@ class WorkflowPublisher
 
             $version = $workflow->versions()->create([
                 'version' => ((int) $workflow->versions()->max('version')) + 1,
+                'enrollment_policy' => $enrollmentPolicy,
                 'definition' => $normalized,
                 'checksum' => $checksum,
                 'published_at' => now(),

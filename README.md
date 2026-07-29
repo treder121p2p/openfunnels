@@ -120,6 +120,7 @@ The default `.env.example` uses SQLite, database-backed queues, sessions and cac
 | `LEAD_CAPTURE_WEBHOOK_URL`        | empty                   | Receives new-lead webhook payloads               |
 | `AUTOMATION_QUEUE`                | `default`               | Queue used by Automation Studio jobs             |
 | `AUTOMATION_RUN_RETENTION_DAYS`   | `90`                    | Retention for detailed automation run logs       |
+| `AUTOMATION_STALE_RUN_AFTER_MINUTES` | `5`                  | Reclaims interrupted running workflow steps      |
 | `AUTOMATION_MAX_NODES`            | `50`                    | Maximum steps in a published workflow            |
 | `AUTOMATION_EVENT_DAILY_LIMIT`    | `10000`                 | Per-owner automation event safety threshold      |
 | `AUTOMATION_WEBHOOK_ALLOW_HTTP`   | `false`                 | Allows non-TLS workflow webhook targets          |

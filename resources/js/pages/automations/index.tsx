@@ -51,6 +51,12 @@ function humanize(value: string): string {
     return value.replace(/[._-]+/g, ' ').replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
 
+function paginationLabel(label: string): string {
+    if (label.includes('Previous')) return 'Previous';
+    if (label.includes('Next')) return 'Next';
+    return label.replace(/&[^;]+;/g, '');
+}
+
 export default function AutomationsIndex({ workflows, recipes, filters }: Props) {
     const [showCreate, setShowCreate] = useState(false);
     const [search, setSearch] = useState(filters.search);
@@ -249,7 +255,7 @@ export default function AutomationsIndex({ workflows, recipes, filters }: Props)
                                             >
                                                 <Pause className="h-4 w-4" />
                                             </button>
-                                        ) : workflow.active_version ? (
+                                        ) : workflow.status === 'paused' && workflow.active_version ? (
                                             <button
                                                 type="button"
                                                 onClick={() => action(workflow, 'resume')}
@@ -304,8 +310,9 @@ export default function AutomationsIndex({ workflows, recipes, filters }: Props)
                                     key={`${link.label}-${index}`}
                                     href={link.url}
                                     className={`rounded-md border px-3 py-1.5 text-sm ${link.active ? 'border-primary bg-primary text-primary-foreground' : 'border-border hover:bg-muted'}`}
-                                    dangerouslySetInnerHTML={{ __html: link.label }}
-                                />
+                                >
+                                    {paginationLabel(link.label)}
+                                </Link>
                             ) : null,
                         )}
                     </nav>

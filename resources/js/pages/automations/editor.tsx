@@ -255,7 +255,7 @@ function SortableNodeCard({
                             </div>
                         )}
                     </button>
-                    {node.type !== 'end' && node.type !== 'condition' && (
+                    {node.type !== 'end' && (
                         <button
                             type="button"
                             onClick={onDelete}
@@ -716,7 +716,7 @@ function NodeConfigDialog({
                                     <select
                                         value={Number(config.pipeline_id) || ''}
                                         onChange={(event) => {
-                                            set('pipeline_id', Number(event.target.value));
+                                            set('pipeline_id', event.target.value ? Number(event.target.value) : null);
                                             set('stage_id', null);
                                         }}
                                         className="rounded-lg border border-border bg-background px-3 py-2"
@@ -733,7 +733,7 @@ function NodeConfigDialog({
                                     <span className="font-medium">Stage</span>
                                     <select
                                         value={Number(config.stage_id) || ''}
-                                        onChange={(event) => set('stage_id', Number(event.target.value))}
+                                        onChange={(event) => set('stage_id', event.target.value ? Number(event.target.value) : null)}
                                         className="rounded-lg border border-border bg-background px-3 py-2"
                                     >
                                         <option value="">Select stage</option>
@@ -840,11 +840,12 @@ export default function AutomationEditor({ workflow, options }: Props) {
     const [insertTarget, setInsertTarget] = useState<{ node: AutomationNode; branch?: 'yes' | 'no' } | null>(null);
     const [testContactId, setTestContactId] = useState('');
     const [simulation, setSimulation] = useState<Array<{ node_id: string; node_type: string; output: Record<string, unknown> }> | null>(null);
-    const initialized = useRef(false);
+    const initializedWorkflowId = useRef<number | null>(null);
+    const revisionRef = useRef(workflow.revision);
     const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 6 } }));
 
     useEffect(() => {
-        if (initialized.current) return;
+        if (initializedWorkflowId.current === workflow.id) return;
         const initial: AutomationDraft = {
             name: workflow.name,
             description: workflow.description || '',
@@ -852,49 +853,74 @@ export default function AutomationEditor({ workflow, options }: Props) {
             definition: workflow.definition,
         };
         setDraft(initial);
-        initialized.current = true;
+        setRevision(workflow.revision);
+        revisionRef.current = workflow.revision;
+        initializedWorkflowId.current = workflow.id;
+        setSaveState('saved');
+        setErrors([]);
+        setEditingNode(null);
+        setInsertTarget(null);
+        setSimulation(null);
+        setTestContactId('');
     }, [setDraft, workflow]);
 
     const saveDraft = useCallback(async (): Promise<boolean> => {
-        const current = useAutomationStore.getState().draft;
-        if (!current || useAutomationStore.getState().isSaving) return !useAutomationStore.getState().isDirty;
-        const serialized = JSON.stringify(current);
-        useAutomationStore.getState().setSaving(true);
-        setSaveState('saving');
-        setErrors([]);
+        for (let attempt = 0; attempt < 5; attempt++) {
+            const current = useAutomationStore.getState().draft;
+            if (!current || useAutomationStore.getState().isSaving) return !useAutomationStore.getState().isDirty;
+            const serialized = JSON.stringify(current);
+            useAutomationStore.getState().setSaving(true);
+            setSaveState('saving');
+            setErrors([]);
 
-        try {
-            const response = await fetch(route('automations.autosave', workflow.id), {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json', Accept: 'application/json', 'X-CSRF-TOKEN': csrfToken() },
-                body: JSON.stringify({ ...current, revision }),
-            });
-            const payload = (await response.json()) as { revision?: number; message?: string; errors?: Record<string, string[]> };
-            if (response.status === 409) {
-                setSaveState('conflict');
-                setErrors([payload.message || 'This draft changed elsewhere.']);
+            try {
+                const response = await fetch(route('automations.autosave', workflow.id), {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json', Accept: 'application/json', 'X-CSRF-TOKEN': csrfToken() },
+                    body: JSON.stringify({ ...current, revision: revisionRef.current }),
+                });
+                const payload = (await response.json()) as { revision?: number; message?: string; errors?: Record<string, string[]> };
+                if (initializedWorkflowId.current !== workflow.id) {
+                    return false;
+                }
+                if (response.status === 409) {
+                    setSaveState('conflict');
+                    setErrors([payload.message || 'This draft changed elsewhere.']);
+                    useAutomationStore.getState().setSaving(false);
+                    return false;
+                }
+                if (!response.ok) {
+                    const messages = payload.errors ? Object.values(payload.errors).flat() : [payload.message || 'Draft validation failed.'];
+                    setErrors(messages);
+                    setSaveState('error');
+                    useAutomationStore.getState().setSaving(false);
+                    return false;
+                }
+                if (payload.revision) {
+                    revisionRef.current = payload.revision;
+                    setRevision(payload.revision);
+                }
+                if (JSON.stringify(useAutomationStore.getState().draft) === serialized) {
+                    useAutomationStore.getState().markClean();
+                    setSaveState('saved');
+                    return true;
+                }
                 useAutomationStore.getState().setSaving(false);
-                return false;
-            }
-            if (!response.ok) {
-                const messages = payload.errors ? Object.values(payload.errors).flat() : [payload.message || 'Draft validation failed.'];
-                setErrors(messages);
+            } catch {
+                if (initializedWorkflowId.current !== workflow.id) {
+                    return false;
+                }
                 setSaveState('error');
+                setErrors(['The draft could not be saved. Check your connection and try again.']);
                 useAutomationStore.getState().setSaving(false);
                 return false;
             }
-            if (payload.revision) setRevision(payload.revision);
-            if (JSON.stringify(useAutomationStore.getState().draft) === serialized) useAutomationStore.getState().markClean();
-            else useAutomationStore.getState().setSaving(false);
-            setSaveState('saved');
-            return true;
-        } catch {
-            setSaveState('error');
-            setErrors(['The draft could not be saved. Check your connection and try again.']);
-            useAutomationStore.getState().setSaving(false);
-            return false;
         }
-    }, [revision, workflow.id]);
+
+        setSaveState('error');
+        setErrors(['The draft is changing too quickly to publish. Pause editing and try again.']);
+        return false;
+    }, [workflow.id]);
 
     useEffect(() => {
         if (!isDirty || isSaving) return;
@@ -956,7 +982,11 @@ export default function AutomationEditor({ workflow, options }: Props) {
     };
 
     const deleteNode = (node: AutomationNode) => {
-        const target = nextId(node);
+        const target = node.type === 'condition' && node.yes_node_id === node.no_node_id ? node.yes_node_id : nextId(node);
+        if (node.type === 'condition' && !target) {
+            window.alert('Point the Yes and No paths to the same next step before deleting this condition.');
+            return;
+        }
         if (!target || !window.confirm(`Delete ${humanize(node.type)}?`)) return;
         const nodes = replaceReferences(
             definition.nodes.filter((item) => item.id !== node.id),
@@ -983,32 +1013,40 @@ export default function AutomationEditor({ workflow, options }: Props) {
 
     const validate = async () => {
         setErrors([]);
-        const response = await fetch(route('automations.validate', workflow.id), {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', Accept: 'application/json', 'X-CSRF-TOKEN': csrfToken() },
-            body: JSON.stringify({ definition }),
-        });
-        const payload = (await response.json()) as { valid?: boolean; errors?: string[] };
-        setErrors(payload.errors || []);
-        if (payload.valid) setErrors(['✓ Workflow definition is valid and ready to publish.']);
+        try {
+            const response = await fetch(route('automations.validate', workflow.id), {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Accept: 'application/json', 'X-CSRF-TOKEN': csrfToken() },
+                body: JSON.stringify({ definition }),
+            });
+            const payload = (await response.json()) as { valid?: boolean; errors?: string[] };
+            setErrors(payload.errors || []);
+            if (payload.valid) setErrors(['✓ Workflow definition is valid and ready to publish.']);
+        } catch {
+            setErrors(['Validation could not be completed. Check your connection and try again.']);
+        }
     };
 
     const simulate = async () => {
         setSimulation(null);
-        const response = await fetch(route('automations.simulate', workflow.id), {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', Accept: 'application/json', 'X-CSRF-TOKEN': csrfToken() },
-            body: JSON.stringify({ contact_id: testContactId ? Number(testContactId) : null }),
-        });
-        const payload = (await response.json()) as {
-            path?: Array<{ node_id: string; node_type: string; output: Record<string, unknown> }>;
-            errors?: Record<string, string[]>;
-        };
-        if (!response.ok) {
-            setErrors(payload.errors ? Object.values(payload.errors).flat() : ['Simulation failed.']);
-            return;
+        try {
+            const response = await fetch(route('automations.simulate', workflow.id), {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Accept: 'application/json', 'X-CSRF-TOKEN': csrfToken() },
+                body: JSON.stringify({ contact_id: testContactId ? Number(testContactId) : null }),
+            });
+            const payload = (await response.json()) as {
+                path?: Array<{ node_id: string; node_type: string; output: Record<string, unknown> }>;
+                errors?: Record<string, string[]>;
+            };
+            if (!response.ok) {
+                setErrors(payload.errors ? Object.values(payload.errors).flat() : ['Simulation failed.']);
+                return;
+            }
+            setSimulation(payload.path || []);
+        } catch {
+            setErrors(['Simulation could not be completed. Check your connection and try again.']);
         }
-        setSimulation(payload.path || []);
     };
 
     const publish = async () => {

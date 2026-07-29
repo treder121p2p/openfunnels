@@ -63,6 +63,8 @@ class AutomationRunController extends Controller
         return Inertia::render('automations/run-detail', [
             'run' => [
                 ...$this->serializeRun($run),
+                'retryable' => $run->status === 'failed'
+                    && $run->steps->where('status', 'failed')->sortByDesc('created_at')->first()?->error_code === 'retries_exhausted',
                 'workflow_version' => $run->version->version,
                 'event' => [
                     'type' => $run->event->event_type,
@@ -94,9 +96,11 @@ class AutomationRunController extends Controller
         abort_unless($run->status === 'failed', 422, 'Only failed workflow runs can be retried.');
         $step = $run->steps()->where('status', 'failed')->latest()->first();
         abort_unless($step, 422, 'No failed workflow step is available.');
+        abort_unless($step->error_code === 'retries_exhausted', 422, 'This failure is permanent and cannot be retried safely.');
 
         $step->update([
             'status' => 'queued',
+            'scheduled_for' => null,
             'finished_at' => null,
             'error_code' => null,
             'error_message' => null,
@@ -104,6 +108,7 @@ class AutomationRunController extends Controller
         $run->update([
             'status' => 'queued',
             'current_node_id' => $step->node_id,
+            'next_resume_at' => null,
             'finished_at' => null,
             'last_error' => null,
         ]);
@@ -119,6 +124,7 @@ class AutomationRunController extends Controller
         $run->update(['status' => 'cancelled', 'finished_at' => now(), 'next_resume_at' => null]);
         $run->steps()->whereIn('status', ['queued', 'running', 'waiting'])->update([
             'status' => 'cancelled',
+            'scheduled_for' => null,
             'finished_at' => now(),
         ]);
 

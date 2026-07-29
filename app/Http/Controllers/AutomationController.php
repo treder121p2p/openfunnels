@@ -13,6 +13,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
@@ -72,12 +73,14 @@ class AutomationController extends Controller
         ]);
 
         $recipe = $recipes->get($validated['recipe'] ?? null);
+        $definition = $recipe['definition'] ?? $recipes->blank();
         $workflow = $request->user()->automationWorkflows()->create([
             'name' => trim($validated['name'] ?? '') ?: ($recipe['name'] ?? 'Untitled automation'),
             'description' => $validated['description'] ?? ($recipe['description'] ?? null),
             'status' => 'draft',
             'enrollment_policy' => $validated['enrollment_policy'] ?? 'every_event',
-            'draft_definition' => $recipe['definition'] ?? $recipes->blank(),
+            'trigger_type' => data_get($definition, 'trigger.type'),
+            'draft_definition' => $definition,
             'revision' => 1,
         ]);
 
@@ -134,13 +137,17 @@ class AutomationController extends Controller
                 return null;
             }
 
-            $locked->update([
+            $updates = [
                 'name' => trim($validated['name']),
                 'description' => $validated['description'] ?? null,
                 'enrollment_policy' => $validated['enrollment_policy'],
                 'draft_definition' => $validated['definition'],
                 'revision' => $locked->revision + 1,
-            ]);
+            ];
+            if (! $locked->active_version_id) {
+                $updates['trigger_type'] = data_get($validated['definition'], 'trigger.type');
+            }
+            $locked->update($updates);
 
             return $locked;
         });
@@ -199,6 +206,7 @@ class AutomationController extends Controller
     public function pause(AutomationWorkflow $workflow)
     {
         $this->authorize('update', $workflow);
+        abort_unless($workflow->status === 'active', 422, 'Only an active automation can be paused.');
         abort_unless($workflow->active_version_id, 422, 'Publish this automation before pausing it.');
         $workflow->update(['status' => 'paused']);
 
@@ -208,6 +216,7 @@ class AutomationController extends Controller
     public function resume(AutomationWorkflow $workflow)
     {
         $this->authorize('update', $workflow);
+        abort_unless($workflow->status === 'paused', 422, 'Only a paused automation can be resumed.');
         abort_unless($workflow->active_version_id, 422, 'Publish this automation before activating it.');
         $workflow->update(['status' => 'active']);
 
@@ -218,7 +227,7 @@ class AutomationController extends Controller
     {
         $this->authorize('view', $workflow);
         $copy = $request->user()->automationWorkflows()->create([
-            'name' => $workflow->name.' copy',
+            'name' => Str::limit($workflow->name, 250, '').' copy',
             'description' => $workflow->description,
             'status' => 'draft',
             'enrollment_policy' => $workflow->enrollment_policy,
@@ -233,13 +242,14 @@ class AutomationController extends Controller
     {
         $this->authorize('delete', $workflow);
 
-        if ($workflow->runs()->exists()) {
+        $archived = $workflow->runs()->exists();
+        if ($archived) {
             $workflow->update(['status' => 'archived']);
         } else {
             $workflow->delete();
         }
 
-        return redirect()->route('automations.index')->with('success', 'Automation archived.');
+        return redirect()->route('automations.index')->with('success', $archived ? 'Automation archived.' : 'Automation deleted.');
     }
 
     private function serializeWorkflow(AutomationWorkflow $workflow): array

@@ -11,16 +11,22 @@ class WebhookUrlGuard
      */
     public function assertSafe(string $url, bool $resolveHost = true): array
     {
-        if (filter_var($url, FILTER_VALIDATE_URL) === false) {
+        if (strlen($url) > 2048 || filter_var($url, FILTER_VALIDATE_URL) === false) {
             throw new InvalidArgumentException('Enter a valid webhook URL.');
         }
 
         $parts = parse_url($url);
         $scheme = strtolower((string) ($parts['scheme'] ?? ''));
         $host = (string) ($parts['host'] ?? '');
+        $normalizedHost = rtrim(strtolower($host), '.');
 
         if ($host === '') {
             throw new InvalidArgumentException('The webhook URL needs a host.');
+        }
+
+        if (! config('automation.webhooks.allow_private_networks', false)
+            && ($normalizedHost === 'localhost' || str_ends_with($normalizedHost, '.localhost'))) {
+            throw new InvalidArgumentException('Private, loopback, link-local, and reserved webhook hosts are blocked.');
         }
 
         if (isset($parts['user']) || isset($parts['pass'])) {
@@ -32,13 +38,12 @@ class WebhookUrlGuard
             throw new InvalidArgumentException('Webhook URLs must use HTTPS.');
         }
 
-        if (! $resolveHost) {
+        $hostIsIp = filter_var($host, FILTER_VALIDATE_IP) !== false;
+        if (! $hostIsIp && ! $resolveHost) {
             return [];
         }
 
-        $ips = filter_var($host, FILTER_VALIDATE_IP)
-            ? [$host]
-            : $this->resolve($host);
+        $ips = $hostIsIp ? [$host] : $this->resolve($host);
 
         if ($ips === []) {
             throw new InvalidArgumentException('The webhook host could not be resolved.');
