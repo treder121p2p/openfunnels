@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шаблоны страниц для OpenFunnels</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, sans-serif; background: #f9fafb; color: #111827; padding: 40px 20px; }
+        .container { max-width: 900px; margin: 0 auto; }
+        h1 { font-size: 32px; font-weight: 800; margin-bottom: 8px; }
+        .subtitle { color: #6b7280; font-size: 16px; margin-bottom: 40px; }
+        .funnel-group { background: #fff; border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .funnel-group h2 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+        .funnel-group .desc { color: #6b7280; font-size: 14px; margin-bottom: 16px; }
+        .page-list { display: flex; flex-direction: column; gap: 8px; }
+        .page-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: #f9fafb; border-radius: 8px; }
+        .page-name { font-weight: 600; font-size: 15px; }
+        .page-desc { color: #6b7280; font-size: 13px; }
+        .download-btn { display: inline-block; padding: 8px 16px; background: #3b82f6; color: #fff; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 13px; transition: background 0.2s; }
+        .download-btn:hover { background: #2563eb; }
+        .info { background: #eff6ff; border-radius: 12px; padding: 20px; margin-bottom: 32px; border-left: 4px solid #3b82f6; }
+        .info h3 { font-size: 16px; margin-bottom: 8px; }
+        .info p { font-size: 14px; color: #374151; line-height: 1.6; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📦 Шаблоны страниц для OpenFunnels</h1>
+        <p class="subtitle">Наборы страниц по туннелям из Funnel Hackers Cookbook</p>
+
+        <div class="info">
+            <h3>📋 Как использовать</h3>
+            <p>1. Скачайте файл нужной страницы<br>
+               2. Откройте OpenFunnels → Create new funnel → Import template<br>
+               3. Выберите скачанный .json файл<br>
+               4. Повторите для каждой страницы туннеля</p>
+        </div>
+
+        <!-- SP - Squeeze Page Funnel -->
+        <div class="funnel-group">
+            <h2>SP — Squeeze Page Funnel</h2>
+            <p class="desc">Туннель для захвата лидов: крючок → email → Thank You</p>
+            <div class="page-list">
+                <div class="page-item">
+                    <div>
+                        <div class="page-name">📥 SP - Squeeze Page</div>
+                        <div class="page-desc">Страница захвата: заголовок + форма + trust bar</div>
+                    </div>
+                    <a href="/download.php?file=SP-Squeeze-Page.json" class="download-btn">Скачать</a>
+                </div>
+                <div class="page-item">
+                    <div>
+                        <div class="page-name">✅ SP - Thank You Page</div>
+                        <div class="page-desc">Подтверждение: шаги + CTA на рассылку</div>
+                    </div>
+                    <a href="/download.php?file=SP-Thank-You-Page.json" class="download-btn">Скачать</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- LM - Lead Magnet Funnel -->
+        <div class="funnel-group">
+            <h2>LM — Lead Magnet Funnel</h2>
+            <p class="desc">Туннель с лид-магнитом: описание подарка → Thank You</p>
+            <div class="page-list">
+                <div class="page-item">
+                    <div>
+                        <div class="page-name">🎁 LM - Lead Magnet Page</div>
+                        <div class="page-desc">Описание магнита + benefits + форма</div>
+                    </div>
+                    <a href="/download.php?file=LM-Lead-Magnet-Page.json" class="download-btn">Скачать</a>
+                </div>
+                <div class="page-item">
+                    <div>
+                        <div class="page-name">✅ LM - Thank You Page</div>
+                        <div class="page-desc">Подтверждение + шаги + CTA</div>
+                    </div>
+                    <a href="/download.php?file=LM-Thank-You-Page.json" class="download-btn">Скачать</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- WB - Webinar Funnel -->
+        <div class="funnel-group">
+            <h2>WB — Webinar Funnel</h2>
+            <p class="desc">Туннель для вебинара: регистрация → подтверждение → повтор + оффер</p>
+            <div class="page-list">
+                <div class="page-item">
+                    <div>
+                        <div class="page-name">📅 WB - Registration</div>
+                        <div class="page-desc">Регистрация: дата + спикер + программа + форма</div>
+                    </div>
+                    <a href="/download.php?file=WB-Registration.json" class="download-btn">Скачать</a>
+                </div>
+                <div class="page-item">
+                    <div>
+                        <div class="page-name">✅ WB - Confirmation</div>
+                        <div class="page-desc">Подтверждение + добавить в календарь</div>
+                    </div>
+                    <a href="/download.php?file=WB-Confirmation.json" class="download-btn">Скачать</a>
+                </div>
+                <div class="page-item">
+                    <div>
+                        <div class="page-name">🎬 WB - Replay</div>
+                        <div class="page-desc">Повтор вебинара + таймер + оффер</div>
+                    </div>
+                    <a href="/download.php?file=WB-Replay.json" class="download-btn">Скачать</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- SL - Sales Letter Funnel -->
+        <div class="funnel-group">
+            <h2>SL — Sales Letter Funnel</h2>
+            <p class="desc">Туннель для продаж: письмо → заказ → OTO</p>
+            <div class="page-list">
+                <div class="page-item">
+                    <div>
+                        <div class="page-name">📝 SL - Sales Letter</div>
+                        <div class="page-desc">Продающее письмо: история + оффер + цена</div>
+                    </div>
+                    <a href="/download.php?file=SL-Sales-Letter.json" class="download-btn">Скачать</a>
+                </div>
+                <div class="page-item">
+                    <div>
+                        <div class="page-name">🛒 SL - Order Form</div>
+                        <div class="page-desc">Форма заказа: итого + оплата</div>
+                    </div>
+                    <a href="/download.php?file=SL-Order-Form.json" class="download-btn">Скачать</a>
+                </div>
+                <div class="page-item">
+                    <div>
+                        <div class="page-name">⚡ SL - OTO Page</div>
+                        <div class="page-desc">One-Time Offer после покупки</div>
+                    </div>
+                    <a href="/download.php?file=SL-OTO-Page.json" class="download-btn">Скачать</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Documentation -->
+        <div class="funnel-group">
+            <h2>📚 Документация</h2>
+            <p class="desc">Структура туннелей и инструкции</p>
+            <div class="page-list">
+                <div class="page-item">
+                    <div>
+                        <div class="page-name">📖 Структура туннелей</div>
+                        <div class="page-desc">Как работают туннели, все 22 типа, рекомендации</div>
+                    </div>
+                    <a href="/download.php?file=FUNNEL-STRUCTURE-EXPLAINED.md" class="download-btn">Скачать</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
