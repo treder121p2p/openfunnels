@@ -1308,6 +1308,7 @@ export default function EnhancedFunnelEditor({
     const addBlockAction = useFunnelStore((s) => s.addBlock);
     const updateBlockAction = useFunnelStore((s) => s.updateBlock);
     const deleteBlockAction = useFunnelStore((s) => s.deleteBlock);
+    const moveBlockAction = useFunnelStore((s) => s.moveBlock);
     const updateSectionAction = useFunnelStore((s) => s.updateSection);
     const updateColumnAction = useFunnelStore((s) => s.updateColumn);
 
@@ -1384,6 +1385,20 @@ export default function EnhancedFunnelEditor({
             deleteBlockAction(sectionId, columnId, blockId);
         },
         [deleteBlockAction],
+    );
+
+    const handleBlockMove = useCallback(
+        (columnId: string, fromIndex: number, toIndex: number) => {
+            // Find the section that contains this column
+            const state = useFunnelStore.getState();
+            const section = state.funnel.content.sections.find((s) =>
+                s.columns.some((c) => c.id === columnId),
+            );
+            if (section) {
+                moveBlockAction(section.id, columnId, fromIndex, toIndex);
+            }
+        },
+        [moveBlockAction],
     );
 
     // Name editing handlers
@@ -1501,6 +1516,7 @@ export default function EnhancedFunnelEditor({
                                 onBlockAdd={handleBlockAdd}
                                 onBlockUpdate={handleBlockUpdate}
                                 onBlockDelete={handleBlockDelete}
+                                onBlockMove={handleBlockMove}
                             />
                         </div>
 

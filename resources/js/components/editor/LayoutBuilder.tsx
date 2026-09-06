@@ -22,6 +22,7 @@ interface LayoutBuilderProps {
     onBlockAdd?: (sectionId: string, columnId: string, block: Block, index?: number) => void;
     onBlockUpdate?: (blockId: string, updates: Partial<Block>) => void;
     onBlockDelete?: (sectionId: string, columnId: string, blockId: string) => void;
+    onBlockMove?: (sectionId: string, columnId: string, fromIndex: number, toIndex: number) => void;
     inspectorActive?: boolean;
 }
 
@@ -134,6 +135,7 @@ function SectionComponent({
     onBlockAdd: (columnId: string, block: Block) => void;
     onBlockUpdate: (columnId: string, blockId: string, updates: Partial<Block>) => void;
     onBlockDelete: (columnId: string, blockId: string) => void;
+    onBlockMove?: (columnId: string, fromIndex: number, toIndex: number) => void;
 }) {
     const ref = useRef<HTMLDivElement>(null);
 
@@ -247,6 +249,7 @@ function SectionComponent({
                             onBlockAdd={onBlockAdd}
                             onBlockUpdate={onBlockUpdate}
                             onBlockDelete={onBlockDelete}
+                            onBlockMove={onBlockMove}
                             isSelected={selectedColumnId === column.id}
                             onSelect={() => onSelectColumn?.(column.id)}
                             selectedBlockId={selectedBlockId}
@@ -543,6 +546,7 @@ export default function LayoutBuilder({
                                         onBlockAdd={handleBlockAdd}
                                         onBlockUpdate={handleBlockUpdate}
                                         onBlockDelete={handleBlockDelete}
+                                        onBlockMove={onBlockMove}
                                     />
                                 ))}
                             </div>

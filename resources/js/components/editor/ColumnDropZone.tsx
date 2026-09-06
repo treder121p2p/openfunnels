@@ -1,8 +1,8 @@
 import FunnelBlock from '@/components/funnel/FunnelBlock';
 import type { Block as ContentBlock, Column as LayoutColumn } from '@/types/editor';
-import { AlertCircle, Plus } from 'lucide-react';
+import { AlertCircle, GripVertical, Plus } from 'lucide-react';
 import { useRef, useState } from 'react';
-import { useDrop } from 'react-dnd';
+import { useDrag, useDrop } from 'react-dnd';
 import { canAddChild, ContentBlockType, getAllowedChildren } from './validation/ContentValidation';
 
 interface DropZoneProps {
@@ -10,6 +10,7 @@ interface DropZoneProps {
     onBlockAdd: (columnId: string, block: ContentBlock) => void;
     onBlockUpdate: (columnId: string, blockId: string, updates: Partial<ContentBlock>) => void;
     onBlockDelete: (columnId: string, blockId: string) => void;
+    onBlockMove?: (columnId: string, fromIndex: number, toIndex: number) => void;
     isSelected: boolean;
     onSelect: () => void;
     selectedBlockId?: string | null;
@@ -18,9 +19,9 @@ interface DropZoneProps {
 
 const ItemTypes = {
     CONTENT_BLOCK: 'content_block',
+    EXISTING_BLOCK: 'existing_block',
 };
 
-// Mock function to create a block from dropped content
 function createBlockFromDrop(dropItem: { type: string; defaultContent: Record<string, unknown> }): ContentBlock {
     return {
         id: `block-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
@@ -35,29 +36,69 @@ function createBlockFromDrop(dropItem: { type: string; defaultContent: Record<st
     };
 }
 
-// Render different block types
 function BlockRenderer({
     block,
     onDelete,
     isSelected,
     onSelect,
+    onMove,
+    index,
 }: {
     block: ContentBlock;
     onDelete: () => void;
     isSelected: boolean;
     onSelect: () => void;
+    onMove: (dragIndex: number, hoverIndex: number) => void;
+    index: number;
 }) {
-    const wrapperClass = `relative group ${isSelected ? 'ring-2 ring-primary' : 'hover:ring-1 hover:ring-primary/30'}`;
+    const ref = useRef<HTMLDivElement>(null);
+    const [{ isDragging }, drag] = useDrag({
+        type: ItemTypes.EXISTING_BLOCK,
+        item: () => ({ id: block.id, index, type: ItemTypes.EXISTING_BLOCK }),
+        collect: (monitor) => ({ isDragging: monitor.isDragging() }),
+    });
+
+    const [{ handlerId }, drop] = useDrop({
+        accept: ItemTypes.EXISTING_BLOCK,
+        collect: (monitor) => ({ handlerId: monitor.getHandlerId() }),
+        hover(item, monitor) {
+            if (!ref.current) return;
+            const dragIndex = (item as any).index;
+            const hoverIndex = index;
+            if (dragIndex === hoverIndex) return;
+            const hoverBoundingRect = ref.current.getBoundingClientRect();
+            const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+            const clientOffset = monitor.getClientOffset();
+            const hoverClientY = (clientOffset?.y ?? 0) - hoverBoundingRect.top;
+            if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) return;
+            if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) return;
+            onMove(dragIndex, hoverIndex);
+            (item as any).index = hoverIndex;
+        },
+    });
+
+    drag(drop(ref));
+
+    const wrapperClass = `relative group ${isSelected ? 'ring-2 ring-primary' : 'hover:ring-1 hover:ring-primary/30'} ${isDragging ? 'opacity-50' : ''}`;
 
     return (
         <div
+            ref={ref}
+            data-handler-id={handlerId}
             className={wrapperClass}
             onClick={(event) => {
                 event.stopPropagation();
                 onSelect();
             }}
         >
-            <FunnelBlock block={block} formDisabled />
+            <div className="flex items-center">
+                <div className="cursor-grab p-1 text-muted-foreground hover:text-foreground">
+                    <GripVertical className="h-4 w-4" />
+                </div>
+                <div className="flex-1">
+                    <FunnelBlock block={block} formDisabled />
+                </div>
+            </div>
             {isSelected && (
                 <button
                     onClick={(event) => {
@@ -73,7 +114,7 @@ function BlockRenderer({
     );
 }
 
-export default function ColumnDropZone({ column, onBlockAdd, onBlockDelete, isSelected, onSelect, selectedBlockId, onSelectBlock }: DropZoneProps) {
+export default function ColumnDropZone({ column, onBlockAdd, onBlockUpdate, onBlockDelete, onBlockMove, isSelected, onSelect, selectedBlockId, onSelectBlock }: DropZoneProps) {
     const dropRef = useRef<HTMLDivElement>(null);
     const [validationError, setValidationError] = useState<string | null>(null);
 
@@ -82,21 +123,23 @@ export default function ColumnDropZone({ column, onBlockAdd, onBlockDelete, isSe
 
     const [{ isOver, canDrop }, drop] = useDrop(
         () => ({
-            accept: ItemTypes.CONTENT_BLOCK,
-            canDrop: (item: { type: string; defaultContent: Record<string, unknown> }) => {
+            accept: [ItemTypes.CONTENT_BLOCK, ItemTypes.EXISTING_BLOCK],
+            canDrop: (item: { type: string; defaultContent?: Record<string, unknown> }) => {
+                if (item.type === ItemTypes.EXISTING_BLOCK) return true;
                 const childType = item.type as ContentBlockType;
                 const validation = canAddChild('column', childType, currentBlockTypes);
-
                 if (!validation.allowed) {
                     setValidationError(validation.reason || 'Cannot add this content here');
                     setTimeout(() => setValidationError(null), 3000);
                     return false;
                 }
-
                 return true;
             },
-            drop: (item: { type: string; defaultContent: Record<string, unknown> }) => {
-                const newBlock = createBlockFromDrop(item);
+            drop: (item: { type: string; defaultContent?: Record<string, unknown> }) => {
+                if (item.type === ItemTypes.EXISTING_BLOCK) {
+                    return { columnId: column.id, reordered: true };
+                }
+                const newBlock = createBlockFromDrop(item as { type: string; defaultContent: Record<string, unknown> });
                 onBlockAdd(column.id, newBlock);
                 return { columnId: column.id };
             },
@@ -120,7 +163,6 @@ export default function ColumnDropZone({ column, onBlockAdd, onBlockDelete, isSe
             } border-2 border-dashed`}
             onClick={onSelect}
         >
-            {/* Validation error message */}
             {validationError && (
                 <div className="absolute top-2 right-2 z-10 flex items-center rounded bg-red-100 px-2 py-1 text-xs text-red-700">
                     <AlertCircle className="mr-1 h-3 w-3" />
@@ -142,13 +184,17 @@ export default function ColumnDropZone({ column, onBlockAdd, onBlockDelete, isSe
                 </div>
             ) : (
                 <div className="space-y-2">
-                    {blocks.map((block) => (
+                    {blocks.map((block, index) => (
                         <BlockRenderer
                             key={block.id}
                             block={block}
+                            index={index}
                             onDelete={() => onBlockDelete(column.id, block.id)}
                             isSelected={selectedBlockId === block.id}
                             onSelect={() => onSelectBlock?.(block.id)}
+                            onMove={(dragIndex, hoverIndex) => {
+                                onBlockMove?.(column.id, dragIndex, hoverIndex);
+                            }}
                         />
                     ))}
                 </div>
