@@ -65,9 +65,13 @@
                     const formData = new FormData();
                     formData.append('file', file);
                     
-                    const res = await fetch('/api/upload', {
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
+                    const res = await fetch('/upload', {
                         method: 'POST',
-                        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'X-CSRF-TOKEN': csrfToken,
+                        },
                         body: formData,
                         credentials: 'same-origin',
                     });

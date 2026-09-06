@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\FunnelApiController;
 use App\Http\Controllers\Api\TemplateApiController;
 use App\Http\Controllers\Api\UploadController;
 use App\Http\Middleware\AuthenticateApi;
+use App\Http\Middleware\AuthenticateOptional;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,12 +21,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Public: generate/revoke token + file uploads (requires web session auth)
+// Token generation (requires web session auth)
 Route::middleware('auth')->group(function () {
     Route::post('/token', [ApiTokenController::class, 'store'])->name('api.token.store');
     Route::delete('/token', [ApiTokenController::class, 'destroy'])->name('api.token.destroy');
+});
 
-    // File uploads (session auth for web UI)
+// File uploads (session OR token auth — works for both web UI and MCP)
+Route::middleware(AuthenticateOptional::class)->group(function () {
     Route::post('/upload', [UploadController::class, 'store'])->name('api.upload.store');
     Route::post('/upload/batch', [UploadController::class, 'storeMultiple'])->name('api.upload.batch');
     Route::get('/upload', [UploadController::class, 'index'])->name('api.upload.index');
