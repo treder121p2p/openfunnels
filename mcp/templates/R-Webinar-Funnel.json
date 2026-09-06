@@ -1,0 +1,81 @@
+{
+  "kind": "openfunnels-template",
+  "schemaVersion": 1,
+  "metadata": {
+    "name": "R-Webinar Funnel",
+    "description": "Вебинар: регистрация + оффер",
+    "category": "Events",
+    "tags": ["webinar", "registration", "event", "r-series"]
+  },
+  "funnel": {
+    "content": {
+      "sections": [
+        {
+          "id": "wh1",
+          "type": "section",
+          "layout": "single",
+          "columns": [
+            {
+              "id": "wh1c",
+              "type": "column",
+              "width": 100,
+              "blocks": [
+                { "id": "wh-eyebrow", "type": "text", "content": { "text": "Бесплатный мастер-класс", "fontSize": "14px", "color": "#f97316", "fontWeight": "700", "textAlign": "center" }, "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "wh-headline", "type": "text", "content": { "text": "Как увеличить продажи на 200% за 60 минут", "fontSize": "42px", "color": "#111827", "fontWeight": "800", "textAlign": "center", "lineHeight": "1.2" }, "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "wh-date", "type": "text", "content": { "text": "Суббота, 15 сентября | 19:00 МСК | 60 мин + Q&A", "fontSize": "18px", "color": "#4b5563", "textAlign": "center" }, "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+              ],
+              "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" }
+            }
+          ],
+          "settings": { "backgroundColor": "#ffffff", "padding": "80px 48px 40px", "margin": "0", "minHeight": "auto", "fullWidth": false }
+        },
+        {
+          "id": "wh2",
+          "type": "section",
+          "layout": "two-column",
+          "columns": [
+            {
+              "id": "wh2agenda",
+              "type": "column",
+              "width": 55,
+              "blocks": [
+                { "id": "wh-agenda-h", "type": "text", "content": { "text": "Чему вы научитесь:", "fontSize": "28px", "color": "#111827", "fontWeight": "800" }, "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "wh-agenda", "type": "text", "content": { "text": "1. Как находить горячих клиентов без холодных звонков\n2. Скрипт первого контакта с конверсией 70%\n3. Система повторных продаж\n4. Как масштабировать бизнес без увеличения бюджета", "fontSize": "17px", "color": "#374151", "lineHeight": "1.8" }, "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+              ],
+              "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" }
+            },
+            {
+              "id": "wh2form",
+              "type": "column",
+              "width": 45,
+              "blocks": [
+                { "id": "wh-form", "type": "form", "content": { "title": "Зарегистрируйтесь бесплатно", "placeholder": "Email", "namePlaceholder": "Имя", "buttonText": "Забронировать место", "successMessage": "Вы зарегистрированы! Ссылка придёт на почту." }, "settings": { "padding": "32px", "backgroundColor": "#f9fafb", "borderRadius": "16px", "margin": "0" } }
+              ],
+              "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" }
+            }
+          ],
+          "settings": { "backgroundColor": "#ffffff", "padding": "48px", "margin": "0", "minHeight": "auto", "fullWidth": false }
+        },
+        {
+          "id": "wh3",
+          "type": "section",
+          "layout": "single",
+          "columns": [
+            {
+              "id": "wh3c",
+              "type": "column",
+              "width": 100,
+              "blocks": [
+                { "id": "wh-speaker", "type": "text", "content": { "text": "Спикер: Алексей Тредер", "fontSize": "22px", "color": "#111827", "fontWeight": "700", "textAlign": "center" }, "settings": { "padding": "8px", "margin": "0 0 8px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "wh-speaker-bio", "type": "text", "content": { "text": "Предприниматель, криптоброкер с лицензией. Помогает бизнесу найти клиентов через digital-маркетинг и воронки продаж.", "fontSize": "16px", "color": "#6b7280", "textAlign": "center", "lineHeight": "1.6" }, "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+              ],
+              "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" }
+            }
+          ],
+          "settings": { "backgroundColor": "#f9fafb", "padding": "48px", "margin": "0", "minHeight": "auto", "fullWidth": false }
+        }
+      ]
+    },
+    "settings": { "backgroundColor": "#ffffff", "maxWidth": "1200px", "fontFamily": "Inter, sans-serif" }
+  }
+}

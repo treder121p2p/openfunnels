@@ -1,0 +1,132 @@
+{
+  "kind": "openfunnels-template",
+  "schemaVersion": 1,
+  "metadata": {
+    "name": "R-Lead Magnet Funnel",
+    "description": "Лид-магнит: заголовок + форма захвата + benefits + social proof",
+    "category": "Lead capture",
+    "tags": ["lead-magnet", "opt-in", "landing", "r-series"]
+  },
+  "funnel": {
+    "content": {
+      "sections": [
+        {
+          "id": "section-hero",
+          "type": "section",
+          "layout": "two-column-66-33",
+          "columns": [
+            {
+              "id": "col-copy",
+              "type": "column",
+              "width": 66,
+              "blocks": [
+                {
+                  "id": "eyebrow",
+                  "type": "text",
+                  "content": { "text": "Бесплатный гайд", "fontSize": "14px", "color": "#f97316", "fontWeight": "700" },
+                  "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" }
+                },
+                {
+                  "id": "headline",
+                  "type": "text",
+                  "content": { "text": "Получите 7-шаговую стратегию увеличения конверсии воронки", "fontSize": "44px", "color": "#111827", "fontWeight": "800", "lineHeight": "1.2" },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent", "borderRadius": "0" }
+                },
+                {
+                  "id": "subhead",
+                  "type": "text",
+                  "content": { "text": "Узнайте проверенные методы, которые используют топ-маркетологи для увеличения конверсии на 300%. Скачайте бесплатный чек-лист и начните применять уже сегодня.", "fontSize": "18px", "color": "#4b5563", "lineHeight": "1.6" },
+                  "settings": { "padding": "8px", "margin": "0 0 24px 0", "backgroundColor": "transparent", "borderRadius": "0" }
+                },
+                {
+                  "id": "benefits",
+                  "type": "text",
+                  "content": { "text": "✅ Пошаговый план действий\n✅ Рабочие шаблоны и скрипты\n✅ Реальные кейсы с цифрами\n✅ Мгновенный доступ после регистрации", "fontSize": "16px", "color": "#374151", "lineHeight": "1.8" },
+                  "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" }
+                }
+              ],
+              "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "middle" }
+            },
+            {
+              "id": "col-form",
+              "type": "column",
+              "width": 34,
+              "blocks": [
+                {
+                  "id": "form",
+                  "type": "form",
+                  "content": { "title": "Скачать бесплатно", "placeholder": "Ваш email", "namePlaceholder": "Ваше имя", "buttonText": "Получить гайд", "successMessage": "Отлично! Проверьте почту — гайд уже у вас." },
+                  "settings": { "padding": "32px", "backgroundColor": "#f9fafb", "borderRadius": "16px", "margin": "0" }
+                }
+              ],
+              "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "middle" }
+            }
+          ],
+          "settings": { "backgroundColor": "#ffffff", "padding": "80px 48px", "margin": "0", "minHeight": "auto", "fullWidth": false }
+        },
+        {
+          "id": "section-benefits",
+          "type": "section",
+          "layout": "three-column",
+          "columns": [
+            {
+              "id": "b1",
+              "type": "column",
+              "width": 33.33,
+              "blocks": [
+                { "id": "b1i", "type": "text", "content": { "text": "🎯", "fontSize": "48px", "textAlign": "center" }, "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "b1t", "type": "text", "content": { "text": "Точное таргетирование", "fontSize": "20px", "color": "#111827", "fontWeight": "700", "textAlign": "center" }, "settings": { "padding": "8px", "margin": "0 0 8px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "b1d", "type": "text", "content": { "text": "Научитесь находить идеальных клиентов и привлекать именно тех, кто готов покупать", "fontSize": "15px", "color": "#6b7280", "textAlign": "center", "lineHeight": "1.6" }, "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+              ],
+              "settings": { "padding": "16px", "backgroundColor": "transparent", "verticalAlign": "top" }
+            },
+            {
+              "id": "b2",
+              "type": "column",
+              "width": 33.33,
+              "blocks": [
+                { "id": "b2i", "type": "text", "content": { "text": "📈", "fontSize": "48px", "textAlign": "center" }, "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "b2t", "type": "text", "content": { "text": "Рост конверсии", "fontSize": "20px", "color": "#111827", "fontWeight": "700", "textAlign": "center" }, "settings": { "padding": "8px", "margin": "0 0 8px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "b2d", "type": "text", "content": { "text": "Пошаговые инструкции для увеличения конверсии ваших лендингов в 2-3 раза", "fontSize": "15px", "color": "#6b7280", "textAlign": "center", "lineHeight": "1.6" }, "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+              ],
+              "settings": { "padding": "16px", "backgroundColor": "transparent", "verticalAlign": "top" }
+            },
+            {
+              "id": "b3",
+              "type": "column",
+              "width": 33.33,
+              "blocks": [
+                { "id": "b3i", "type": "text", "content": { "text": "⚡", "fontSize": "48px", "textAlign": "center" }, "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "b3t", "type": "text", "content": { "text": "Быстрый старт", "fontSize": "20px", "color": "#111827", "fontWeight": "700", "textAlign": "center" }, "settings": { "padding": "8px", "margin": "0 0 8px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "b3d", "type": "text", "content": { "text": "Примените знания сразу — чек-лист содержит готовые к использованию материалы", "fontSize": "15px", "color": "#6b7280", "textAlign": "center", "lineHeight": "1.6" }, "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+              ],
+              "settings": { "padding": "16px", "backgroundColor": "transparent", "verticalAlign": "top" }
+            }
+          ],
+          "settings": { "backgroundColor": "#f9fafb", "padding": "64px 48px", "margin": "0", "minHeight": "auto", "fullWidth": false }
+        },
+        {
+          "id": "section-proof",
+          "type": "section",
+          "layout": "single",
+          "columns": [
+            {
+              "id": "col-proof",
+              "type": "column",
+              "width": 100,
+              "blocks": [
+                { "id": "proof-h", "type": "text", "content": { "text": "Уже 2,847 маркетологов скачали этот гайд", "fontSize": "28px", "color": "#111827", "fontWeight": "800", "textAlign": "center" }, "settings": { "padding": "8px", "margin": "0 0 24px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "t1", "type": "testimonial", "content": { "quote": "После применения стратегий из гайда конверсия моего лендинга выросла на 180%. Рекомендую всем!", "author": "Анна К.", "position": "Предприниматель", "rating": 5 }, "settings": { "padding": "24px", "backgroundColor": "#ffffff", "borderRadius": "12px", "margin": "0 0 16px 0" } },
+                { "id": "t2", "type": "testimonial", "content": { "quote": "Наконец-то понятный чек-лист без воды. Применил 3 шага — первый лид уже через час.", "author": "Дмитрий М.", "position": "Фрилансер", "rating": 5 }, "settings": { "padding": "24px", "backgroundColor": "#ffffff", "borderRadius": "12px", "margin": "0 0 32px 0" } },
+                { "id": "cta", "type": "button", "content": { "text": "Скачать гайд бесплатно", "url": "#", "variant": "primary", "size": "large" }, "settings": { "padding": "16px", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+              ],
+              "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" }
+            }
+          ],
+          "settings": { "backgroundColor": "#ffffff", "padding": "64px 48px", "margin": "0", "minHeight": "auto", "fullWidth": false }
+        }
+      ]
+    },
+    "settings": { "backgroundColor": "#ffffff", "maxWidth": "1200px", "fontFamily": "Inter, sans-serif" }
+  }
+}
