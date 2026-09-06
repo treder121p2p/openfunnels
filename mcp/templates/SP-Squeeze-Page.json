@@ -1,0 +1,162 @@
+{
+  "kind": "openfunnels-template",
+  "schemaVersion": 1,
+  "metadata": {
+    "name": "SP - Squeeze Page",
+    "description": "Страница захвата: крючок + email форма. Часть туннеля Squeeze Page Funnel.",
+    "category": "Lead capture",
+    "tags": ["squeeze", "opt-in", "lead", "sp-series", "page-1-of-2"]
+  },
+  "funnel": {
+    "content": {
+      "sections": [
+        {
+          "id": "sp-hero",
+          "type": "section",
+          "layout": "two-column-66-33",
+          "columns": [
+            {
+              "id": "sp-copy",
+              "type": "column",
+              "width": 66,
+              "blocks": [
+                {
+                  "id": "sp-badge",
+                  "type": "text",
+                  "content": {
+                    "text": "🔥 Бесплатно",
+                    "fontSize": "14px",
+                    "color": "#dc2626",
+                    "fontWeight": "800",
+                    "backgroundColor": "#fef2f2",
+                    "borderRadius": "20px"
+                  },
+                  "settings": { "padding": "6px 16px", "margin": "0 0 20px 0", "backgroundColor": "transparent", "borderRadius": "0" }
+                },
+                {
+                  "id": "sp-headline",
+                  "type": "text",
+                  "content": {
+                    "text": "Откройте секрет, который изменит ваш бизнес",
+                    "fontSize": "44px",
+                    "color": "#111827",
+                    "fontWeight": "800",
+                    "lineHeight": "1.15"
+                  },
+                  "settings": { "padding": "0", "margin": "0 0 16px 0", "backgroundColor": "transparent", "borderRadius": "0" }
+                },
+                {
+                  "id": "sp-subhead",
+                  "type": "text",
+                  "content": {
+                    "text": "Узнайте 3 простых шага, которые помогли 10,000+ предпринимателей увеличить продажи без увеличения бюджета на рекламу",
+                    "fontSize": "18px",
+                    "color": "#4b5563",
+                    "lineHeight": "1.6"
+                  },
+                  "settings": { "padding": "0", "margin": "0 0 24px 0", "backgroundColor": "transparent", "borderRadius": "0" }
+                },
+                {
+                  "id": "sp-checklist",
+                  "type": "text",
+                  "content": {
+                    "text": "✅ Пошаговый план действий<br>✅ Реальные кейсы с цифрами<br>✅ Готовые шаблоны и скрипты<br>✅ Мгновенный доступ после регистрации",
+                    "fontSize": "16px",
+                    "color": "#374151",
+                    "lineHeight": "2"
+                  },
+                  "settings": { "padding": "0", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" }
+                }
+              ],
+              "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "middle" }
+            },
+            {
+              "id": "sp-form-col",
+              "type": "column",
+              "width": 34,
+              "blocks": [
+                {
+                  "id": "sp-form-card",
+                  "type": "text",
+                  "content": {
+                    "text": "🎁",
+                    "fontSize": "48px",
+                    "textAlign": "center"
+                  },
+                  "settings": { "padding": "8px 0", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" }
+                },
+                {
+                  "id": "sp-form",
+                  "type": "form",
+                  "content": {
+                    "title": "Получить бесплатно",
+                    "placeholder": "Ваш email",
+                    "namePlaceholder": "Ваше имя",
+                    "buttonText": "⚡ Скачать сейчас",
+                    "successMessage": "🎉 Отлично! Проверьте почту — инструкция уже у вас."
+                  },
+                  "settings": { "padding": "28px", "backgroundColor": "#f9fafb", "borderRadius": "16px", "margin": "0" }
+                },
+                {
+                  "id": "sp-privacy",
+                  "type": "text",
+                  "content": {
+                    "text": "🔒 Никакого спама. Только полезный контент.",
+                    "fontSize": "12px",
+                    "color": "#9ca3af",
+                    "textAlign": "center"
+                  },
+                  "settings": { "padding": "12px 0 0 0", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" }
+                }
+              ],
+              "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "middle" }
+            }
+          ],
+          "settings": { "backgroundColor": "#ffffff", "padding": "80px 48px", "margin": "0", "minHeight": "auto", "fullWidth": false }
+        },
+        {
+          "id": "sp-trust",
+          "type": "section",
+          "layout": "three-column",
+          "columns": [
+            {
+              "id": "sp-t1",
+              "type": "column",
+              "width": 33.33,
+              "blocks": [
+                { "id": "sp-t1i", "type": "text", "content": { "text": "📊", "fontSize": "36px", "textAlign": "center" }, "settings": { "padding": "8px", "margin": "0 0 8px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "sp-t1t", "type": "text", "content": { "text": "10,000+", "fontSize": "24px", "color": "#111827", "fontWeight": "800", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 4px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "sp-t1d", "type": "text", "content": { "text": "предпринимателей уже скачали", "fontSize": "14px", "color": "#6b7280", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+              ],
+              "settings": { "padding": "16px", "backgroundColor": "transparent", "verticalAlign": "top" }
+            },
+            {
+              "id": "sp-t2",
+              "type": "column",
+              "width": 33.33,
+              "blocks": [
+                { "id": "sp-t2i", "type": "text", "content": { "text": "⭐", "fontSize": "36px", "textAlign": "center" }, "settings": { "padding": "8px", "margin": "0 0 8px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "sp-t2t", "type": "text", "content": { "text": "4.9/5.0", "fontSize": "24px", "color": "#111827", "fontWeight": "800", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 4px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "sp-t2d", "type": "text", "content": { "text": "средняя оценка", "fontSize": "14px", "color": "#6b7280", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+              ],
+              "settings": { "padding": "16px", "backgroundColor": "transparent", "verticalAlign": "top" }
+            },
+            {
+              "id": "sp-t3",
+              "type": "column",
+              "width": 33.33,
+              "blocks": [
+                { "id": "sp-t3i", "type": "text", "content": { "text": "🚀", "fontSize": "36px", "textAlign": "center" }, "settings": { "padding": "8px", "margin": "0 0 8px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "sp-t3t", "type": "text", "content": { "text": "3 минуты", "fontSize": "24px", "color": "#111827", "fontWeight": "800", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 4px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "sp-t3d", "type": "text", "content": { "text": "на чтение материала", "fontSize": "14px", "color": "#6b7280", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+              ],
+              "settings": { "padding": "16px", "backgroundColor": "transparent", "verticalAlign": "top" }
+            }
+          ],
+          "settings": { "backgroundColor": "#f9fafb", "padding": "48px", "margin": "0", "minHeight": "auto", "fullWidth": false }
+        }
+      ]
+    },
+    "settings": { "backgroundColor": "#ffffff", "maxWidth": "1200px", "fontFamily": "Inter, sans-serif" }
+  }
+}
