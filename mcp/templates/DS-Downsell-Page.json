@@ -1,0 +1,17 @@
+{
+  "kind": "openfunnels-template", "schemaVersion": 1,
+  "metadata": { "name": "DS - Downsell Page", "description": "Даунсейл: пониженная цена после отказа от OTO.", "category": "Sales", "tags": ["downsell", "ds-series", "page-3-of-4"] },
+  "funnel": { "content": { "sections": [
+    { "id": "ds-hero", "type": "section", "layout": "single", "columns": [
+      { "id": "ds-col", "type": "column", "width": 100, "blocks": [
+        { "id": "ds-badge", "type": "text", "content": { "text": "😢 Жаль, что вы отказались...", "fontSize": "14px", "color": "#d97706", "fontWeight": "800", "backgroundColor": "#fffbeb", "borderRadius": "20px" }, "settings": { "padding": "6px 16px", "margin": "0 0 20px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "ds-headline", "type": "text", "content": { "text": "Может, вот так?", "fontSize": "32px", "color": "#111827", "fontWeight": "800", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 12px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "ds-text", "type": "text", "content": { "text": "Мы понимаем, что 9 900₽ — это серьёзная инвестиция.\n\nПоэтому предлагаем тот же продукт, но в рассрочку на 3 месяца.", "fontSize": "18px", "color": "#4b5563", "textAlign": "center", "lineHeight": "1.6" }, "settings": { "padding": "0", "margin": "0 0 24px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "ds-price", "type": "text", "content": { "text": "3 × 3 300₽ = 9 900₽", "fontSize": "28px", "color": "#dc2626", "fontWeight": "800", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 8px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "ds-guarantee", "type": "text", "content": { "text": "💰 Гарантия возврата 30 дней", "fontSize": "14px", "color": "#059669", "fontWeight": "600", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 24px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "ds-cta", "type": "button", "content": { "text": "💳 Оформить в рассрочку", "url": "#", "variant": "primary", "size": "large", "fullWidth": true }, "settings": { "padding": "8px", "margin": "0 0 12px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "ds-skip", "type": "button", "content": { "text": "Нет, спасибо", "url": "#", "variant": "secondary", "size": "medium", "fullWidth": true }, "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+      ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } }
+    ], "settings": { "backgroundColor": "#ffffff", "padding": "80px 48px", "margin": "0", "minHeight": "auto", "fullWidth": false } }
+  ] }, "settings": { "backgroundColor": "#ffffff", "maxWidth": "1200px", "fontFamily": "Inter, sans-serif" } }
+}

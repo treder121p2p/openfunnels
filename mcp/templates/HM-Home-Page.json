@@ -1,0 +1,13 @@
+{
+  "kind": "openfunnels-template", "schemaVersion": 1,
+  "metadata": { "name": "HM - Home Page", "description": "Домашняя страница с историей бизнеса. Часть HomePage Funnel.", "category": "Other", "tags": ["home", "hm-series", "page-1-of-2"] },
+  "funnel": { "content": { "sections": [
+    { "id": "hm-hero", "type": "section", "layout": "single", "columns": [
+      { "id": "hm-col", "type": "column", "width": 100, "blocks": [
+        { "id": "hm-headline", "type": "text", "content": { "text": "Добро пожаловать в нашу компанию", "fontSize": "36px", "color": "#111827", "fontWeight": "800", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 16px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "hm-text", "type": "text", "content": { "text": "Мы помогаем бизнесу расти через проверенные методики маркетинга.\n\nБолее 500 успешных проектов за 5 лет.", "fontSize": "18px", "color": "#4b5563", "textAlign": "center", "lineHeight": "1.6" }, "settings": { "padding": "0", "margin": "0 0 24px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "hm-cta", "type": "button", "content": { "text": "🎯 Узнать больше", "url": "#", "variant": "primary", "size": "large" }, "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+      ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } }
+    ], "settings": { "backgroundColor": "#ffffff", "padding": "80px 48px", "margin": "0", "minHeight": "auto", "fullWidth": false } }
+  ] }, "settings": { "backgroundColor": "#ffffff", "maxWidth": "1200px", "fontFamily": "Inter, sans-serif" } }
+}

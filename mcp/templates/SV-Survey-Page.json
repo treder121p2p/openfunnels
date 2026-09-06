@@ -1,0 +1,14 @@
+{
+  "kind": "openfunnels-template", "schemaVersion": 1,
+  "metadata": { "name": "SV - Survey Page", "description": "Страница опроса для сегментации аудитории. Часть Survey Funnel.", "category": "Lead capture", "tags": ["survey", "quiz", "sv-series", "page-1-of-1"] },
+  "funnel": { "content": { "sections": [
+    { "id": "sv-hero", "type": "section", "layout": "single", "columns": [
+      { "id": "sv-col", "type": "column", "width": 100, "blocks": [
+        { "id": "sv-badge", "type": "text", "content": { "text": "📊 Узнайте свой тип", "fontSize": "14px", "color": "#059669", "fontWeight": "800", "backgroundColor": "#ecfdf5", "borderRadius": "20px" }, "settings": { "padding": "6px 16px", "margin": "0 0 20px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "sv-headline", "type": "text", "content": { "text": "Какой вы предприниматель?", "fontSize": "40px", "color": "#111827", "fontWeight": "800", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 12px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "sv-sub", "type": "text", "content": { "text": "Ответьте на 3 вопроса и получите персональную рекомендацию", "fontSize": "18px", "color": "#6b7280", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 32px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "sv-form", "type": "form", "content": { "title": "Ваш ответ", "placeholder": "Выберите вариант", "namePlaceholder": "Ваше имя", "buttonText": "Далее →", "successMessage": "🎉 Спасибо! Вот ваша рекомендация." }, "settings": { "padding": "32px", "backgroundColor": "#f9fafb", "borderRadius": "16px", "margin": "0" } }
+      ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } }
+    ], "settings": { "backgroundColor": "#ffffff", "padding": "80px 48px", "margin": "0", "minHeight": "auto", "fullWidth": false } }
+  ] }, "settings": { "backgroundColor": "#ffffff", "maxWidth": "1200px", "fontFamily": "Inter, sans-serif" } }
+}

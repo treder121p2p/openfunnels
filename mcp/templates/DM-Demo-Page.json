@@ -1,0 +1,16 @@
+{
+  "kind": "openfunnels-template", "schemaVersion": 1,
+  "metadata": { "name": "DM - Demo Page", "description": "Страница живой демонстрации продукта. Часть Live Demo Funnel.", "category": "Other", "tags": ["demo", "live", "dm-series", "page-1-of-2"] },
+  "funnel": { "content": { "sections": [
+    { "id": "dm-hero", "type": "section", "layout": "two-column", "columns": [
+      { "id": "dm-video", "type": "column", "width": 55, "blocks": [
+        { "id": "dm-video-block", "type": "video", "content": { "src": "", "title": "Демонстрация продукта", "controls": true }, "settings": { "padding": "0", "margin": "0", "backgroundColor": "#000000", "borderRadius": "12px" } }
+      ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } },
+      { "id": "dm-copy", "type": "column", "width": 45, "blocks": [
+        { "id": "dm-headline", "type": "text", "content": { "text": "🎯 Смотрите, как это работает", "fontSize": "24px", "color": "#111827", "fontWeight": "800" }, "settings": { "padding": "0", "margin": "0 0 12px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "dm-text", "type": "text", "content": { "text": "Я покажу вам продукт в действии. Задавайте вопросы в чате!", "fontSize": "16px", "color": "#4b5563", "lineHeight": "1.6" }, "settings": { "padding": "0", "margin": "0 0 16px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "dm-cta", "type": "button", "content": { "text": "🛒 Купить сейчас", "url": "#", "variant": "primary", "size": "large", "fullWidth": true }, "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+      ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } }
+    ], "settings": { "backgroundColor": "#ffffff", "padding": "80px 48px", "margin": "0", "minHeight": "auto", "fullWidth": false } }
+  ] }, "settings": { "backgroundColor": "#ffffff", "maxWidth": "1200px", "fontFamily": "Inter, sans-serif" } }
+}

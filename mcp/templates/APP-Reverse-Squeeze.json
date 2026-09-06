@@ -1,0 +1,15 @@
+{
+  "kind": "openfunnels-template", "schemaVersion": 1,
+  "metadata": { "name": "APP - Reverse Squeeze Page", "description": "Reverse Squeeze для Application Funnel: видео/контент сначала, потом заявка.", "category": "Lead capture", "tags": ["application", "reverse-squeeze", "app-series", "page-1-of-3"] },
+  "funnel": { "content": { "sections": [
+    { "id": "rs-hero", "type": "section", "layout": "single", "columns": [
+      { "id": "rs-col", "type": "column", "width": 100, "blocks": [
+        { "id": "rs-badge", "type": "text", "content": { "text": "🎯 Эксклюзивный доступ", "fontSize": "14px", "color": "#7c3aed", "fontWeight": "800", "backgroundColor": "#f5f3ff", "borderRadius": "20px" }, "settings": { "padding": "6px 16px", "margin": "0 0 20px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "rs-headline", "type": "text", "content": { "text": "Как я помог 500+ клиентам увеличить доход на 300%", "fontSize": "40px", "color": "#111827", "fontWeight": "800", "textAlign": "center", "lineHeight": "1.2" }, "settings": { "padding": "0", "margin": "0 0 24px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "rs-video", "type": "video", "content": { "src": "", "title": "История успеха", "controls": true }, "settings": { "padding": "0", "margin": "0 0 24px 0", "backgroundColor": "#000000", "borderRadius": "12px" } },
+        { "id": "rs-text", "type": "text", "content": { "text": "Посмотрите этот короткий рассказ о том, как работает наша методика. Если вы хотите таких же результатов — оставьте заявку ниже.", "fontSize": "16px", "color": "#4b5563", "textAlign": "center", "lineHeight": "1.6" }, "settings": { "padding": "0", "margin": "0 0 24px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "rs-cta", "type": "button", "content": { "text": "📝 Оставить заявку", "url": "#", "variant": "primary", "size": "large", "fullWidth": true }, "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+      ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } }
+    ], "settings": { "backgroundColor": "#ffffff", "padding": "80px 48px", "margin": "0", "minHeight": "auto", "fullWidth": false } }
+  ] }, "settings": { "backgroundColor": "#ffffff", "maxWidth": "1200px", "fontFamily": "Inter, sans-serif" } }
+}

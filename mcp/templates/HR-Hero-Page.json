@@ -1,0 +1,13 @@
+{
+  "kind": "openfunnels-template", "schemaVersion": 1,
+  "metadata": { "name": "HR - Hero Page", "description": "Hero страница: история предпринимателя + CTA. Часть Hero Funnel.", "category": "Other", "tags": ["hero", "hr-series", "page-1-of-2"] },
+  "funnel": { "content": { "sections": [
+    { "id": "hr-hero", "type": "section", "layout": "single", "columns": [
+      { "id": "hr-col", "type": "column", "width": 100, "blocks": [
+        { "id": "hr-headline", "type": "text", "content": { "text": "Привет! Я Алексей Тредер", "fontSize": "40px", "color": "#111827", "fontWeight": "800", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 16px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "hr-text", "type": "text", "content": { "text": "Предприниматель, криптоброкер с лицензией.\n\nПомогаю бизнесу найти клиентов через digital-маркетинг и воронки продаж.\n\nБолее 10 лет опыта в продажах и маркетинге.", "fontSize": "18px", "color": "#4b5563", "textAlign": "center", "lineHeight": "1.8" }, "settings": { "padding": "0", "margin": "0 0 24px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "hr-cta", "type": "button", "content": { "text": "📬 Подписаться на рассылку", "url": "#", "variant": "primary", "size": "large" }, "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+      ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } }
+    ], "settings": { "backgroundColor": "#ffffff", "padding": "80px 48px", "margin": "0", "minHeight": "auto", "fullWidth": false } }
+  ] }, "settings": { "backgroundColor": "#ffffff", "maxWidth": "1200px", "fontFamily": "Inter, sans-serif" } }
+}
