@@ -1,6 +1,7 @@
 import { contentBoolean, contentNumber, contentString, getChartData, getSocialLinks, getTeamMembers } from '@/lib/block-content';
 import type { Block, BlockType } from '@/types/editor';
-import { Plus, Trash2 } from 'lucide-react';
+import { Plus, Trash2, Upload } from 'lucide-react';
+import { useRef, useState } from 'react';
 
 interface BlockContentInspectorProps {
     block: Block;
@@ -170,6 +171,67 @@ const definitions: Partial<Record<BlockType, FieldDefinition[]>> = {
 
 const inputClass = 'w-full rounded border border-border bg-background px-2 py-1.5 text-xs text-foreground placeholder:text-muted-foreground';
 
+/** Image-related URL keys that should show an upload button */
+const imageUploadKeys = new Set(['src', 'image', 'avatar', 'photo', 'poster']);
+
+function ImageUploadButton({ onUploaded }: { onUploaded: (url: string) => void }) {
+    const inputRef = useRef<HTMLInputElement>(null);
+    const [uploading, setUploading] = useState(false);
+
+    const handleFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (!file) return;
+
+        setUploading(true);
+        try {
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const res = await fetch('/api/upload', {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+                body: formData,
+                credentials: 'same-origin',
+            });
+
+            if (!res.ok) throw new Error(`Upload failed: ${res.status}`);
+
+            const data = await res.json();
+            onUploaded(data.url);
+        } catch (error) {
+            console.error('Upload error:', error);
+            alert('Failed to upload image. Please try again.');
+        } finally {
+            setUploading(false);
+            if (inputRef.current) inputRef.current.value = '';
+        }
+    };
+
+    return (
+        <>
+            <input
+                ref={inputRef}
+                type="file"
+                accept="image/jpeg,image/png,image/gif,image/webp,image/svg+xml"
+                onChange={handleFile}
+                className="hidden"
+            />
+            <button
+                type="button"
+                onClick={() => inputRef.current?.click()}
+                disabled={uploading}
+                className="inline-flex items-center gap-1 rounded border border-border bg-muted px-2 py-1 text-[11px] text-muted-foreground hover:bg-accent hover:text-accent-foreground disabled:opacity-50"
+                title="Upload image from computer"
+            >
+                <Upload className="h-3 w-3" />
+                {uploading ? 'Uploading…' : 'Upload'}
+            </button>
+        </>
+    );
+}
+
 export default function BlockContentInspector({ block, onUpdate }: BlockContentInspectorProps) {
     const updateContent = (updates: Record<string, unknown>) => onUpdate({ content: { ...block.content, ...updates } });
 
@@ -252,6 +314,25 @@ export default function BlockContentInspector({ block, onUpdate }: BlockContentI
                         onChange={(event) => updateContent({ [field.key]: event.target.value })}
                         className={inputClass}
                     />
+                </label>
+            );
+        }
+
+        // URL fields for images get an upload button
+        if (kind === 'url' && imageUploadKeys.has(field.key)) {
+            return (
+                <label key={field.key}>
+                    {label}
+                    <div className="flex gap-1">
+                        <input
+                            type="url"
+                            value={contentString(block.content, field.key)}
+                            onChange={(event) => updateContent({ [field.key]: event.target.value })}
+                            placeholder={field.placeholder || 'https://… or upload'}
+                            className={inputClass}
+                        />
+                        <ImageUploadButton onUploaded={(url) => updateContent({ [field.key]: url })} />
+                    </div>
                 </label>
             );
         }

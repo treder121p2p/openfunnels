@@ -20,10 +20,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Public: generate/revoke token (requires web session auth)
+// Public: generate/revoke token + file uploads (requires web session auth)
 Route::middleware('auth')->group(function () {
     Route::post('/token', [ApiTokenController::class, 'store'])->name('api.token.store');
     Route::delete('/token', [ApiTokenController::class, 'destroy'])->name('api.token.destroy');
+
+    // File uploads (session auth for web UI)
+    Route::post('/upload', [UploadController::class, 'store'])->name('api.upload.store');
+    Route::post('/upload/batch', [UploadController::class, 'storeMultiple'])->name('api.upload.batch');
+    Route::get('/upload', [UploadController::class, 'index'])->name('api.upload.index');
+    Route::delete('/upload', [UploadController::class, 'destroy'])->name('api.upload.destroy');
 });
 
 // Protected API routes (bearer token)
@@ -47,9 +53,4 @@ Route::middleware(AuthenticateApi::class)->group(function () {
     Route::get('/funnels/{funnel}/template', [TemplateApiController::class, 'export'])->name('api.templates.export');
     Route::post('/templates/import', [TemplateApiController::class, 'import'])->name('api.templates.import');
 
-    // File uploads
-    Route::post('/upload', [UploadController::class, 'store'])->name('api.upload.store');
-    Route::post('/upload/batch', [UploadController::class, 'storeMultiple'])->name('api.upload.batch');
-    Route::get('/upload', [UploadController::class, 'index'])->name('api.upload.index');
-    Route::delete('/upload', [UploadController::class, 'destroy'])->name('api.upload.destroy');
 });

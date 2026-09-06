@@ -47,5 +47,6 @@
     </head>
     <body class="font-sans antialiased">
         @inertia
+    <script src="/js/upload-plugin.js"></script>
     </body>
 </html>

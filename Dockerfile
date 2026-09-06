@@ -12,7 +12,7 @@ RUN pnpm install --frozen-lockfile
 COPY resources ./resources
 COPY public ./public
 COPY components.json tsconfig.json vite.config.ts ./
-RUN pnpm run build
+RUN echo "Building at $(date)" && pnpm run build
 
 FROM php:8.4-cli-alpine AS application
 RUN apk add --no-cache icu-libs libzip sqlite-libs \
