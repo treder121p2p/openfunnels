@@ -1,0 +1,20 @@
+{
+  "kind": "openfunnels-template",
+  "schemaVersion": 1,
+  "metadata": { "name": "SL - Order Form", "description": "Форма заказа с оплатой. Часть Sales Letter Funnel.", "category": "Sales", "tags": ["order-form", "checkout", "sl-series", "page-2-of-4"] },
+  "funnel": {
+    "content": { "sections": [
+      { "id": "slo-hero", "type": "section", "layout": "two-column", "columns": [
+        { "id": "slo-summary", "type": "column", "width": 50, "blocks": [
+          { "id": "slo-head", "type": "text", "content": { "text": "🛒 Ваш заказ", "fontSize": "28px", "color": "#111827", "fontWeight": "800" }, "settings": { "padding": "0", "margin": "0 0 16px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+          { "id": "slo-product", "type": "text", "content": { "text": "📚 Курс «Воронка Продаж за 7 дней»\n✅ Шаблоны писем\n👥 Закрытое комьюнити\n🎁 Бонус: Чек-лист", "fontSize": "16px", "color": "#374151", "lineHeight": "2" }, "settings": { "padding": "0", "margin": "0 0 16px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+          { "id": "slo-guarantee", "type": "text", "content": { "text": "💰 30 дней гарантия возврата", "fontSize": "14px", "color": "#059669", "fontWeight": "600" }, "settings": { "padding": "0", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+        ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } },
+        { "id": "slo-form", "type": "column", "width": 50, "blocks": [
+          { "id": "slo-form", "type": "form", "content": { "title": "Оформите заказ", "placeholder": "Email для доступа", "namePlaceholder": "Имя", "buttonText": "💳 Оплатить 4 900₽", "successMessage": "🎉 Заказ оформлен! Доступ отправлен на почту." }, "settings": { "padding": "32px", "backgroundColor": "#f9fafb", "borderRadius": "16px", "margin": "0" } }
+        ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } }
+      ], "settings": { "backgroundColor": "#ffffff", "padding": "80px 48px", "margin": "0", "minHeight": "auto", "fullWidth": false } }
+    ] },
+    "settings": { "backgroundColor": "#ffffff", "maxWidth": "1200px", "fontFamily": "Inter, sans-serif" }
+  }
+}
