@@ -5,6 +5,7 @@ RUN composer install --no-dev --no-interaction --no-scripts --prefer-dist --opti
 
 FROM node:22-alpine AS frontend
 WORKDIR /app
+ENV NODE_OPTIONS=--dns-result-order=ipv4first
 RUN corepack enable
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN pnpm install --frozen-lockfile
