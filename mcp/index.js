@@ -1,4 +1,4 @@
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+﻿import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 import { readFileSync, writeFileSync, readdirSync, existsSync, mkdirSync } from "fs";
@@ -340,7 +340,106 @@ server.tool("generate_funnel", "AI-generate a funnel",
   }
 );
 
+// --- File uploads ---
+
+server.tool("upload_image",
+  "Upload an image file to OpenFunnels storage. Accepts local file path. Returns public URL.",
+  {
+    filePath: z.string().describe("Absolute path to the image file on this machine"),
+    folder: z.string().optional().describe("Storage subfolder (default: funnels)"),
+  },
+  async ({ filePath, folder }) => {
+    if (!existsSync(filePath)) {
+      return { content: [{ type: "text", text: `File not found: ${filePath}` }] };
+    }
+
+    const { createReadStream, statSync } = await import("fs");
+    const { basename } = await import("path");
+    const FormData = (await import("formdata-node")).FormData;
+    const { Blob } = (await import("buffer"));
+
+    const stats = statSync(filePath);
+    const filename = basename(filePath);
+    const ext = filename.split(".").pop()?.toLowerCase() || "";
+    const mimeMap = { jpg: "image/jpeg", jpeg: "image/jpeg", png: "image/png", gif: "image/gif", webp: "image/webp", svg: "image/svg+xml" };
+    const mime = mimeMap[ext] || "application/octet-stream";
+
+    const form = new FormData();
+    const blob = new Blob([createReadStream(filePath)], { type: mime });
+    form.set("file", blob, filename);
+    if (folder) form.set("folder", folder);
+
+    const res = await fetch(`${OPENFUNNELS_URL}/api/upload`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${OPENFUNNELS_TOKEN}` },
+      body: form,
+    });
+
+    const data = await res.json();
+    if (!res.ok) return { content: [{ type: "text", text: `Upload failed: ${JSON.stringify(data)}` }] };
+
+    return {
+      content: [{ type: "text", text: `Uploaded: ${data.filename}\nURL: ${data.url}\nSize: ${data.size} bytes\nType: ${data.mime}` }],
+    };
+  }
+);
+
+server.tool("upload_image_url",
+  "Upload an image from a URL to OpenFunnels storage. Downloads and re-hosts locally.",
+  {
+    url: z.string().describe("Image URL to download"),
+    folder: z.string().optional().describe("Storage subfolder (default: funnels)"),
+  },
+  async ({ url, folder }) => {
+    const res = await fetch(url);
+    if (!res.ok) return { content: [{ type: "text", text: `Download failed: ${res.status}` }] };
+
+    const buffer = Buffer.from(await res.arrayBuffer());
+    const ext = url.split("?")[0].split(".").pop()?.toLowerCase() || "png";
+    const mimeMap = { jpg: "image/jpeg", jpeg: "image/jpeg", png: "image/png", gif: "image/gif", webp: "image/webp", svg: "image/svg+xml" };
+    const mime = mimeMap[ext] || "image/png";
+    const filename = `imported-${Date.now()}.${ext}`;
+
+    const form = new FormData();
+    const blob = new Blob([buffer], { type: mime });
+    form.set("file", blob, filename);
+    if (folder) form.set("folder", folder);
+
+    const uploadRes = await fetch(`${OPENFUNNELS_URL}/api/upload`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${OPENFUNNELS_TOKEN}` },
+      body: form,
+    });
+
+    const data = await uploadRes.json();
+    if (!uploadRes.ok) return { content: [{ type: "text", text: `Upload failed: ${JSON.stringify(data)}` }] };
+
+    return {
+      content: [{ type: "text", text: `Re-hosted: ${data.filename}\nURL: ${data.url}\nSize: ${data.size} bytes` }],
+    };
+  }
+);
+
+server.tool("list_uploads",
+  "List uploaded files in OpenFunnels storage",
+  { folder: z.string().optional().describe("Folder to list (default: funnels)") },
+  async ({ folder }) => {
+    const params = folder ? `?folder=${folder}` : "";
+    const data = await api(`/upload${params}`);
+    return { content: [{ type: "text", text: JSON.stringify(data.files, null, 2) }] };
+  }
+);
+
+server.tool("delete_upload",
+  "Delete an uploaded file from OpenFunnels storage",
+  { path: z.string().describe("File path (from list_uploads)") },
+  async ({ path: filePath }) => {
+    const data = await api(`/upload`, { method: "DELETE", body: JSON.stringify({ path: filePath }) });
+    return { content: [{ type: "text", text: data.message || data.error }] };
+  }
+);
+
 // --- Start ---
 const transport = new StdioServerTransport();
 await server.connect(transport);
-console.error(`OpenFunnels MCP v2.0 running (templates: ${TEMPLATES_DIR})`);
+console.error(`OpenFunnels MCP v3.0 running (templates: ${TEMPLATES_DIR}, uploads: enabled)`);

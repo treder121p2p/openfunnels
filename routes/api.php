@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\ApiTokenController;
 use App\Http\Controllers\Api\FunnelApiController;
 use App\Http\Controllers\Api\TemplateApiController;
+use App\Http\Controllers\Api\UploadController;
 use App\Http\Middleware\AuthenticateApi;
 use Illuminate\Support\Facades\Route;
 
@@ -45,4 +46,10 @@ Route::middleware(AuthenticateApi::class)->group(function () {
     // Templates
     Route::get('/funnels/{funnel}/template', [TemplateApiController::class, 'export'])->name('api.templates.export');
     Route::post('/templates/import', [TemplateApiController::class, 'import'])->name('api.templates.import');
+
+    // File uploads
+    Route::post('/upload', [UploadController::class, 'store'])->name('api.upload.store');
+    Route::post('/upload/batch', [UploadController::class, 'storeMultiple'])->name('api.upload.batch');
+    Route::get('/upload', [UploadController::class, 'index'])->name('api.upload.index');
+    Route::delete('/upload', [UploadController::class, 'destroy'])->name('api.upload.destroy');
 });
