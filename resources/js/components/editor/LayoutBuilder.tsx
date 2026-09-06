@@ -287,6 +287,7 @@ export default function LayoutBuilder({
     onBlockAdd,
     onBlockUpdate,
     onBlockDelete,
+    onBlockMove,
 }: LayoutBuilderProps) {
     const canvasRef = useRef<HTMLDivElement>(null);
     const [isTemplatesOpen, setIsTemplatesOpen] = React.useState(!inspectorActive);
