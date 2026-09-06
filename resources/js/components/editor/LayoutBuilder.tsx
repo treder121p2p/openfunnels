@@ -120,6 +120,7 @@ function SectionComponent({
     onBlockAdd,
     onBlockUpdate,
     onBlockDelete,
+    onBlockMove,
 }: {
     section: Section;
     index: number;
