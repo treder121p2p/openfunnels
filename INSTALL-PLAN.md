@@ -112,6 +112,40 @@ docker compose up --build -d
 | VPS + домен | Продакшен | ⏳ Требует VPS |
 | GitHub Codespaces | Временный демо | ⏳ Не постоянный |
 
+## REST API (добавлено 06.09.2026)
+
+**Коммиты:** `3d8b35d` (API), `1645b8c` (MCP)
+
+### Эндпоинты
+
+| Метод | Путь | Описание |
+|-------|------|----------|
+| POST | `/api/token` | Генерация API-токена (из web-сессии) |
+| DELETE | `/api/token` | Отзыв токена |
+| GET | `/api/funnels` | Список воронок |
+| POST | `/api/funnels` | Создать воронку |
+| GET | `/api/funnels/{id}` | Получить воронку (полный контент) |
+| PUT | `/api/funnels/{id}` | Обновить воронку |
+| DELETE | `/api/funnels/{id}` | Удалить воронку |
+| POST | `/api/funnels/{id}/publish` | Опубликовать |
+| POST | `/api/funnels/{id}/unpublish` | Снять с публикации |
+| POST | `/api/funnels/{id}/duplicate` | Дублировать |
+| POST | `/api/funnels/generate` | AI-генерация |
+| GET | `/api/funnels/{id}/template` | Экспорт шаблона |
+| POST | `/api/templates/import` | Импорт шаблона |
+
+### Аутентификация
+
+```
+Authorization: Bearer <api-token>
+```
+
+### MCP сервер
+
+- **Путь:** `docker/openfunnels/mcp/`
+- **Запуск:** `OPENFUNNELS_TOKEN=<token> node mcp/index.js`
+- **11 инструментов:** list_funnels, get_funnel, create_funnel, update_funnel, delete_funnel, publish_funnel, unpublish_funnel, duplicate_funnel, generate_funnel, export_template, import_template
+
 ## Известные проблемы
 
 - **DNS в Docker на Windows:** corepack/pnpm падают с ConnectTimeoutError. Решение: `NODE_OPTIONS=--dns-result-order=ipv4first` в Dockerfile.
