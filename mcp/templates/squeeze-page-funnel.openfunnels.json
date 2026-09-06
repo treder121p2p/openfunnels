@@ -1,0 +1,287 @@
+{
+  "kind": "openfunnels-template",
+  "schemaVersion": 1,
+  "metadata": {
+    "name": "Squeeze Page Funnel",
+    "description": "Самая простая воронка для захвата лидов. Заголовок-крючок создаёт любопытство, посетитель оставляет email, затем получает обещанный контент на Thank You Page. Подходит для всех отраслей: авторы, ecommerce, B2B, ритейл, MLM.",
+    "category": "lead",
+    "tags": ["squeeze", "lead-capture", "email", "curiosity", "simple"]
+  },
+  "funnel": {
+    "content": {
+      "sections": [
+        {
+          "id": "sec-1",
+          "type": "section",
+          "layout": "two-column-66-33",
+          "columns": [
+            {
+              "id": "col-1",
+              "type": "column",
+              "width": 66,
+              "blocks": [
+                {
+                  "id": "blk-headline",
+                  "type": "text",
+                  "content": {
+                    "text": "Откройте Секрет, Который Изменит Ваш Бизнес",
+                    "fontSize": "44px",
+                    "color": "#111827",
+                    "fontWeight": "800",
+                    "lineHeight": "1.2"
+                  },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-subheadline",
+                  "type": "text",
+                  "content": {
+                    "text": "Узнайте стратегию, с которой сотни предпринимателей удвоили свои продажи за 30 дней. Бесплатный мини-курс для тех, кто готов к переменам.",
+                    "fontSize": "18px",
+                    "color": "#4b5563",
+                    "fontWeight": "400",
+                    "lineHeight": "1.6"
+                  },
+                  "settings": { "padding": "8px", "margin": "0 0 24px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-benefits",
+                  "type": "text",
+                  "content": {
+                    "text": "✓ Пошаговый план действий на первый месяц\n✓ Разбор ошибок, которые убивают продажи\n✓ Чек-лист для быстрого старта",
+                    "fontSize": "16px",
+                    "color": "#374151",
+                    "fontWeight": "500",
+                    "lineHeight": "1.8"
+                  },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent" }
+                }
+              ],
+              "settings": { "padding": "48px 32px 48px 48px", "backgroundColor": "transparent", "verticalAlign": "middle" }
+            },
+            {
+              "id": "col-2",
+              "type": "column",
+              "width": 34,
+              "blocks": [
+                {
+                  "id": "blk-form",
+                  "type": "form",
+                  "content": {
+                    "title": "Получите бесплатный мини-курс",
+                    "placeholder": "Ваш email",
+                    "namePlaceholder": "Ваше имя",
+                    "buttonText": "Получить бесплатно",
+                    "successMessage": "Отлично! Проверьте вашу почту — мы отправили мини-курс."
+                  },
+                  "settings": {
+                    "padding": "32px",
+                    "margin": "0",
+                    "backgroundColor": "#f9fafb",
+                    "borderRadius": "12px",
+                    "border": "1px solid #e5e7eb"
+                  }
+                }
+              ],
+              "settings": { "padding": "48px 48px 48px 16px", "backgroundColor": "transparent", "verticalAlign": "middle" }
+            }
+          ],
+          "settings": {
+            "backgroundColor": "#ffffff",
+            "padding": "80px 48px",
+            "margin": "0px",
+            "minHeight": "80vh",
+            "fullWidth": false
+          }
+        },
+        {
+          "id": "sec-2",
+          "type": "section",
+          "layout": "three-column",
+          "columns": [
+            {
+              "id": "col-3",
+              "type": "column",
+              "width": 33.33,
+              "blocks": [
+                {
+                  "id": "blk-proof1",
+                  "type": "text",
+                  "content": {
+                    "text": "10,000+",
+                    "fontSize": "36px",
+                    "color": "#2563eb",
+                    "fontWeight": "800",
+                    "textAlign": "center"
+                  },
+                  "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-proof1-sub",
+                  "type": "text",
+                  "content": {
+                    "text": "предпринимателей уже используют эту стратегию",
+                    "fontSize": "14px",
+                    "color": "#6b7280",
+                    "textAlign": "center"
+                  },
+                  "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent" }
+                }
+              ],
+              "settings": { "padding": "24px", "backgroundColor": "transparent", "verticalAlign": "middle" }
+            },
+            {
+              "id": "col-4",
+              "type": "column",
+              "width": 33.33,
+              "blocks": [
+                {
+                  "id": "blk-proof2",
+                  "type": "text",
+                  "content": {
+                    "text": "4.8/5",
+                    "fontSize": "36px",
+                    "color": "#2563eb",
+                    "fontWeight": "800",
+                    "textAlign": "center"
+                  },
+                  "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-proof2-sub",
+                  "type": "text",
+                  "content": {
+                    "text": "средняя оценка курса от участников",
+                    "fontSize": "14px",
+                    "color": "#6b7280",
+                    "textAlign": "center"
+                  },
+                  "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent" }
+                }
+              ],
+              "settings": { "padding": "24px", "backgroundColor": "transparent", "verticalAlign": "middle" }
+            },
+            {
+              "id": "col-5",
+              "type": "column",
+              "width": 33.33,
+              "blocks": [
+                {
+                  "id": "blk-proof3",
+                  "type": "text",
+                  "content": {
+                    "text": "100%",
+                    "fontSize": "36px",
+                    "color": "#2563eb",
+                    "fontWeight": "800",
+                    "textAlign": "center"
+                  },
+                  "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-proof3-sub",
+                  "type": "text",
+                  "content": {
+                    "text": "бесплатно — никаких скрытых платежей",
+                    "fontSize": "14px",
+                    "color": "#6b7280",
+                    "textAlign": "center"
+                  },
+                  "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent" }
+                }
+              ],
+              "settings": { "padding": "24px", "backgroundColor": "transparent", "verticalAlign": "middle" }
+            }
+          ],
+          "settings": {
+            "backgroundColor": "#f3f4f6",
+            "padding": "48px",
+            "margin": "0px",
+            "minHeight": "auto",
+            "fullWidth": false
+          }
+        },
+        {
+          "id": "sec-thankyou",
+          "type": "section",
+          "layout": "single",
+          "columns": [
+            {
+              "id": "col-ty",
+              "type": "column",
+              "width": 100,
+              "blocks": [
+                {
+                  "id": "blk-ty-icon",
+                  "type": "text",
+                  "content": {
+                    "text": "✅",
+                    "fontSize": "48px",
+                    "textAlign": "center"
+                  },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-ty-headline",
+                  "type": "text",
+                  "content": {
+                    "text": "Спасибо! Ваш мини-курс готов к скачиванию",
+                    "fontSize": "36px",
+                    "color": "#111827",
+                    "fontWeight": "800",
+                    "textAlign": "center"
+                  },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-ty-desc",
+                  "type": "text",
+                  "content": {
+                    "text": "Мы отправили ссылку на ваш email. Пока ждёте, посмотрите это короткое видео с первым шагом:",
+                    "fontSize": "18px",
+                    "color": "#4b5563",
+                    "textAlign": "center"
+                  },
+                  "settings": { "padding": "8px", "margin": "0 0 32px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-ty-video",
+                  "type": "video",
+                  "content": {
+                    "url": "#",
+                    "title": "Ваш первый шаг к увеличению продаж"
+                  },
+                  "settings": { "padding": "8px", "margin": "0 0 32px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-ty-cta",
+                  "type": "button",
+                  "content": {
+                    "text": "Посмотреть следующий урок",
+                    "url": "#",
+                    "backgroundColor": "#2563eb",
+                    "color": "#ffffff",
+                    "borderRadius": "8px"
+                  },
+                  "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent", "textAlign": "center" }
+                }
+              ],
+              "settings": { "padding": "80px 48px", "backgroundColor": "transparent", "verticalAlign": "middle" }
+            }
+          ],
+          "settings": {
+            "backgroundColor": "#ffffff",
+            "padding": "80px 48px",
+            "margin": "0px",
+            "minHeight": "60vh",
+            "fullWidth": false
+          }
+        }
+      ]
+    },
+    "settings": {
+      "backgroundColor": "#ffffff",
+      "maxWidth": "1200px"
+    }
+  }
+}

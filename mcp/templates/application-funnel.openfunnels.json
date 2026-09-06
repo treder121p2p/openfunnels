@@ -1,0 +1,334 @@
+{
+  "kind": "openfunnels-template",
+  "schemaVersion": 1,
+  "metadata": {
+    "name": "Application Funnel",
+    "description": "Воронка для продажи дорогих услуг (high-ticket). Использует принцип 'take away sale' — клиент должен подать заявку, чтобы стать клиентом. Отсеивает неподходящих кандидатов. Состоит из 3 страниц: Reverse Squeeze, Application, Thank You. Идеально для коучинга, консалтинга, B2B, эксклюзивных услуг.",
+    "category": "lead",
+    "tags": ["application", "high-ticket", "coaching", "consulting", "qualification"]
+  },
+  "funnel": {
+    "content": {
+      "sections": [
+        {
+          "id": "sec-hero",
+          "type": "section",
+          "layout": "single",
+          "columns": [
+            {
+              "id": "col-hero",
+              "type": "column",
+              "width": 100,
+              "blocks": [
+                {
+                  "id": "blk-hero-tag",
+                  "type": "text",
+                  "content": { "text": "ЭКСКЛЮЗИВНЫЙ ДОСТУП", "fontSize": "14px", "color": "#8b5cf6", "fontWeight": "700", "textAlign": "center" },
+                  "settings": { "padding": "8px", "margin": "0 0 8px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-hero-headline",
+                  "type": "text",
+                  "content": {
+                    "text": "Мы работаем не со всеми. Узнайте, подходит ли вам наша программа",
+                    "fontSize": "40px",
+                    "color": "#111827",
+                    "fontWeight": "800",
+                    "textAlign": "center",
+                    "lineHeight": "1.2"
+                  },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-hero-sub",
+                  "type": "text",
+                  "content": {
+                    "text": "Наша программа рассчитана на серьёзных предпринимателей, которые готовы инвестировать в свой рост. Мы берём ограниченное количество клиентов, чтобы гарантировать результат.",
+                    "fontSize": "18px",
+                    "color": "#4b5563",
+                    "textAlign": "center"
+                  },
+                  "settings": { "padding": "8px", "margin": "0 0 24px 0", "backgroundColor": "transparent" }
+                }
+              ],
+              "settings": { "padding": "80px 48px 32px", "backgroundColor": "#1e1b4b", "verticalAlign": "middle" }
+            }
+          ],
+          "settings": { "backgroundColor": "#1e1b4b", "padding": "80px 48px 32px", "margin": "0px", "minHeight": "auto", "fullWidth": false }
+        },
+        {
+          "id": "sec-video-testimonial",
+          "type": "section",
+          "layout": "two-column",
+          "columns": [
+            {
+              "id": "col-video",
+              "type": "column",
+              "width": 50,
+              "blocks": [
+                {
+                  "id": "blk-success-title",
+                  "type": "text",
+                  "content": { "text": "История успеха", "fontSize": "22px", "color": "#111827", "fontWeight": "700" },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-success-video",
+                  "type": "video",
+                  "content": { "url": "#", "title": "Как [Имя] увеличил выручку на 500% за 6 месяцев" },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-success-quote",
+                  "type": "text",
+                  "content": {
+                    "text": "«Программа полностью изменила мой подход к бизнесу. Выручка выросла с 200,000₽ до 1,200,000₽ за полгода. Лучшая инвестиция в моей карьере.»",
+                    "fontSize": "16px",
+                    "color": "#4b5563",
+                    "fontStyle": "italic"
+                  },
+                  "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-success-author",
+                  "type": "text",
+                  "content": { "text": "— [Имя Клиента], CEO [Компания]", "fontSize": "14px", "color": "#6b7280", "fontWeight": "600" },
+                  "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent" }
+                }
+              ],
+              "settings": { "padding": "48px 16px 48px 48px", "backgroundColor": "#ffffff", "verticalAlign": "top" }
+            },
+            {
+              "id": "col-results",
+              "type": "column",
+              "width": 50,
+              "blocks": [
+                {
+                  "id": "blk-results-title",
+                  "type": "text",
+                  "content": { "text": "Наши результаты:", "fontSize": "22px", "color": "#111827", "fontWeight": "700" },
+                  "settings": { "padding": "8px", "margin": "0 0 24px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-stat1",
+                  "type": "text",
+                  "content": { "text": "📈 Средний рост выручки клиентов: +340%", "fontSize": "17px", "color": "#374151", "fontWeight": "600" },
+                  "settings": { "padding": "12px 0", "margin": "0 0 8px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-stat2",
+                  "type": "text",
+                  "content": { "text": "🎯 87% клиентов достигают целей за 6 месяцев", "fontSize": "17px", "color": "#374151", "fontWeight": "600" },
+                  "settings": { "padding": "12px 0", "margin": "0 0 8px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-stat3",
+                  "type": "text",
+                  "content": { "text": "⭐ Рейтинг удовлетворённости: 4.9/5.0", "fontSize": "17px", "color": "#374151", "fontWeight": "600" },
+                  "settings": { "padding": "12px 0", "margin": "0 0 8px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-stat4",
+                  "type": "text",
+                  "content": { "text": "💰 Совокупная выручка клиентов: 500+ млн ₽", "fontSize": "17px", "color": "#374151", "fontWeight": "600" },
+                  "settings": { "padding": "12px 0", "margin": "0", "backgroundColor": "transparent" }
+                }
+              ],
+              "settings": { "padding": "48px 48px 48px 16px", "backgroundColor": "#f9fafb", "verticalAlign": "top" }
+            }
+          ],
+          "settings": { "backgroundColor": "#ffffff", "padding": "0px", "margin": "0px", "minHeight": "auto", "fullWidth": false }
+        },
+        {
+          "id": "sec-who",
+          "type": "section",
+          "layout": "two-column",
+          "columns": [
+            {
+              "id": "col-ideal",
+              "type": "column",
+              "width": 50,
+              "blocks": [
+                {
+                  "id": "blk-ideal-title",
+                  "type": "text",
+                  "content": { "text": "✅ Эта программа для вас, если:", "fontSize": "20px", "color": "#10b981", "fontWeight": "700" },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-ideal-list",
+                  "type": "text",
+                  "content": {
+                    "text": "• У вас уже есть бизнес с выручкой от 200,000₽/мес\n• Вы готовы масштабироваться, но не знаете как\n• У вас есть команда или вы планируете нанимать\n• Вы хотите систематизировать процессы\n• Вы готовы инвестировать время и ресурсы в рост",
+                    "fontSize": "16px",
+                    "color": "#374151",
+                    "lineHeight": "1.8"
+                  },
+                  "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent" }
+                }
+              ],
+              "settings": { "padding": "32px 16px 32px 48px", "backgroundColor": "#f0fdf4", "verticalAlign": "top" }
+            },
+            {
+              "id": "col-not",
+              "type": "column",
+              "width": 50,
+              "blocks": [
+                {
+                  "id": "blk-not-title",
+                  "type": "text",
+                  "content": { "text": "❌ Эта программа НЕ для вас, если:", "fontSize": "20px", "color": "#dc2626", "fontWeight": "700" },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-not-list",
+                  "type": "text",
+                  "content": {
+                    "text": "• Вы только начинаете и у вас нет выручки\n• Вы ищете «волшебную таблетку» без работы\n• Вы не готовы действовать и внедрять\n• Ваш бюджет ограничен и вы не можете инвестировать\n• Вы хотите результат без усилий",
+                    "fontSize": "16px",
+                    "color": "#374151",
+                    "lineHeight": "1.8"
+                  },
+                  "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent" }
+                }
+              ],
+              "settings": { "padding": "32px 48px 32px 16px", "backgroundColor": "#fef2f2", "verticalAlign": "top" }
+            }
+          ],
+          "settings": { "backgroundColor": "#ffffff", "padding": "32px 48px", "margin": "0px", "minHeight": "auto", "fullWidth": false }
+        },
+        {
+          "id": "sec-application",
+          "type": "section",
+          "layout": "two-column-66-33",
+          "columns": [
+            {
+              "id": "col-app-content",
+              "type": "column",
+              "width": 66,
+              "blocks": [
+                {
+                  "id": "blk-app-headline",
+                  "type": "text",
+                  "content": { "text": "Заявка на участие в программе", "fontSize": "32px", "color": "#111827", "fontWeight": "800" },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-app-steps",
+                  "type": "text",
+                  "content": {
+                    "text": "📋 Шаг 1: Заполните анкету (5 минут)\n📞 Шаг 2: Личный звонок с нашим экспертом\n✅ Шаг 3: Получите персональный план роста",
+                    "fontSize": "17px",
+                    "color": "#4b5563",
+                    "lineHeight": "2.0"
+                  },
+                  "settings": { "padding": "8px", "margin": "0 0 24px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-app-warning",
+                  "type": "text",
+                  "content": {
+                    "text": "⚠️ Мы работаем с ограниченным количеством клиентов. Сейчас доступно только 5 мест на ближайший месяц.",
+                    "fontSize": "15px",
+                    "color": "#dc2626",
+                    "fontWeight": "600"
+                  },
+                  "settings": { "padding": "16px", "margin": "0", "backgroundColor": "#fef2f2", "borderRadius": "8px" }
+                }
+              ],
+              "settings": { "padding": "48px 16px 48px 48px", "backgroundColor": "transparent", "verticalAlign": "top" }
+            },
+            {
+              "id": "col-app-form",
+              "type": "column",
+              "width": 34,
+              "blocks": [
+                {
+                  "id": "blk-app-form",
+                  "type": "form",
+                  "content": {
+                    "title": "Заполните заявку",
+                    "placeholder": "Email",
+                    "namePlaceholder": "ФИО",
+                    "buttonText": "Подать заявку →",
+                    "successMessage": "Заявка отправлена! Мы свяжемся с вами в течение 24 часов."
+                  },
+                  "settings": {
+                    "padding": "32px",
+                    "margin": "0",
+                    "backgroundColor": "#ffffff",
+                    "borderRadius": "12px",
+                    "border": "1px solid #e5e7eb",
+                    "boxShadow": "0 4px 24px rgba(0,0,0,0.08)"
+                  }
+                }
+              ],
+              "settings": { "padding": "48px 48px 48px 16px", "backgroundColor": "transparent", "verticalAlign": "top" }
+            }
+          ],
+          "settings": { "backgroundColor": "#f9fafb", "padding": "64px 48px", "margin": "0px", "minHeight": "auto", "fullWidth": false }
+        },
+        {
+          "id": "sec-thankyou",
+          "type": "section",
+          "layout": "single",
+          "columns": [
+            {
+              "id": "col-ty",
+              "type": "column",
+              "width": 100,
+              "blocks": [
+                {
+                  "id": "blk-ty-check",
+                  "type": "text",
+                  "content": { "text": "✅", "fontSize": "48px", "textAlign": "center" },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-ty-h",
+                  "type": "text",
+                  "content": { "text": "Ваша заявка принята!", "fontSize": "36px", "color": "#111827", "fontWeight": "800", "textAlign": "center" },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-ty-d",
+                  "type": "text",
+                  "content": {
+                    "text": "Мы внимательно рассмотрим вашу заявку и свяжемся с вами в течение 24 часов.\n\nПока ждёте, посмотрите это видео о том, что вас ждёт:",
+                    "fontSize": "18px",
+                    "color": "#4b5563",
+                    "textAlign": "center"
+                  },
+                  "settings": { "padding": "8px", "margin": "0 0 32px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-ty-video",
+                  "type": "video",
+                  "content": { "url": "#", "title": "Что вас ждёт в нашей программе" },
+                  "settings": { "padding": "8px", "margin": "0 0 32px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-ty-contacts",
+                  "type": "text",
+                  "content": {
+                    "text": "📞 Срочный вопрос? Позвоните: +7 (XXX) XXX-XX-XX\n📧 Или напишите: support@yourcompany.com",
+                    "fontSize": "16px",
+                    "color": "#6b7280",
+                    "textAlign": "center"
+                  },
+                  "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent" }
+                }
+              ],
+              "settings": { "padding": "80px 48px", "backgroundColor": "transparent", "verticalAlign": "middle" }
+            }
+          ],
+          "settings": { "backgroundColor": "#ffffff", "padding": "80px 48px", "margin": "0px", "minHeight": "60vh", "fullWidth": false }
+        }
+      ]
+    },
+    "settings": {
+      "backgroundColor": "#ffffff",
+      "maxWidth": "1200px"
+    }
+  }
+}

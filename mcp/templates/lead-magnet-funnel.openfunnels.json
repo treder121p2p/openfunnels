@@ -1,0 +1,288 @@
+{
+  "kind": "openfunnels-template",
+  "schemaVersion": 1,
+  "metadata": {
+    "name": "Lead Magnet Funnel",
+    "description": "Самая популярная воронка для захвата лидов. Отдаёте ценный бесплатный ресурс (ebook, видео, купон, отчёт) в обмен на email. Состоит из страницы магнита и Thank You Page. Идеально для авторов, ecommerce, B2B, профессиональных услуг, ритейла.",
+    "category": "lead",
+    "tags": ["lead-magnet", "ebook", "coupon", "freebie", "popular"]
+  },
+  "funnel": {
+    "content": {
+      "sections": [
+        {
+          "id": "sec-hero",
+          "type": "section",
+          "layout": "two-column",
+          "columns": [
+            {
+              "id": "col-visual",
+              "type": "column",
+              "width": 45,
+              "blocks": [
+                {
+                  "id": "blk-mockup",
+                  "type": "image",
+                  "content": {
+                    "src": "#",
+                    "alt": "Обложка бесплатного руководства",
+                    "width": "100%"
+                  },
+                  "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-price-strike",
+                  "type": "text",
+                  "content": {
+                    "text": "Стоимость: ~~990₽~~ → 0₽",
+                    "fontSize": "20px",
+                    "color": "#dc2626",
+                    "fontWeight": "700",
+                    "textAlign": "center"
+                  },
+                  "settings": { "padding": "16px 8px 8px 8px", "margin": "0", "backgroundColor": "transparent" }
+                }
+              ],
+              "settings": { "padding": "48px 32px 48px 48px", "backgroundColor": "transparent", "verticalAlign": "middle" }
+            },
+            {
+              "id": "col-content",
+              "type": "column",
+              "width": 55,
+              "blocks": [
+                {
+                  "id": "blk-tagline",
+                  "type": "text",
+                  "content": {
+                    "text": "БЕСПЛАТНОЕ РУКОВОДСТВО",
+                    "fontSize": "14px",
+                    "color": "#2563eb",
+                    "fontWeight": "700"
+                  },
+                  "settings": { "padding": "8px", "margin": "0 0 8px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-headline",
+                  "type": "text",
+                  "content": {
+                    "text": "Как Увеличить Продажи на 200% за 30 Дней без Рекламного Бюджета",
+                    "fontSize": "38px",
+                    "color": "#111827",
+                    "fontWeight": "800",
+                    "lineHeight": "1.2"
+                  },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-subhead",
+                  "type": "text",
+                  "content": {
+                    "text": "Пошаговое руководство с проверенными стратегиями, которые работают в любой нише. Уже скачали 5,000+ предпринимателей.",
+                    "fontSize": "17px",
+                    "color": "#4b5563",
+                    "lineHeight": "1.6"
+                  },
+                  "settings": { "padding": "8px", "margin": "0 0 24px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-benefits",
+                  "type": "text",
+                  "content": {
+                    "text": "✓ 7 проверенных стратегий увеличения конверсии\n✓ Чек-лист для ежедневного использования\n✓ Шаблоны писем и скриптов продаж\n✓ Бонус: доступ к закрытому сообществу",
+                    "fontSize": "16px",
+                    "color": "#374151",
+                    "fontWeight": "500",
+                    "lineHeight": "1.8"
+                  },
+                  "settings": { "padding": "8px", "margin": "0 0 32px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-form",
+                  "type": "form",
+                  "content": {
+                    "title": "Введите email и получите руководство",
+                    "placeholder": "Ваш лучший email",
+                    "namePlaceholder": "Ваше имя",
+                    "buttonText": "Скачать бесплатно →",
+                    "successMessage": "Отлично! Руководство отправлено на вашу почту."
+                  },
+                  "settings": {
+                    "padding": "24px",
+                    "margin": "0",
+                    "backgroundColor": "#f0f9ff",
+                    "borderRadius": "12px",
+                    "border": "2px solid #bfdbfe"
+                  }
+                }
+              ],
+              "settings": { "padding": "48px 48px 48px 16px", "backgroundColor": "transparent", "verticalAlign": "middle" }
+            }
+          ],
+          "settings": {
+            "backgroundColor": "#ffffff",
+            "padding": "72px 48px",
+            "margin": "0px",
+            "minHeight": "auto",
+            "fullWidth": false
+          }
+        },
+        {
+          "id": "sec-testimonials",
+          "type": "section",
+          "layout": "three-column",
+          "columns": [
+            {
+              "id": "col-t1",
+              "type": "column",
+              "width": 33.33,
+              "blocks": [
+                {
+                  "id": "blk-t1",
+                  "type": "testimonial",
+                  "content": {
+                    "text": "«После прочтения этого руководства я внедрил 3 стратегии и уже через неделю увеличил средний чек на 40%. Рекомендую каждому предпринимателю!»",
+                    "author": "Алексей М.",
+                    "role": "Владелец интернет-магазина",
+                    "rating": 5
+                  },
+                  "settings": { "padding": "24px", "margin": "0", "backgroundColor": "#f9fafb", "borderRadius": "8px" }
+                }
+              ],
+              "settings": { "padding": "16px", "backgroundColor": "transparent", "verticalAlign": "top" }
+            },
+            {
+              "id": "col-t2",
+              "type": "column",
+              "width": 33.33,
+              "blocks": [
+                {
+                  "id": "blk-t2",
+                  "type": "testimonial",
+                  "content": {
+                    "text": "«Наконец-то руководство без воды! Конкретные шаги, которые можно применить прямо сейчас. Спасибо за такой ценный подарок.»",
+                    "author": "Мария К.",
+                    "role": "Бизнес-консультант",
+                    "rating": 5
+                  },
+                  "settings": { "padding": "24px", "margin": "0", "backgroundColor": "#f9fafb", "borderRadius": "8px" }
+                }
+              ],
+              "settings": { "padding": "16px", "backgroundColor": "transparent", "verticalAlign": "top" }
+            },
+            {
+              "id": "col-t3",
+              "type": "column",
+              "width": 33.33,
+              "blocks": [
+                {
+                  "id": "blk-t3",
+                  "type": "testimonial",
+                  "content": {
+                    "text": "«Лучший бесплатный ресурс, что я встречал. Через месяц после внедрения мои продажи выросли на 120%. Это работает!»",
+                    "author": "Дмитрий В.",
+                    "role": "Предприниматель",
+                    "rating": 5
+                  },
+                  "settings": { "padding": "24px", "margin": "0", "backgroundColor": "#f9fafb", "borderRadius": "8px" }
+                }
+              ],
+              "settings": { "padding": "16px", "backgroundColor": "transparent", "verticalAlign": "top" }
+            }
+          ],
+          "settings": {
+            "backgroundColor": "#f3f4f6",
+            "padding": "64px 48px",
+            "margin": "0px",
+            "minHeight": "auto",
+            "fullWidth": false
+          }
+        },
+        {
+          "id": "sec-thankyou",
+          "type": "section",
+          "layout": "single",
+          "columns": [
+            {
+              "id": "col-ty",
+              "type": "column",
+              "width": 100,
+              "blocks": [
+                {
+                  "id": "blk-ty-check",
+                  "type": "text",
+                  "content": { "text": "✅", "fontSize": "48px", "textAlign": "center" },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-ty-h",
+                  "type": "text",
+                  "content": {
+                    "text": "Отлично! Ваше руководство готово к скачиванию",
+                    "fontSize": "36px",
+                    "color": "#111827",
+                    "fontWeight": "800",
+                    "textAlign": "center"
+                  },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-ty-d",
+                  "type": "text",
+                  "content": {
+                    "text": "Мы отправили ссылку на ваш email. Пока вы загружаете руководство, посмотрите это короткое видео:",
+                    "fontSize": "18px",
+                    "color": "#4b5563",
+                    "textAlign": "center"
+                  },
+                  "settings": { "padding": "8px", "margin": "0 0 32px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-ty-v",
+                  "type": "video",
+                  "content": { "url": "#", "title": "Как получить максимальную пользу от руководства" },
+                  "settings": { "padding": "8px", "margin": "0 0 32px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-ty-bonus",
+                  "type": "text",
+                  "content": {
+                    "text": "🎁 БОНУС: Специальное предложение для новых читателей",
+                    "fontSize": "22px",
+                    "color": "#dc2626",
+                    "fontWeight": "700",
+                    "textAlign": "center"
+                  },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-ty-btn",
+                  "type": "button",
+                  "content": {
+                    "text": "Получить бонусное предложение",
+                    "url": "#",
+                    "backgroundColor": "#dc2626",
+                    "color": "#ffffff",
+                    "borderRadius": "8px"
+                  },
+                  "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent", "textAlign": "center" }
+                }
+              ],
+              "settings": { "padding": "80px 48px", "backgroundColor": "transparent", "verticalAlign": "middle" }
+            }
+          ],
+          "settings": {
+            "backgroundColor": "#ffffff",
+            "padding": "80px 48px",
+            "margin": "0px",
+            "minHeight": "60vh",
+            "fullWidth": false
+          }
+        }
+      ]
+    },
+    "settings": {
+      "backgroundColor": "#ffffff",
+      "maxWidth": "1200px"
+    }
+  }
+}
