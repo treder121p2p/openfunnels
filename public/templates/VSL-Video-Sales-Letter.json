@@ -1,0 +1,18 @@
+{
+  "kind": "openfunnels-template", "schemaVersion": 1,
+  "metadata": { "name": "VSL - Video Sales Letter", "description": "Видео-продающее письмо + форма заказа. Часть VSL Funnel.", "category": "Sales", "tags": ["vsl", "video-sales", "vsl-series", "page-1-of-2"] },
+  "funnel": { "content": { "sections": [
+    { "id": "vsl-hero", "type": "section", "layout": "two-column", "columns": [
+      { "id": "vsl-video", "type": "column", "width": 55, "blocks": [
+        { "id": "vsl-video-block", "type": "video", "content": { "src": "", "title": "Видеописьмо", "controls": true }, "settings": { "padding": "0", "margin": "0 0 16px 0", "backgroundColor": "#000000", "borderRadius": "12px" } },
+        { "id": "vsl-timer", "type": "text", "content": { "text": "⏰ До конца предложения осталось:", "fontSize": "16px", "color": "#dc2626", "fontWeight": "700", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+      ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } },
+      { "id": "vsl-order", "type": "column", "width": 45, "blocks": [
+        { "id": "vsl-headline", "type": "text", "content": { "text": "🎯 Получите доступ сейчас", "fontSize": "24px", "color": "#111827", "fontWeight": "800" }, "settings": { "padding": "0", "margin": "0 0 12px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "vsl-price", "type": "text", "content": { "text": "4 900₽ <s>19 900₽</s>", "fontSize": "28px", "color": "#dc2626", "fontWeight": "800" }, "settings": { "padding": "0", "margin": "0 0 8px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "vsl-guarantee", "type": "text", "content": { "text": "💰 30 дней гарантия", "fontSize": "14px", "color": "#059669", "fontWeight": "600" }, "settings": { "padding": "0", "margin": "0 0 16px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "vsl-form", "type": "form", "content": { "title": "Оформите заказ", "placeholder": "Email", "namePlaceholder": "Имя", "buttonText": "💳 Оплатить 4 900₽", "successMessage": "🎉 Заказ оформлен!" }, "settings": { "padding": "24px", "backgroundColor": "#f9fafb", "borderRadius": "16px", "margin": "0" } }
+      ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } }
+    ], "settings": { "backgroundColor": "#ffffff", "padding": "80px 48px", "margin": "0", "minHeight": "auto", "fullWidth": false } }
+  ] }, "settings": { "backgroundColor": "#ffffff", "maxWidth": "1200px", "fontFamily": "Inter, sans-serif" } }
+}

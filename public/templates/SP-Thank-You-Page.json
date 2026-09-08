@@ -1,0 +1,130 @@
+{
+  "kind": "openfunnels-template",
+  "schemaVersion": 1,
+  "metadata": {
+    "name": "SP - Thank You Page",
+    "description": "Страница подтверждения: благодарность + загрузка + CTA. Часть туннеля Squeeze Page Funnel.",
+    "category": "Lead capture",
+    "tags": ["squeeze", "thank-you", "confirmation", "sp-series", "page-2-of-2"]
+  },
+  "funnel": {
+    "content": {
+      "sections": [
+        {
+          "id": "ty-hero",
+          "type": "section",
+          "layout": "single",
+          "columns": [
+            {
+              "id": "ty-hero-col",
+              "type": "column",
+              "width": 100,
+              "blocks": [
+                {
+                  "id": "ty-icon",
+                  "type": "text",
+                  "content": {
+                    "text": "🎉",
+                    "fontSize": "64px",
+                    "textAlign": "center"
+                  },
+                  "settings": { "padding": "0", "margin": "0 0 16px 0", "backgroundColor": "transparent", "borderRadius": "0" }
+                },
+                {
+                  "id": "ty-headline",
+                  "type": "text",
+                  "content": {
+                    "text": "Отлично! Вы всё сделали правильно",
+                    "fontSize": "36px",
+                    "color": "#111827",
+                    "fontWeight": "800",
+                    "textAlign": "center",
+                    "lineHeight": "1.2"
+                  },
+                  "settings": { "padding": "0", "margin": "0 0 12px 0", "backgroundColor": "transparent", "borderRadius": "0" }
+                },
+                {
+                  "id": "ty-subhead",
+                  "type": "text",
+                  "content": {
+                    "text": "Инструкция по скачиванию отправлена на вашу почту.<br>Проверьте папку «Входящие» (и «Спам» на всякий случай).",
+                    "fontSize": "18px",
+                    "color": "#4b5563",
+                    "textAlign": "center",
+                    "lineHeight": "1.6"
+                  },
+                  "settings": { "padding": "0", "margin": "0 0 32px 0", "backgroundColor": "transparent", "borderRadius": "0" }
+                }
+              ],
+              "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" }
+            }
+          ],
+          "settings": { "backgroundColor": "#ffffff", "padding": "80px 48px 40px", "margin": "0", "minHeight": "auto", "fullWidth": false }
+        },
+        {
+          "id": "ty-steps",
+          "type": "section",
+          "layout": "three-column",
+          "columns": [
+            {
+              "id": "ty-s1",
+              "type": "column",
+              "width": 33.33,
+              "blocks": [
+                { "id": "ty-s1n", "type": "text", "content": { "text": "1️⃣", "fontSize": "36px", "textAlign": "center" }, "settings": { "padding": "8px", "margin": "0 0 8px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "ty-s1t", "type": "text", "content": { "text": "Проверьте почту", "fontSize": "18px", "color": "#111827", "fontWeight": "700", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 4px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "ty-s1d", "type": "text", "content": { "text": "Письмо с ссылкой на скачивание уже у вас", "fontSize": "14px", "color": "#6b7280", "textAlign": "center", "lineHeight": "1.5" }, "settings": { "padding": "0", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+              ],
+              "settings": { "padding": "16px", "backgroundColor": "transparent", "verticalAlign": "top" }
+            },
+            {
+              "id": "ty-s2",
+              "type": "column",
+              "width": 33.33,
+              "blocks": [
+                { "id": "ty-s2n", "type": "text", "content": { "text": "2️⃣", "fontSize": "36px", "textAlign": "center" }, "settings": { "padding": "8px", "margin": "0 0 8px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "ty-s2t", "type": "text", "content": { "text": "Скачайте материал", "fontSize": "18px", "color": "#111827", "fontWeight": "700", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 4px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "ty-s2d", "type": "text", "content": { "text": "Нажмите кнопку в письме и скачайте PDF", "fontSize": "14px", "color": "#6b7280", "textAlign": "center", "lineHeight": "1.5" }, "settings": { "padding": "0", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+              ],
+              "settings": { "padding": "16px", "backgroundColor": "transparent", "verticalAlign": "top" }
+            },
+            {
+              "id": "ty-s3",
+              "type": "column",
+              "width": 33.33,
+              "blocks": [
+                { "id": "ty-s3n", "type": "text", "content": { "text": "3️⃣", "fontSize": "36px", "textAlign": "center" }, "settings": { "padding": "8px", "margin": "0 0 8px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "ty-s3t", "type": "text", "content": { "text": "Примените на практике", "fontSize": "18px", "color": "#111827", "fontWeight": "700", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 4px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "ty-s3d", "type": "text", "content": { "text": "Начните с первого шага уже сегодня", "fontSize": "14px", "color": "#6b7280", "textAlign": "center", "lineHeight": "1.5" }, "settings": { "padding": "0", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+              ],
+              "settings": { "padding": "16px", "backgroundColor": "transparent", "verticalAlign": "top" }
+            }
+          ],
+          "settings": { "backgroundColor": "#f9fafb", "padding": "48px", "margin": "0", "minHeight": "auto", "fullWidth": false }
+        },
+        {
+          "id": "ty-next",
+          "type": "section",
+          "layout": "single",
+          "columns": [
+            {
+              "id": "ty-next-col",
+              "type": "column",
+              "width": 100,
+              "blocks": [
+                { "id": "ty-next-icon", "type": "text", "content": { "text": "🎯", "fontSize": "36px", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 12px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "ty-next-headline", "type": "text", "content": { "text": "Хотите узнать больше?", "fontSize": "28px", "color": "#111827", "fontWeight": "800", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 8px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "ty-next-text", "type": "text", "content": { "text": "Подпишитесь на нашу рассылку и получайте практические советы каждую неделю.", "fontSize": "16px", "color": "#6b7280", "textAlign": "center", "lineHeight": "1.6" }, "settings": { "padding": "0", "margin": "0 0 24px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "ty-cta", "type": "button", "content": { "text": "📬 Подписаться на рассылку", "url": "#", "variant": "primary", "size": "large", "fullWidth": false }, "settings": { "padding": "8px", "margin": "0 0 24px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "ty-social", "type": "text", "content": { "text": "💡 Или поделитесь с другом — ему тоже пригодится!", "fontSize": "14px", "color": "#9ca3af", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+              ],
+              "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" }
+            }
+          ],
+          "settings": { "backgroundColor": "#ffffff", "padding": "64px 48px", "margin": "0", "minHeight": "auto", "fullWidth": false }
+        }
+      ]
+    },
+    "settings": { "backgroundColor": "#ffffff", "maxWidth": "1200px", "fontFamily": "Inter, sans-serif" }
+  }
+}

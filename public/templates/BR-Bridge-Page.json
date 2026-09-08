@@ -1,0 +1,17 @@
+{
+  "kind": "openfunnels-template", "schemaVersion": 1,
+  "metadata": { "name": "BR - Bridge Page", "description": "Bridge страница: связывает два концепта / pre-sell. Часть Bridge Funnel.", "category": "Lead capture", "tags": ["bridge", "pre-sell", "br-series", "page-2-of-2"] },
+  "funnel": { "content": { "sections": [
+    { "id": "br-hero", "type": "section", "layout": "two-column", "columns": [
+      { "id": "br-video", "type": "column", "width": 55, "blocks": [
+        { "id": "br-video-block", "type": "video", "content": { "src": "", "title": "Рассказ о продукте", "controls": true }, "settings": { "padding": "0", "margin": "0 0 16px 0", "backgroundColor": "#000000", "borderRadius": "12px" } },
+        { "id": "br-text", "type": "text", "content": { "text": "В этом видео я объясняю, как именно этот продукт решает вашу проблему. Посмотрите до конца — в конце специальное предложение.", "fontSize": "16px", "color": "#374151", "lineHeight": "1.6" }, "settings": { "padding": "0", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+      ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } },
+      { "id": "br-copy", "type": "column", "width": 45, "blocks": [
+        { "id": "br-headline", "type": "text", "content": { "text": "Вот как это работает...", "fontSize": "28px", "color": "#111827", "fontWeight": "800" }, "settings": { "padding": "0", "margin": "0 0 16px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "br-list", "type": "text", "content": { "text": "✅ Решает проблему X\n✅ Проверено 1000+ клиентов\n✅ Результат за 30 дней\n✅ Гарантия возврата", "fontSize": "16px", "color": "#374151", "lineHeight": "2" }, "settings": { "padding": "0", "margin": "0 0 24px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "br-cta", "type": "button", "content": { "text": "🎯 Получить доступ", "url": "#", "variant": "primary", "size": "large", "fullWidth": true }, "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+      ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } }
+    ], "settings": { "backgroundColor": "#ffffff", "padding": "80px 48px", "margin": "0", "minHeight": "auto", "fullWidth": false } }
+  ] }, "settings": { "backgroundColor": "#ffffff", "maxWidth": "1200px", "fontFamily": "Inter, sans-serif" } }
+}

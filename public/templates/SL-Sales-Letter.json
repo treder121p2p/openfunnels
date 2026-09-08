@@ -1,0 +1,26 @@
+{
+  "kind": "openfunnels-template",
+  "schemaVersion": 1,
+  "metadata": { "name": "SL - Sales Letter", "description": "Продающее письмо с историей + оффером. Часть Sales Letter Funnel.", "category": "Sales", "tags": ["sales-letter", "sl-series", "page-1-of-4"] },
+  "funnel": {
+    "content": { "sections": [
+      { "id": "sl-hero", "type": "section", "layout": "single", "columns": [
+        { "id": "sl-col", "type": "column", "width": 100, "blocks": [
+          { "id": "sl-headline", "type": "text", "content": { "text": "Почему 97% предпринимателей теряют деньги", "fontSize": "36px", "color": "#111827", "fontWeight": "800", "textAlign": "center", "lineHeight": "1.3" }, "settings": { "padding": "0", "margin": "0 0 24px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+          { "id": "sl-story", "type": "text", "content": { "text": "Три года назад я был на грани банкротства. Мои рекламные кампании не окупались, клиенты уходили к конкурентам.\n\nВсё изменилось, когда я обнаружил одну простую закономерность...\n\n80% продаж приходилось на 20% контента. Но я тратил 80% времени на оставшиеся 20%.\n\nКогда я перестроил воронку по этой формуле, продажи выросли на 340% за 3 месяца.", "fontSize": "18px", "color": "#374151", "lineHeight": "1.8" }, "settings": { "padding": "0", "margin": "0 0 24px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+          { "id": "sl-cta", "type": "button", "content": { "text": "🎯 Узнать формулу", "url": "#offer", "variant": "primary", "size": "large", "fullWidth": true }, "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+        ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } }
+      ], "settings": { "backgroundColor": "#ffffff", "padding": "80px 48px", "margin": "0", "minHeight": "auto", "fullWidth": false } },
+      { "id": "sl-offer", "type": "section", "layout": "single", "columns": [
+        { "id": "sl-offer-col", "type": "column", "width": 100, "blocks": [
+          { "id": "sl-offer-head", "type": "text", "content": { "text": "🎯 Вот что вы получите:", "fontSize": "28px", "color": "#111827", "fontWeight": "800" }, "settings": { "padding": "0", "margin": "0 0 16px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+          { "id": "sl-list", "type": "text", "content": { "text": "✅ Курс «Воронка Продаж за 7 дней» — 19 900₽\n✅ Шаблоны писем и скриптов — 4 900₽\n✅ Доступ в закрытое комьюнити — 9 900₽\n✅ Бонус: Чек-лист «50 идей для контента» — 2 900₽\n\nОбщая стоимость: 37 600₽", "fontSize": "18px", "color": "#374151", "lineHeight": "2" }, "settings": { "padding": "0", "margin": "0 0 16px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+          { "id": "sl-price", "type": "text", "content": { "text": "Ваша цена сегодня: 4 900₽", "fontSize": "32px", "color": "#dc2626", "fontWeight": "800", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 8px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+          { "id": "sl-guarantee", "type": "text", "content": { "text": "💰 Гарантия возврата 30 дней", "fontSize": "16px", "color": "#059669", "fontWeight": "600", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 24px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+          { "id": "sl-cta2", "type": "button", "content": { "text": "🛒 Начать сейчас — 4 900₽", "url": "#", "variant": "primary", "size": "large", "fullWidth": true }, "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+        ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } }
+      ], "settings": { "backgroundColor": "#f9fafb", "padding": "64px 48px", "margin": "0", "minHeight": "auto", "fullWidth": false } }
+    ] },
+    "settings": { "backgroundColor": "#ffffff", "maxWidth": "1200px", "fontFamily": "Inter, sans-serif" }
+  }
+}

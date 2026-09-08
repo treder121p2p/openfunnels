@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 $file = $_GET['file'] ?? '';
 $file = basename($file);
 $file = preg_replace('/[^a-zA-Z0-9_\-\.]/', '', $file);

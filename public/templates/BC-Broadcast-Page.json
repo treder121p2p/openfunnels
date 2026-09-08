@@ -1,0 +1,13 @@
+{
+  "kind": "openfunnels-template", "schemaVersion": 1,
+  "metadata": { "name": "BC - Broadcast Page", "description": "Страница показа вебинара (прямой эфир). Часть AutoWebinar Funnel.", "category": "Events", "tags": ["broadcast", "webinar", "bc-series", "page-3-of-5"] },
+  "funnel": { "content": { "sections": [
+    { "id": "bc-hero", "type": "section", "layout": "single", "columns": [
+      { "id": "bc-col", "type": "column", "width": 100, "blocks": [
+        { "id": "bc-live", "type": "text", "content": { "text": "🔴 LIVE", "fontSize": "18px", "color": "#ffffff", "fontWeight": "800", "backgroundColor": "#dc2626", "borderRadius": "20px" }, "settings": { "padding": "6px 16px", "margin": "0 0 20px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "bc-video", "type": "video", "content": { "src": "", "title": "Вебинар", "controls": true }, "settings": { "padding": "0", "margin": "0 0 24px 0", "backgroundColor": "#000000", "borderRadius": "12px" } },
+        { "id": "bc-text", "type": "text", "content": { "text": "Прямой эфир начался! Смотрите и задавайте вопросы в чате.", "fontSize": "18px", "color": "#4b5563", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+      ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } }
+    ], "settings": { "backgroundColor": "#ffffff", "padding": "40px 48px", "margin": "0", "minHeight": "auto", "fullWidth": false } }
+  ] }, "settings": { "backgroundColor": "#ffffff", "maxWidth": "1200px", "fontFamily": "Inter, sans-serif" } }
+}

@@ -1,0 +1,14 @@
+{
+  "kind": "openfunnels-template", "schemaVersion": 1,
+  "metadata": { "name": "AC - Access Page", "description": "Страница доступа к продукту после покупки. Часть Membership Funnel.", "category": "Sales", "tags": ["access", "membership", "ac-series", "page-3-of-4"] },
+  "funnel": { "content": { "sections": [
+    { "id": "ac-hero", "type": "section", "layout": "single", "columns": [
+      { "id": "ac-col", "type": "column", "width": 100, "blocks": [
+        { "id": "ac-icon", "type": "text", "content": { "text": "🔓", "fontSize": "64px", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 16px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "ac-headline", "type": "text", "content": { "text": "Добро пожаловать!", "fontSize": "36px", "color": "#111827", "fontWeight": "800", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 12px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "ac-text", "type": "text", "content": { "text": "Ваш доступ к продукту активирован.\n\nНажмите кнопку ниже, чтобы начать обучение.", "fontSize": "18px", "color": "#4b5563", "textAlign": "center", "lineHeight": "1.6" }, "settings": { "padding": "0", "margin": "0 0 24px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "ac-cta", "type": "button", "content": { "text": "🚀 Начать обучение", "url": "#", "variant": "primary", "size": "large" }, "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+      ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } }
+    ], "settings": { "backgroundColor": "#ffffff", "padding": "80px 48px", "margin": "0", "minHeight": "auto", "fullWidth": false } }
+  ] }, "settings": { "backgroundColor": "#ffffff", "maxWidth": "1200px", "fontFamily": "Inter, sans-serif" } }
+}

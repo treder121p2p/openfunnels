@@ -1,0 +1,19 @@
+{
+  "kind": "openfunnels-template",
+  "schemaVersion": 1,
+  "metadata": { "name": "WB - Confirmation", "description": "Подтверждение регистрации на вебинар. Часть Webinar Funnel.", "category": "Events", "tags": ["webinar", "confirmation", "wb-series", "page-2-of-4"] },
+  "funnel": {
+    "content": { "sections": [
+      { "id": "wbc-hero", "type": "section", "layout": "single", "columns": [
+        { "id": "wbc-col", "type": "column", "width": 100, "blocks": [
+          { "id": "wbc-icon", "type": "text", "content": { "text": "✅", "fontSize": "64px", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 16px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+          { "id": "wbc-headline", "type": "text", "content": { "text": "Вы зарегистрированы!", "fontSize": "36px", "color": "#111827", "fontWeight": "800", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 12px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+          { "id": "wbc-details", "type": "text", "content": { "text": "📅 Суббота, 15 сентября<br>⏰ 19:00 МСК<br>⏱️ 60 минут + Q&A", "fontSize": "20px", "color": "#4b5563", "textAlign": "center", "lineHeight": "1.8" }, "settings": { "padding": "0", "margin": "0 0 24px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+          { "id": "wbc-calendar", "type": "button", "content": { "text": "📅 Добавить в Google Calendar", "url": "#", "variant": "primary", "size": "large" }, "settings": { "padding": "8px", "margin": "0 0 24px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+          { "id": "wbc-next", "type": "text", "content": { "text": "📬 Письмо с ссылкой отправлено на вашу почту.<br>Добавьте нас в контакты, чтобы не пропустить!", "fontSize": "16px", "color": "#6b7280", "textAlign": "center", "lineHeight": "1.6" }, "settings": { "padding": "0", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+        ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } }
+      ], "settings": { "backgroundColor": "#ffffff", "padding": "80px 48px", "margin": "0", "minHeight": "auto", "fullWidth": false } }
+    ] },
+    "settings": { "backgroundColor": "#ffffff", "maxWidth": "1200px", "fontFamily": "Inter, sans-serif" }
+  }
+}

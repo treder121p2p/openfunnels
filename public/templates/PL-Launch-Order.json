@@ -1,0 +1,15 @@
+{
+  "kind": "openfunnels-template", "schemaVersion": 1,
+  "metadata": { "name": "PL - Launch+Order", "description": "Страница заказа при запуске продукта. Часть Product Launch Funnel.", "category": "Events", "tags": ["product-launch", "order", "pl-series", "page-2-of-2"] },
+  "funnel": { "content": { "sections": [
+    { "id": "plo-hero", "type": "section", "layout": "single", "columns": [
+      { "id": "plo-col", "type": "column", "width": 100, "blocks": [
+        { "id": "plo-badge", "type": "text", "content": { "text": "🛒 Корзина открыта!", "fontSize": "14px", "color": "#dc2626", "fontWeight": "800", "backgroundColor": "#fef2f2", "borderRadius": "20px" }, "settings": { "padding": "6px 16px", "margin": "0 0 20px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "plo-headline", "type": "text", "content": { "text": "Купить со скидкой — только сегодня", "fontSize": "32px", "color": "#111827", "fontWeight": "800", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 12px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "plo-price", "type": "text", "content": { "text": "4 900₽ <s>19 900₽</s> (скидка 75%)", "fontSize": "28px", "color": "#dc2626", "fontWeight": "800", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 8px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "plo-timer", "type": "text", "content": { "text": "⏰ До конца скидки:", "fontSize": "16px", "color": "#dc2626", "fontWeight": "700", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 24px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "plo-form", "type": "form", "content": { "title": "Оформите заказ", "placeholder": "Email", "namePlaceholder": "Имя", "buttonText": "💳 Купить за 4 900₽", "successMessage": "🎉 Заказ оформлен!" }, "settings": { "padding": "32px", "backgroundColor": "#f9fafb", "borderRadius": "16px", "margin": "0" } }
+      ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } }
+    ], "settings": { "backgroundColor": "#ffffff", "padding": "80px 48px", "margin": "0", "minHeight": "auto", "fullWidth": false } }
+  ] }, "settings": { "backgroundColor": "#ffffff", "maxWidth": "1200px", "fontFamily": "Inter, sans-serif" } }
+}

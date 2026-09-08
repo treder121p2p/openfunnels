@@ -1,0 +1,14 @@
+{
+  "kind": "openfunnels-template", "schemaVersion": 1,
+  "metadata": { "name": "SH - Share Page", "description": "Страница вирусного распространения: поделись с другом.", "category": "Sales", "tags": ["share", "viral", "sh-series", "page-2-of-2"] },
+  "funnel": { "content": { "sections": [
+    { "id": "sh-hero", "type": "section", "layout": "single", "columns": [
+      { "id": "sh-col", "type": "column", "width": 100, "blocks": [
+        { "id": "sh-icon", "type": "text", "content": { "text": "🎉", "fontSize": "64px", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 16px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "sh-headline", "type": "text", "content": { "text": "Поделитесь с другом — получите бонус!", "fontSize": "32px", "color": "#111827", "fontWeight": "800", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 12px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "sh-text", "type": "text", "content": { "text": "Поделитесь ссылкой с другом, и вы оба получите скидку 20% на следующий продукт.", "fontSize": "18px", "color": "#4b5563", "textAlign": "center", "lineHeight": "1.6" }, "settings": { "padding": "0", "margin": "0 0 24px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "sh-cta", "type": "button", "content": { "text": "📤 Поделиться в соцсетях", "url": "#", "variant": "primary", "size": "large", "fullWidth": true }, "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+      ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } }
+    ], "settings": { "backgroundColor": "#ffffff", "padding": "80px 48px", "margin": "0", "minHeight": "auto", "fullWidth": false } }
+  ] }, "settings": { "backgroundColor": "#ffffff", "maxWidth": "1200px", "fontFamily": "Inter, sans-serif" } }
+}

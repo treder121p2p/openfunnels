@@ -1,0 +1,15 @@
+{
+  "kind": "openfunnels-template", "schemaVersion": 1,
+  "metadata": { "name": "APP - Application Page", "description": "Страница заявки для квалификации клиентов. Часть Application Funnel.", "category": "Lead capture", "tags": ["application", "apply", "app-series", "page-2-of-3"] },
+  "funnel": { "content": { "sections": [
+    { "id": "app-hero", "type": "section", "layout": "two-column", "columns": [
+      { "id": "app-copy", "type": "column", "width": 55, "blocks": [
+        { "id": "app-headline", "type": "text", "content": { "text": "📝 Заявка на сотрудничество", "fontSize": "32px", "color": "#111827", "fontWeight": "800" }, "settings": { "padding": "0", "margin": "0 0 16px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "app-text", "type": "text", "content": { "text": "Мы работаем не со всеми. Заполните форму, и мы свяжемся с вами для обсуждения деталей.\n\n✅ Персональный подход\n✅ Гарантия результата\n✅ Поддержка на каждом этапе", "fontSize": "16px", "color": "#374151", "lineHeight": "1.8" }, "settings": { "padding": "0", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+      ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } },
+      { "id": "app-form", "type": "column", "width": 45, "blocks": [
+        { "id": "app-form", "type": "form", "content": { "title": "Заполните заявку", "placeholder": "Email", "namePlaceholder": "Имя и фамилия", "buttonText": "📝 Отправить заявку", "successMessage": "🎉 Заявка отправлена! Мы свяжемся в течение 24 часов." }, "settings": { "padding": "32px", "backgroundColor": "#f9fafb", "borderRadius": "16px", "margin": "0" } }
+      ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } }
+    ], "settings": { "backgroundColor": "#ffffff", "padding": "80px 48px", "margin": "0", "minHeight": "auto", "fullWidth": false } }
+  ] }, "settings": { "backgroundColor": "#ffffff", "maxWidth": "1200px", "fontFamily": "Inter, sans-serif" } }
+}

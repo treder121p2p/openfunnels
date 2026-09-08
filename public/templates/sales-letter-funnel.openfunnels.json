@@ -1,0 +1,290 @@
+{
+  "kind": "openfunnels-template",
+  "schemaVersion": 1,
+  "metadata": {
+    "name": "Sales Letter Funnel",
+    "description": "Классическая продающая воронка с длинным продающим письмом (Star, Story, Solution). Состоит из 4 страниц: Sales Letter, Order Form, OTO (одноразовое предложение), Downsell. Идеально для продаж информационных продуктов, коучинга, ecommerce, B2B.",
+    "category": "buyer",
+    "tags": ["sales-letter", "long-copy", "upsell", "downsell", "conversion"]
+  },
+  "funnel": {
+    "content": {
+      "sections": [
+        {
+          "id": "sec-headline",
+          "type": "section",
+          "layout": "single",
+          "columns": [
+            {
+              "id": "col-hl",
+              "type": "column",
+              "width": 100,
+              "blocks": [
+                {
+                  "id": "blk-eyebrow",
+                  "type": "text",
+                  "content": { "text": "ВНИМАНИЕ: Это предложение доступно только сегодня", "fontSize": "14px", "color": "#dc2626", "fontWeight": "700", "textAlign": "center" },
+                  "settings": { "padding": "8px", "margin": "0 0 8px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-sl-headline",
+                  "type": "text",
+                  "content": {
+                    "text": "Как [Целевой Результат] за [Срок] без [Боли/Страха] — Даже если Вы [Возражение]",
+                    "fontSize": "40px",
+                    "color": "#111827",
+                    "fontWeight": "800",
+                    "textAlign": "center",
+                    "lineHeight": "1.2"
+                  },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-sl-sub",
+                  "type": "text",
+                  "content": {
+                    "text": "Откройте проверенную стратегию, с которой [Количество] человек уже [Результат]. Без опыта, без вложений, без риска.",
+                    "fontSize": "18px",
+                    "color": "#4b5563",
+                    "textAlign": "center"
+                  },
+                  "settings": { "padding": "8px", "margin": "0 0 24px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-sl-author",
+                  "type": "text",
+                  "content": { "text": "Автор: [Ваше Имя], [Должность/Экспертиза]", "fontSize": "16px", "color": "#6b7280", "textAlign": "center" },
+                  "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent" }
+                }
+              ],
+              "settings": { "padding": "80px 48px 40px", "backgroundColor": "transparent", "verticalAlign": "middle" }
+            }
+          ],
+          "settings": { "backgroundColor": "#ffffff", "padding": "80px 48px 40px", "margin": "0px", "minHeight": "auto", "fullWidth": false }
+        },
+        {
+          "id": "sec-story",
+          "type": "section",
+          "layout": "single",
+          "columns": [
+            {
+              "id": "col-story",
+              "type": "column",
+              "width": 100,
+              "blocks": [
+                {
+                  "id": "blk-story-title",
+                  "type": "text",
+                  "content": { "text": "Моя история...", "fontSize": "28px", "color": "#111827", "fontWeight": "700" },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-story-text",
+                  "type": "text",
+                  "content": {
+                    "text": "Три года назад я был в точке, где вы сейчас. У меня не было [результат], я тратил часы на [проблему], и казалось, что ничего не работает...\n\nНо потом я обнаружил [открытие], которое изменило всё. Сегодня я [текущий результат], и я хочу показать вам, как сделать то же самое.\n\nВот что я понял: большинство людей терпят неудачу не потому, что им не хватает знаний, а потому, что у них нет правильной системы. Система, которую я создал, работает даже для тех, кто начинает с нуля.",
+                    "fontSize": "17px",
+                    "color": "#374151",
+                    "lineHeight": "1.8"
+                  },
+                  "settings": { "padding": "8px", "margin": "0 0 24px 0", "backgroundColor": "transparent" }
+                }
+              ],
+              "settings": { "padding": "48px 80px", "backgroundColor": "#f9fafb", "margin": "0px", "minHeight": "auto", "fullWidth": false }
+            }
+          ],
+          "settings": { "backgroundColor": "#f9fafb", "padding": "48px 80px", "margin": "0px", "minHeight": "auto", "fullWidth": false }
+        },
+        {
+          "id": "sec-benefits",
+          "type": "section",
+          "layout": "single",
+          "columns": [
+            {
+              "id": "col-ben",
+              "type": "column",
+              "width": 100,
+              "blocks": [
+                {
+                  "id": "blk-ben-title",
+                  "type": "text",
+                  "content": { "text": "Что вы получите:", "fontSize": "28px", "color": "#111827", "fontWeight": "800" },
+                  "settings": { "padding": "8px", "margin": "0 0 24px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-ben-list",
+                  "type": "text",
+                  "content": {
+                    "text": "✅ Модуль 1: [Название] — Пошаговый план действий\n✅ Модуль 2: [Название] — Готовые шаблоны и скрипты\n✅ Модуль 3: [Название] — Стратегия привлечения клиентов\n✅ Модуль 4: [Название] — Масштабирование и автоматизация\n✅ Бонус 1: Личный чек-лист [стоимость 4,990₽]\n✅ Бонус 2: Видео-разборы кейсов [стоимость 2,990₽]\n✅ Бонус 3: Доступ в закрытое сообщество [стоимость 1,990₽]",
+                    "fontSize": "17px",
+                    "color": "#374151",
+                    "lineHeight": "2.0"
+                  },
+                  "settings": { "padding": "8px", "margin": "0 0 24px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-total",
+                  "type": "text",
+                  "content": { "text": "Общая стоимость: ~~34,950₽~~ → Ваша цена сегодня: 9,990₽", "fontSize": "22px", "color": "#dc2626", "fontWeight": "700", "textAlign": "center" },
+                  "settings": { "padding": "16px", "margin": "0 0 16px 0", "backgroundColor": "#fef2f2", "borderRadius": "8px" }
+                },
+                {
+                  "id": "blk-buy-btn",
+                  "type": "button",
+                  "content": { "text": "Купить сейчас — 9,990₽ →", "url": "#", "backgroundColor": "#dc2626", "color": "#ffffff", "borderRadius": "8px" },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent", "textAlign": "center" }
+                },
+                {
+                  "id": "blk-guarantee",
+                  "type": "text",
+                  "content": { "text": "🛡️ 30-дневная гарантия возврата денег. Если программа не поможет — вернём 100%.", "fontSize": "15px", "color": "#6b7280", "textAlign": "center" },
+                  "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent" }
+                }
+              ],
+              "settings": { "padding": "64px 80px", "backgroundColor": "transparent", "verticalAlign": "middle" }
+            }
+          ],
+          "settings": { "backgroundColor": "#ffffff", "padding": "64px 80px", "margin": "0px", "minHeight": "auto", "fullWidth": false }
+        },
+        {
+          "id": "sec-order",
+          "type": "section",
+          "layout": "single",
+          "columns": [
+            {
+              "id": "col-order",
+              "type": "column",
+              "width": 100,
+              "blocks": [
+                {
+                  "id": "blk-order-title",
+                  "type": "text",
+                  "content": { "text": "Форма заказа", "fontSize": "28px", "color": "#111827", "fontWeight": "800", "textAlign": "center" },
+                  "settings": { "padding": "8px", "margin": "0 0 24px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-order-form",
+                  "type": "form",
+                  "content": {
+                    "title": "Ваши данные",
+                    "placeholder": "Email",
+                    "namePlaceholder": "ФИО",
+                    "buttonText": "Оплатить 9,990₽",
+                    "successMessage": "Заказ оформлен! Проверьте почту."
+                  },
+                  "settings": { "padding": "32px", "margin": "0", "backgroundColor": "#f9fafb", "borderRadius": "12px", "border": "1px solid #e5e7eb" }
+                }
+              ],
+              "settings": { "padding": "64px 80px", "backgroundColor": "transparent", "verticalAlign": "middle" }
+            }
+          ],
+          "settings": { "backgroundColor": "#f9fafb", "padding": "64px 80px", "margin": "0px", "minHeight": "auto", "fullWidth": false }
+        },
+        {
+          "id": "sec-oto",
+          "type": "section",
+          "layout": "two-column",
+          "columns": [
+            {
+              "id": "col-oto-content",
+              "type": "column",
+              "width": 55,
+              "blocks": [
+                {
+                  "id": "blk-oto-tag",
+                  "type": "text",
+                  "content": { "text": "⚡ ОДНОРАЗОВОЕ ПРЕДЛОЖЕНИЕ (OTO)", "fontSize": "14px", "color": "#f59e0b", "fontWeight": "700" },
+                  "settings": { "padding": "8px", "margin": "0 0 8px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-oto-headline",
+                  "type": "text",
+                  "content": { "text": "Дополните ваш заказ экспресс-программой", "fontSize": "32px", "color": "#111827", "fontWeight": "800", "lineHeight": "1.2" },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-oto-desc",
+                  "type": "text",
+                  "content": { "text": "Получите ускоренный курс из 10 видеоуроков + личная консультация 1-на-1 со мной. Экономия 60% по сравнению с индивидуальным пакетом.", "fontSize": "17px", "color": "#4b5563", "lineHeight": "1.6" },
+                  "settings": { "padding": "8px", "margin": "0 0 24px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-oto-price",
+                  "type": "text",
+                  "content": { "text": "~~24,990₽~~ → 9,990₽", "fontSize": "28px", "color": "#dc2626", "fontWeight": "800" },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent" }
+                }
+              ],
+              "settings": { "padding": "48px 16px 48px 48px", "backgroundColor": "transparent", "verticalAlign": "middle" }
+            },
+            {
+              "id": "col-oto-action",
+              "type": "column",
+              "width": 45,
+              "blocks": [
+                {
+                  "id": "blk-oto-yes",
+                  "type": "button",
+                  "content": { "text": "Да, добавить экспресс-курс!", "url": "#", "backgroundColor": "#10b981", "color": "#ffffff", "borderRadius": "8px" },
+                  "settings": { "padding": "16px", "margin": "0 0 16px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-oto-no",
+                  "type": "button",
+                  "content": { "text": "Нет, спасибо", "url": "#downsell", "backgroundColor": "transparent", "color": "#6b7280", "borderRadius": "8px" },
+                  "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent" }
+                }
+              ],
+              "settings": { "padding": "48px 48px 48px 16px", "backgroundColor": "#f0fdf4", "verticalAlign": "middle" }
+            }
+          ],
+          "settings": { "backgroundColor": "#ffffff", "padding": "48px", "margin": "0px", "minHeight": "auto", "fullWidth": false }
+        },
+        {
+          "id": "sec-downsell",
+          "type": "section",
+          "layout": "single",
+          "columns": [
+            {
+              "id": "col-ds",
+              "type": "column",
+              "width": 100,
+              "blocks": [
+                {
+                  "id": "blk-ds-headline",
+                  "type": "text",
+                  "content": { "text": "Подождите! Вот специальное предложение для вас...", "fontSize": "32px", "color": "#111827", "fontWeight": "800", "textAlign": "center" },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-ds-desc",
+                  "type": "text",
+                  "content": { "text": "Мы понимаем, что бюджет может быть ограничен. Поэтому предлагаем рассрочку на 3 месяца:", "fontSize": "17px", "color": "#4b5563", "textAlign": "center" },
+                  "settings": { "padding": "8px", "margin": "0 0 24px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-ds-price",
+                  "type": "text",
+                  "content": { "text": "3 платежа × 3,330₽ = 9,990₽", "fontSize": "24px", "color": "#111827", "fontWeight": "700", "textAlign": "center" },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-ds-btn",
+                  "type": "button",
+                  "content": { "text": "Оформить в рассрочку", "url": "#", "backgroundColor": "#2563eb", "color": "#ffffff", "borderRadius": "8px" },
+                  "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent", "textAlign": "center" }
+                }
+              ],
+              "settings": { "padding": "64px 80px", "backgroundColor": "#fef3c7", "verticalAlign": "middle" }
+            }
+          ],
+          "settings": { "backgroundColor": "#fef3c7", "padding": "64px 80px", "margin": "0px", "minHeight": "auto", "fullWidth": false }
+        }
+      ]
+    },
+    "settings": {
+      "backgroundColor": "#ffffff",
+      "maxWidth": "1200px"
+    }
+  }
+}

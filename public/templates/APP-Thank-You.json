@@ -1,0 +1,14 @@
+{
+  "kind": "openfunnels-template", "schemaVersion": 1,
+  "metadata": { "name": "APP - Thank You Page", "description": "Thank You для Application Funnel: подтверждение заявки.", "category": "Lead capture", "tags": ["application", "thank-you", "app-series", "page-3-of-3"] },
+  "funnel": { "content": { "sections": [
+    { "id": "aty-hero", "type": "section", "layout": "single", "columns": [
+      { "id": "aty-col", "type": "column", "width": 100, "blocks": [
+        { "id": "aty-icon", "type": "text", "content": { "text": "✅", "fontSize": "64px", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 16px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "aty-headline", "type": "text", "content": { "text": "Ваша заявка принята!", "fontSize": "36px", "color": "#111827", "fontWeight": "800", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 12px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "aty-text", "type": "text", "content": { "text": "Мы свяжемся с вами в течение 24 часов для обсуждения деталей.\n\nПока что рекомендуем ознакомиться с нашими кейсами.", "fontSize": "18px", "color": "#4b5563", "textAlign": "center", "lineHeight": "1.6" }, "settings": { "padding": "0", "margin": "0 0 24px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "aty-cta", "type": "button", "content": { "text": "📚 Посмотреть кейсы", "url": "#", "variant": "primary", "size": "large" }, "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+      ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } }
+    ], "settings": { "backgroundColor": "#ffffff", "padding": "80px 48px", "margin": "0", "minHeight": "auto", "fullWidth": false } }
+  ] }, "settings": { "backgroundColor": "#ffffff", "maxWidth": "1200px", "fontFamily": "Inter, sans-serif" } }
+}

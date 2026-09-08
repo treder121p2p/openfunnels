@@ -1,0 +1,17 @@
+{
+  "kind": "openfunnels-template", "schemaVersion": 1,
+  "metadata": { "name": "MB - Members Page", "description": "Страница участника: контент + навигация. Часть Membership Funnel.", "category": "Sales", "tags": ["members", "membership", "mb-series", "page-4-of-4"] },
+  "funnel": { "content": { "sections": [
+    { "id": "mb-header", "type": "section", "layout": "single", "columns": [
+      { "id": "mb-col", "type": "column", "width": 100, "blocks": [
+        { "id": "mb-headline", "type": "text", "content": { "text": "📚 Ваш личный кабинет", "fontSize": "28px", "color": "#111827", "fontWeight": "800" }, "settings": { "padding": "0", "margin": "0 0 8px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "mb-welcome", "type": "text", "content": { "text": "Добро пожаловать! Вот ваш учебный план:", "fontSize": "16px", "color": "#6b7280" }, "settings": { "padding": "0", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+      ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } }
+    ], "settings": { "backgroundColor": "#ffffff", "padding": "60px 48px 32px", "margin": "0", "minHeight": "auto", "fullWidth": false } },
+    { "id": "mb-modules", "type": "section", "layout": "single", "columns": [
+      { "id": "mb-mod-col", "type": "column", "width": 100, "blocks": [
+        { "id": "mb-mod1", "type": "text", "content": { "text": "✅ Модуль 1: Основы (доступен)\n✅ Модуль 2: Продвинутые техники (доступен)\n🔒 Модуль 3: Автоматизация (доступен через 7 дней)\n🔒 Модуль 4: Масштабирование (доступен через 14 дней)", "fontSize": "16px", "color": "#374151", "lineHeight": "2" }, "settings": { "padding": "24px", "margin": "0", "backgroundColor": "#f9fafb", "borderRadius": "12px" } }
+      ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } }
+    ], "settings": { "backgroundColor": "#ffffff", "padding": "0 48px 80px", "margin": "0", "minHeight": "auto", "fullWidth": false } }
+  ] }, "settings": { "backgroundColor": "#ffffff", "maxWidth": "1200px", "fontFamily": "Inter, sans-serif" } }
+}

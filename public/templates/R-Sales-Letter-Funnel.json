@@ -1,0 +1,57 @@
+{
+  "kind": "openfunnels-template",
+  "schemaVersion": 1,
+  "metadata": {
+    "name": "R-Sales Letter Funnel",
+    "description": "Продающее письмо + форма заказа + CTA",
+    "category": "Sales",
+    "tags": ["sales-letter", "order-form", "checkout", "r-series"]
+  },
+  "funnel": {
+    "content": {
+      "sections": [
+        {
+          "id": "sl1",
+          "type": "section",
+          "layout": "single",
+          "columns": [
+            {
+              "id": "sl1c",
+              "type": "column",
+              "width": 100,
+              "blocks": [
+                { "id": "sl-headline", "type": "text", "content": { "text": "Почему 97% предпринимателей теряют деньги и как этого избежать", "fontSize": "36px", "color": "#111827", "fontWeight": "800", "textAlign": "center", "lineHeight": "1.3" }, "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "sl-sub", "type": "text", "content": { "text": "Откройте секрет, который изменит ваш бизнес навсегда", "fontSize": "20px", "color": "#6b7280", "textAlign": "center" }, "settings": { "padding": "8px", "margin": "0 0 32px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "sl-story", "type": "text", "content": { "text": "Три года назад я был на грани банкротства. Мои рекламные кампании не окупались, клиенты уходили к конкурентам, а я не понимал почему.\n\nВсё изменилось, когда я обнаружил одну простую закономерность...\n\nОказалось, что 80% моих продаж приходилось на 20% контента. Но я тратил 80% времени на оставшиеся 20%.\n\nКогда я перестроил свою воронку по этой формуле, мои продажи выросли на 340% за 3 месяца.", "fontSize": "18px", "color": "#374151", "lineHeight": "1.8" }, "settings": { "padding": "8px", "margin": "0 0 24px 0", "backgroundColor": "transparent", "borderRadius": "0" } }
+              ],
+              "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" }
+            }
+          ],
+          "settings": { "backgroundColor": "#ffffff", "padding": "80px 48px", "margin": "0", "minHeight": "auto", "fullWidth": false }
+        },
+        {
+          "id": "sl2",
+          "type": "section",
+          "layout": "single",
+          "columns": [
+            {
+              "id": "sl2c",
+              "type": "column",
+              "width": 100,
+              "blocks": [
+                { "id": "sl-offer-h", "type": "text", "content": { "text": "Вот что вы получите:", "fontSize": "28px", "color": "#111827", "fontWeight": "800" }, "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "sl-offer-list", "type": "text", "content": { "text": "✅ Пошаговый курс «Воронка Продаж за 7 дней» — стоимость 19 900₽\n✅ Шаблоны писем и скриптов продаж — стоимость 4 900₽\n✅ Доступ в закрытое комьюнити — стоимость 9 900₽\n✅ Бонус: Чек-лист «50 идей для контента» — стоимость 2 900₽\n\nОбщая стоимость: 37 600₽", "fontSize": "18px", "color": "#374151", "lineHeight": "2" }, "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "sl-price", "type": "text", "content": { "text": "Ваша цена сегодня: 4 900₽", "fontSize": "32px", "color": "#dc2626", "fontWeight": "800", "textAlign": "center" }, "settings": { "padding": "8px", "margin": "0 0 8px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "sl-guarantee", "type": "text", "content": { "text": "💰 Гарантия возврата 30 дней — если не увидите результат, вернём деньги", "fontSize": "16px", "color": "#059669", "fontWeight": "600", "textAlign": "center" }, "settings": { "padding": "8px", "margin": "0 0 32px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "sl-cta", "type": "button", "content": { "text": "Начать сейчас — 4 900₽", "url": "#checkout", "variant": "primary", "size": "large", "fullWidth": true }, "settings": { "padding": "16px", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+              ],
+              "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" }
+            }
+          ],
+          "settings": { "backgroundColor": "#f9fafb", "padding": "64px 48px", "margin": "0", "minHeight": "auto", "fullWidth": false }
+        }
+      ]
+    },
+    "settings": { "backgroundColor": "#ffffff", "maxWidth": "1200px", "fontFamily": "Inter, sans-serif" }
+  }
+}

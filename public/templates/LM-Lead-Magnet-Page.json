@@ -1,0 +1,59 @@
+{
+  "kind": "openfunnels-template",
+  "schemaVersion": 1,
+  "metadata": {
+    "name": "LM - Lead Magnet Page",
+    "description": "Страница лид-магнита: описание подарка + форма. Часть туннеля Lead Magnet Funnel.",
+    "category": "Lead capture",
+    "tags": ["lead-magnet", "opt-in", "lm-series", "page-1-of-2"]
+  },
+  "funnel": {
+    "content": {
+      "sections": [
+        {
+          "id": "lm-hero",
+          "type": "section",
+          "layout": "two-column-66-33",
+          "columns": [
+            {
+              "id": "lm-copy",
+              "type": "column",
+              "width": 66,
+              "blocks": [
+                { "id": "lm-badge", "type": "text", "content": { "text": "🎁 Бесплатный подарок", "fontSize": "14px", "color": "#059669", "fontWeight": "800", "backgroundColor": "#ecfdf5", "borderRadius": "20px" }, "settings": { "padding": "6px 16px", "margin": "0 0 20px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "lm-headline", "type": "text", "content": { "text": "Скачайте бесплатный чек-лист: «10 шагов к увеличению продаж»", "fontSize": "40px", "color": "#111827", "fontWeight": "800", "lineHeight": "1.2" }, "settings": { "padding": "0", "margin": "0 0 16px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "lm-subhead", "type": "text", "content": { "text": "Пошаговый план, который помог 5,000+ предпринимателей увеличить конверсию воронки на 200% за 30 дней", "fontSize": "18px", "color": "#4b5563", "lineHeight": "1.6" }, "settings": { "padding": "0", "margin": "0 0 24px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "lm-what-inside", "type": "text", "content": { "text": "📋 Что внутри чек-листа:<br><br>✅ Как найти «узкое место» вашей воронки<br>✅ 7 проверенных способов увеличить конверсию<br>✅ Шаблоны писем для прогрева аудитории<br>✅ Формула定价а, которая работает<br>✅ Кейсы с реальными цифрами<br>✅ Бонус: калькулятор ROI рекламы", "fontSize": "16px", "color": "#374151", "lineHeight": "2" }, "settings": { "padding": "0", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+              ],
+              "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "middle" }
+            },
+            {
+              "id": "lm-form-col",
+              "type": "column",
+              "width": 34,
+              "blocks": [
+                { "id": "lm-form-icon", "type": "text", "content": { "text": "📥", "fontSize": "48px", "textAlign": "center" }, "settings": { "padding": "8px 0", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } },
+                { "id": "lm-form", "type": "form", "content": { "title": "Получить чек-лист бесплатно", "placeholder": "Ваш email", "namePlaceholder": "Ваше имя", "buttonText": "📥 Скачать чек-лист", "successMessage": "🎉 Чек-лист отправлен! Проверьте почту." }, "settings": { "padding": "28px", "backgroundColor": "#f9fafb", "borderRadius": "16px", "margin": "0" } },
+                { "id": "lm-trust", "type": "text", "content": { "text": "🔒 Без спама. Только полезный контент.", "fontSize": "12px", "color": "#9ca3af", "textAlign": "center" }, "settings": { "padding": "12px 0 0 0", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+              ],
+              "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "middle" }
+            }
+          ],
+          "settings": { "backgroundColor": "#ffffff", "padding": "80px 48px", "margin": "0", "minHeight": "auto", "fullWidth": false }
+        },
+        {
+          "id": "lm-social",
+          "type": "section",
+          "layout": "single",
+          "columns": [
+            { "id": "lm-social-col", "type": "column", "width": 100, "blocks": [
+              { "id": "lm-social-proof", "type": "testimonial", "content": { "quote": "После применения чек-листа конверсия моего лендинга выросла на 180%. Рекомендую!", "author": "Анна К.", "position": "Предприниматель", "rating": 5 }, "settings": { "padding": "24px", "backgroundColor": "#f9fafb", "borderRadius": "12px", "margin": "0" } }
+            ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } }
+          ],
+          "settings": { "backgroundColor": "#ffffff", "padding": "32px 48px", "margin": "0", "minHeight": "auto", "fullWidth": false }
+        }
+      ]
+    },
+    "settings": { "backgroundColor": "#ffffff", "maxWidth": "1200px", "fontFamily": "Inter, sans-serif" }
+  }
+}

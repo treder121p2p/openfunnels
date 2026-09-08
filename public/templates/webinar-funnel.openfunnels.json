@@ -1,0 +1,291 @@
+{
+  "kind": "openfunnels-template",
+  "schemaVersion": 1,
+  "metadata": {
+    "name": "Webinar Funnel",
+    "description": "Воронка для проведения вебинаров. Позволяет провести 60+ минут с потенциальным клиентом, закрыть его на более дорогой продукт. Состоит из 4 страниц: регистрация, подтверждение, индоктринация, повтор. Идеально для коучей, консультантов, B2B, MLM.",
+    "category": "event",
+    "tags": ["webinar", "live", "registration", "high-ticket", "education"]
+  },
+  "funnel": {
+    "content": {
+      "sections": [
+        {
+          "id": "sec-registration",
+          "type": "section",
+          "layout": "single",
+          "columns": [
+            {
+              "id": "col-reg",
+              "type": "column",
+              "width": 100,
+              "blocks": [
+                {
+                  "id": "blk-live-tag",
+                  "type": "text",
+                  "content": { "text": "🔴 LIVE ВЕБИНАР", "fontSize": "14px", "color": "#ef4444", "fontWeight": "700", "textAlign": "center" },
+                  "settings": { "padding": "8px", "margin": "0 0 8px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-reg-headline",
+                  "type": "text",
+                  "content": {
+                    "text": "Как Создать Прибыльный Онлайн-Бизнес с Нуля за 90 Дней",
+                    "fontSize": "42px",
+                    "color": "#111827",
+                    "fontWeight": "800",
+                    "textAlign": "center",
+                    "lineHeight": "1.2"
+                  },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-reg-subhead",
+                  "type": "text",
+                  "content": {
+                    "text": "Бесплатный живой вебинар от эксперта с 15-летним опытом. Узнайте пошаговую стратегию, которая уже помогла 2,000+ предпринимателей.",
+                    "fontSize": "18px",
+                    "color": "#4b5563",
+                    "textAlign": "center"
+                  },
+                  "settings": { "padding": "8px", "margin": "0 0 32px 0", "backgroundColor": "transparent" }
+                }
+              ],
+              "settings": { "padding": "72px 48px 32px", "backgroundColor": "transparent", "verticalAlign": "middle" }
+            }
+          ],
+          "settings": {
+            "backgroundColor": "#ffffff",
+            "padding": "72px 48px 32px",
+            "margin": "0px",
+            "minHeight": "auto",
+            "fullWidth": false
+          }
+        },
+        {
+          "id": "sec-details-form",
+          "type": "section",
+          "layout": "two-column",
+          "columns": [
+            {
+              "id": "col-agenda",
+              "type": "column",
+              "width": 55,
+              "blocks": [
+                {
+                  "id": "blk-agenda-title",
+                  "type": "text",
+                  "content": { "text": "На этом вебинаре вы узнаете:", "fontSize": "28px", "color": "#111827", "fontWeight": "800" },
+                  "settings": { "padding": "8px", "margin": "0 0 24px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-agenda-list",
+                  "type": "text",
+                  "content": {
+                    "text": "1️⃣ Секретная стратегия поиска ниши, где клиенты уже готовы покупать\n\n2️⃣ Как создать продукт за 7 дней и начать продавать на следующий день\n\n3️⃣ Точная система привлечения 100+ клиентов в месяц без рекламного бюджета\n\n4️⃣ Как масштабировать бизнес до 100,000₽/мес работая 4 часа в день",
+                    "fontSize": "17px",
+                    "color": "#374151",
+                    "lineHeight": "1.8"
+                  },
+                  "settings": { "padding": "8px", "margin": "0 0 24px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-speaker",
+                  "type": "text",
+                  "content": {
+                    "text": "🎤 Спикер: [Ваше Имя]\nЭксперт по онлайн-бизнесу с 15-летним опытом\nПомог 2,000+ предпринимателей запустить прибыльные бизнесы",
+                    "fontSize": "16px",
+                    "color": "#6b7280",
+                    "lineHeight": "1.6"
+                  },
+                  "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent" }
+                }
+              ],
+              "settings": { "padding": "32px 16px 32px 48px", "backgroundColor": "transparent", "verticalAlign": "top" }
+            },
+            {
+              "id": "col-reg-form",
+              "type": "column",
+              "width": 45,
+              "blocks": [
+                {
+                  "id": "blk-form-card",
+                  "type": "form",
+                  "content": {
+                    "title": "Зарегистрируйтесь бесплатно",
+                    "placeholder": "Ваш email",
+                    "namePlaceholder": "Ваше имя",
+                    "buttonText": "Зарегистрироваться →",
+                    "successMessage": "Вы зарегистрированы! Проверьте почту для получения ссылки."
+                  },
+                  "settings": {
+                    "padding": "32px",
+                    "margin": "0",
+                    "backgroundColor": "#ffffff",
+                    "borderRadius": "12px",
+                    "border": "1px solid #e5e7eb",
+                    "boxShadow": "0 4px 24px rgba(0,0,0,0.08)"
+                  }
+                },
+                {
+                  "id": "blk-date",
+                  "type": "text",
+                  "content": {
+                    "text": "📅 Следующий вебинар: [Дата] в [Время] МСК",
+                    "fontSize": "16px",
+                    "color": "#111827",
+                    "fontWeight": "600",
+                    "textAlign": "center"
+                  },
+                  "settings": { "padding": "16px 8px 8px 8px", "margin": "0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-spots",
+                  "type": "text",
+                  "content": {
+                    "text": "⚠️ Осталось 23 мест из 500",
+                    "fontSize": "14px",
+                    "color": "#dc2626",
+                    "fontWeight": "600",
+                    "textAlign": "center"
+                  },
+                  "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent" }
+                }
+              ],
+              "settings": { "padding": "32px 48px 32px 16px", "backgroundColor": "#f9fafb", "verticalAlign": "top" }
+            }
+          ],
+          "settings": {
+            "backgroundColor": "#f9fafb",
+            "padding": "48px",
+            "margin": "0px",
+            "minHeight": "auto",
+            "fullWidth": false
+          }
+        },
+        {
+          "id": "sec-confirmation",
+          "type": "section",
+          "layout": "single",
+          "columns": [
+            {
+              "id": "col-conf",
+              "type": "column",
+              "width": 100,
+              "blocks": [
+                {
+                  "id": "blk-conf-check",
+                  "type": "text",
+                  "content": { "text": "✅", "fontSize": "48px", "textAlign": "center" },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-conf-h",
+                  "type": "text",
+                  "content": { "text": "Вы зарегистрированы на вебинар!", "fontSize": "36px", "color": "#111827", "fontWeight": "800", "textAlign": "center" },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-conf-date",
+                  "type": "text",
+                  "content": { "text": "📅 [Дата] в [Время] МСК\n🔗 Ссылка для входа будет отправлена на ваш email за 1 час до начала", "fontSize": "18px", "color": "#4b5563", "textAlign": "center" },
+                  "settings": { "padding": "8px", "margin": "0 0 32px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-conf-video",
+                  "type": "video",
+                  "content": { "url": "#", "title": "Подготовьтесь к вебинару — посмотрите это видео" },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-conf-share",
+                  "type": "text",
+                  "content": { "text": "📢 Поделитесь с друзьями — чем больше людей, тем полезнее обсуждение!", "fontSize": "16px", "color": "#4b5563", "textAlign": "center" },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent" }
+                }
+              ],
+              "settings": { "padding": "80px 48px", "backgroundColor": "transparent", "verticalAlign": "middle" }
+            }
+          ],
+          "settings": { "backgroundColor": "#ffffff", "padding": "80px 48px", "margin": "0px", "minHeight": "60vh", "fullWidth": false }
+        },
+        {
+          "id": "sec-replay",
+          "type": "section",
+          "layout": "two-column",
+          "columns": [
+            {
+              "id": "col-replay-video",
+              "type": "column",
+              "width": 60,
+              "blocks": [
+                {
+                  "id": "blk-replay-tag",
+                  "type": "text",
+                  "content": { "text": "⏳ ПОВТОР ЗАКРАНЧИВАЕТСЯ ЧЕРЕЗ:", "fontSize": "14px", "color": "#dc2626", "fontWeight": "700" },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-countdown",
+                  "type": "countdown",
+                  "content": { "deadline": "2026-09-10T23:59:59", "message": "Повтор заканчивается через" },
+                  "settings": { "padding": "8px", "margin": "0 0 24px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-replay-video",
+                  "type": "video",
+                  "content": { "url": "#", "title": "Запись вебинара" },
+                  "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent" }
+                }
+              ],
+              "settings": { "padding": "48px 16px 48px 48px", "backgroundColor": "transparent", "verticalAlign": "top" }
+            },
+            {
+              "id": "col-replay-offer",
+              "type": "column",
+              "width": 40,
+              "blocks": [
+                {
+                  "id": "blk-offer-title",
+                  "type": "text",
+                  "content": { "text": "Специальное предложение", "fontSize": "24px", "color": "#111827", "fontWeight": "800" },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-offer-desc",
+                  "type": "text",
+                  "content": { "text": "Получите доступ к полной программе и личному менторству со спикером вебинара.", "fontSize": "16px", "color": "#4b5563", "lineHeight": "1.6" },
+                  "settings": { "padding": "8px", "margin": "0 0 24px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-offer-price",
+                  "type": "text",
+                  "content": { "text": "~~49,990₽~~\n19,990₽", "fontSize": "32px", "color": "#dc2626", "fontWeight": "800", "textAlign": "center" },
+                  "settings": { "padding": "8px", "margin": "0 0 16px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-offer-btn",
+                  "type": "button",
+                  "content": { "text": "Получить доступ сейчас →", "url": "#", "backgroundColor": "#dc2626", "color": "#ffffff", "borderRadius": "8px" },
+                  "settings": { "padding": "8px", "margin": "0 0 24px 0", "backgroundColor": "transparent" }
+                },
+                {
+                  "id": "blk-offer-guarantee",
+                  "type": "text",
+                  "content": { "text": "🛡️ 30-дневная гарантия возврата денег", "fontSize": "14px", "color": "#6b7280", "textAlign": "center" },
+                  "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent" }
+                }
+              ],
+              "settings": { "padding": "48px 48px 48px 16px", "backgroundColor": "#f9fafb", "verticalAlign": "top" }
+            }
+          ],
+          "settings": { "backgroundColor": "#ffffff", "padding": "48px", "margin": "0px", "minHeight": "auto", "fullWidth": false }
+        }
+      ]
+    },
+    "settings": {
+      "backgroundColor": "#ffffff",
+      "maxWidth": "1200px"
+    }
+  }
+}

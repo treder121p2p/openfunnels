@@ -1,0 +1,28 @@
+{
+  "kind": "openfunnels-template",
+  "schemaVersion": 1,
+  "metadata": { "name": "WB - Replay", "description": "Страница повтора вебинара + оффер. Часть Webinar Funnel.", "category": "Events", "tags": ["webinar", "replay", "wb-series", "page-4-of-4"] },
+  "funnel": {
+    "content": { "sections": [
+      { "id": "wbr-hero", "type": "section", "layout": "single", "columns": [
+        { "id": "wbr-col", "type": "column", "width": 100, "blocks": [
+          { "id": "wbr-timer", "type": "text", "content": { "text": "⏰ До конца повтора осталось:", "fontSize": "18px", "color": "#dc2626", "fontWeight": "700", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 8px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+          { "id": "wbr-countdown", "type": "countdown", "content": { "title": "", "showDays": true, "showHours": true, "showMinutes": true, "showSeconds": true }, "settings": { "padding": "16px", "margin": "0 0 24px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+          { "id": "wbr-headline", "type": "text", "content": { "text": "Повтор мастер-класса доступен ограниченное время", "fontSize": "28px", "color": "#111827", "fontWeight": "800", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 16px 0", "backgroundColor": "transparent", "borderRadius": "0" } }
+        ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } }
+      ], "settings": { "backgroundColor": "#ffffff", "padding": "60px 48px 40px", "margin": "0", "minHeight": "auto", "fullWidth": false } },
+      { "id": "wbr-offer", "type": "section", "layout": "two-column", "columns": [
+        { "id": "wbr-video", "type": "column", "width": 60, "blocks": [
+          { "id": "wbr-video-block", "type": "video", "content": { "src": "", "title": "Повтор мастер-класса", "controls": true }, "settings": { "padding": "0", "margin": "0", "backgroundColor": "#000000", "borderRadius": "12px" } }
+        ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } },
+        { "id": "wbr-buy", "type": "column", "width": 40, "blocks": [
+          { "id": "wbr-buy-head", "type": "text", "content": { "text": "🎯 Получить доступ к курсу", "fontSize": "22px", "color": "#111827", "fontWeight": "800" }, "settings": { "padding": "0", "margin": "0 0 12px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+          { "id": "wbr-price", "type": "text", "content": { "text": "4 900₽ <s>19 900₽</s>", "fontSize": "28px", "color": "#dc2626", "fontWeight": "800" }, "settings": { "padding": "0", "margin": "0 0 8px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+          { "id": "wbr-guarantee", "type": "text", "content": { "text": "💰 Гарантия возврата 30 дней", "fontSize": "14px", "color": "#059669", "fontWeight": "600" }, "settings": { "padding": "0", "margin": "0 0 16px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+          { "id": "wbr-cta", "type": "button", "content": { "text": "🛒 Купить сейчас", "url": "#", "variant": "primary", "size": "large", "fullWidth": true }, "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+        ], "settings": { "padding": "24px", "backgroundColor": "#f9fafb", "borderRadius": "16px", "verticalAlign": "top" } }
+      ], "settings": { "backgroundColor": "#ffffff", "padding": "0 48px 80px", "margin": "0", "minHeight": "auto", "fullWidth": false } }
+    ] },
+    "settings": { "backgroundColor": "#ffffff", "maxWidth": "1200px", "fontFamily": "Inter, sans-serif" }
+  }
+}

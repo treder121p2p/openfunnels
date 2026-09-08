@@ -1,0 +1,14 @@
+{
+  "kind": "openfunnels-template", "schemaVersion": 1,
+  "metadata": { "name": "ID - Indoctrination Page", "description": "Страница подготовки к вебинару. Часть Webinar Funnel.", "category": "Events", "tags": ["indoctrination", "webinar", "id-series", "page-3-of-4"] },
+  "funnel": { "content": { "sections": [
+    { "id": "id-hero", "type": "section", "layout": "single", "columns": [
+      { "id": "id-col", "type": "column", "width": 100, "blocks": [
+        { "id": "id-badge", "type": "text", "content": { "text": "🎓 Подготовка к вебинару", "fontSize": "14px", "color": "#7c3aed", "fontWeight": "800", "backgroundColor": "#f5f3ff", "borderRadius": "20px" }, "settings": { "padding": "6px 16px", "margin": "0 0 20px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "id-headline", "type": "text", "content": { "text": "Почему этот вебинар изменит ваш бизнес", "fontSize": "36px", "color": "#111827", "fontWeight": "800", "textAlign": "center", "lineHeight": "1.2" }, "settings": { "padding": "0", "margin": "0 0 16px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "id-text", "type": "text", "content": { "text": "На этом вебинаре вы узнаете:\n\n1. Секрет, который используют топ-компании\n2. Как найти «золотую жилу» в вашем бизнесе\n3. Пошаговый план действий\n\nПодготовьте блокнот — будет много полезного!", "fontSize": "17px", "color": "#374151", "lineHeight": "1.8" }, "settings": { "padding": "0", "margin": "0 0 24px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "id-cta", "type": "button", "content": { "text": "📅 Добавить в календарь", "url": "#", "variant": "primary", "size": "large" }, "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+      ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } }
+    ], "settings": { "backgroundColor": "#ffffff", "padding": "80px 48px", "margin": "0", "minHeight": "auto", "fullWidth": false } }
+  ] }, "settings": { "backgroundColor": "#ffffff", "maxWidth": "1200px", "fontFamily": "Inter, sans-serif" } }
+}

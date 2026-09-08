@@ -1,0 +1,48 @@
+{
+  "kind": "openfunnels-template",
+  "schemaVersion": 1,
+  "metadata": {
+    "name": "LM - Thank You Page",
+    "description": "Thank You страница для Lead Magnet Funnel: подтверждение + загрузка + CTA.",
+    "category": "Lead capture",
+    "tags": ["lead-magnet", "thank-you", "lm-series", "page-2-of-2"]
+  },
+  "funnel": {
+    "content": {
+      "sections": [
+        { "id": "lty-hero", "type": "section", "layout": "single", "columns": [
+          { "id": "lty-hero-col", "type": "column", "width": 100, "blocks": [
+            { "id": "lty-icon", "type": "text", "content": { "text": "📥", "fontSize": "64px", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 16px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+            { "id": "lty-headline", "type": "text", "content": { "text": "Ваш чек-лист готов к скачиванию!", "fontSize": "36px", "color": "#111827", "fontWeight": "800", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 12px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+            { "id": "lty-sub", "type": "text", "content": { "text": "Мы отправили ссылку на скачивание на вашу почту.<br>Проверьте папку «Входящие» и «Спам».", "fontSize": "18px", "color": "#4b5563", "textAlign": "center", "lineHeight": "1.6" }, "settings": { "padding": "0", "margin": "0 0 32px 0", "backgroundColor": "transparent", "borderRadius": "0" } }
+          ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } }
+        ], "settings": { "backgroundColor": "#ffffff", "padding": "80px 48px 40px", "margin": "0", "minHeight": "auto", "fullWidth": false } },
+        { "id": "lty-steps", "type": "section", "layout": "three-column", "columns": [
+          { "id": "lty-s1", "type": "column", "width": 33.33, "blocks": [
+            { "id": "lty-s1i", "type": "text", "content": { "text": "1️⃣", "fontSize": "36px", "textAlign": "center" }, "settings": { "padding": "8px", "margin": "0 0 8px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+            { "id": "lty-s1t", "type": "text", "content": { "text": "Проверьте почту", "fontSize": "18px", "color": "#111827", "fontWeight": "700", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 4px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+            { "id": "lty-s1d", "type": "text", "content": { "text": "Письмо с ссылкой уже у вас", "fontSize": "14px", "color": "#6b7280", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+          ], "settings": { "padding": "16px", "backgroundColor": "transparent", "verticalAlign": "top" } },
+          { "id": "lty-s2", "type": "column", "width": 33.33, "blocks": [
+            { "id": "lty-s2i", "type": "text", "content": { "text": "2️⃣", "fontSize": "36px", "textAlign": "center" }, "settings": { "padding": "8px", "margin": "0 0 8px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+            { "id": "lty-s2t", "type": "text", "content": { "text": "Скачайте PDF", "fontSize": "18px", "color": "#111827", "fontWeight": "700", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 4px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+            { "id": "lty-s2d", "type": "text", "content": { "text": "Нажмите кнопку в письме", "fontSize": "14px", "color": "#6b7280", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+          ], "settings": { "padding": "16px", "backgroundColor": "transparent", "verticalAlign": "top" } },
+          { "id": "lty-s3", "type": "column", "width": 33.33, "blocks": [
+            { "id": "lty-s3i", "type": "text", "content": { "text": "3️⃣", "fontSize": "36px", "textAlign": "center" }, "settings": { "padding": "8px", "margin": "0 0 8px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+            { "id": "lty-s3t", "type": "text", "content": { "text": "Примените шаги", "fontSize": "18px", "color": "#111827", "fontWeight": "700", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 4px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+            { "id": "lty-s3d", "type": "text", "content": { "text": "Начните с шага №1", "fontSize": "14px", "color": "#6b7280", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+          ], "settings": { "padding": "16px", "backgroundColor": "transparent", "verticalAlign": "top" } }
+        ], "settings": { "backgroundColor": "#f9fafb", "padding": "48px", "margin": "0", "minHeight": "auto", "fullWidth": false } },
+        { "id": "lty-cta", "type": "section", "layout": "single", "columns": [
+          { "id": "lty-cta-col", "type": "column", "width": 100, "blocks": [
+            { "id": "lty-cta-head", "type": "text", "content": { "text": "💡 Хотите получить больше полезного контента?", "fontSize": "22px", "color": "#111827", "fontWeight": "700", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 8px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+            { "id": "lty-cta-text", "type": "text", "content": { "text": "Подпишитесь на нашу рассылку — получайте практические советы каждую неделю.", "fontSize": "16px", "color": "#6b7280", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 24px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+            { "id": "lty-cta-btn", "type": "button", "content": { "text": "📬 Подписаться на рассылку", "url": "#", "variant": "primary", "size": "large" }, "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+          ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } }
+        ], "settings": { "backgroundColor": "#ffffff", "padding": "48px 48px 64px", "margin": "0", "minHeight": "auto", "fullWidth": false } }
+      ]
+    },
+    "settings": { "backgroundColor": "#ffffff", "maxWidth": "1200px", "fontFamily": "Inter, sans-serif" }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "kind": "openfunnels-template", "schemaVersion": 1,
+  "metadata": { "name": "OW - Offer Wall", "description": "Стена офферов: все доступные продукты. Часть Buyer Funnel.", "category": "Sales", "tags": ["offer-wall", "upsell", "ow-series", "page-4-of-4"] },
+  "funnel": { "content": { "sections": [
+    { "id": "ow-hero", "type": "section", "layout": "single", "columns": [
+      { "id": "ow-col", "type": "column", "width": 100, "blocks": [
+        { "id": "ow-headline", "type": "text", "content": { "text": "🎯 Вот все доступные продукты", "fontSize": "28px", "color": "#111827", "fontWeight": "800", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 8px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "ow-sub", "type": "text", "content": { "text": "Выберите то, что вам подходит", "fontSize": "16px", "color": "#6b7280", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 32px 0", "backgroundColor": "transparent", "borderRadius": "0" } }
+      ], "settings": { "padding": "0", "backgroundColor": "transparent", "verticalAlign": "top" } }
+    ], "settings": { "backgroundColor": "#ffffff", "padding": "60px 48px 32px", "margin": "0", "minHeight": "auto", "fullWidth": false } },
+    { "id": "ow-grid", "type": "section", "layout": "three-column", "columns": [
+      { "id": "ow-p1", "type": "column", "width": 33.33, "blocks": [
+        { "id": "ow-p1-name", "type": "text", "content": { "text": "📚 Базовый курс", "fontSize": "20px", "color": "#111827", "fontWeight": "700", "textAlign": "center" }, "settings": { "padding": "8px", "margin": "0 0 8px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "ow-p1-price", "type": "text", "content": { "text": "4 900₽", "fontSize": "24px", "color": "#dc2626", "fontWeight": "800", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 12px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "ow-p1-cta", "type": "button", "content": { "text": "Купить", "url": "#", "variant": "primary", "size": "medium", "fullWidth": true }, "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+      ], "settings": { "padding": "24px", "backgroundColor": "#f9fafb", "borderRadius": "12px", "verticalAlign": "top" } },
+      { "id": "ow-p2", "type": "column", "width": 33.33, "blocks": [
+        { "id": "ow-p2-name", "type": "text", "content": { "text": "🚀 Продвинутый курс", "fontSize": "20px", "color": "#111827", "fontWeight": "700", "textAlign": "center" }, "settings": { "padding": "8px", "margin": "0 0 8px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "ow-p2-price", "type": "text", "content": { "text": "9 900₽", "fontSize": "24px", "color": "#dc2626", "fontWeight": "800", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 12px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "ow-p2-cta", "type": "button", "content": { "text": "Купить", "url": "#", "variant": "primary", "size": "medium", "fullWidth": true }, "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+      ], "settings": { "padding": "24px", "backgroundColor": "#f9fafb", "borderRadius": "12px", "verticalAlign": "top" } },
+      { "id": "ow-p3", "type": "column", "width": 33.33, "blocks": [
+        { "id": "ow-p3-name", "type": "text", "content": { "text": "👑 VIP-пакет", "fontSize": "20px", "color": "#111827", "fontWeight": "700", "textAlign": "center" }, "settings": { "padding": "8px", "margin": "0 0 8px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "ow-p3-price", "type": "text", "content": { "text": "29 900₽", "fontSize": "24px", "color": "#dc2626", "fontWeight": "800", "textAlign": "center" }, "settings": { "padding": "0", "margin": "0 0 12px 0", "backgroundColor": "transparent", "borderRadius": "0" } },
+        { "id": "ow-p3-cta", "type": "button", "content": { "text": "Купить", "url": "#", "variant": "primary", "size": "medium", "fullWidth": true }, "settings": { "padding": "8px", "margin": "0", "backgroundColor": "transparent", "borderRadius": "0" } }
+      ], "settings": { "padding": "24px", "backgroundColor": "#f9fafb", "borderRadius": "12px", "verticalAlign": "top" } }
+    ], "settings": { "backgroundColor": "#ffffff", "padding": "0 48px 80px", "margin": "0", "minHeight": "auto", "fullWidth": false } }
+  ] }, "settings": { "backgroundColor": "#ffffff", "maxWidth": "1200px", "fontFamily": "Inter, sans-serif" } }
+}
