@@ -24,8 +24,6 @@ WORKDIR /app
 COPY . .
 COPY --from=php-dependencies /app/vendor ./vendor
 COPY --from=frontend /app/public/build ./public/build
-# Disable Inertia SSR (vendor config uses env() which casts "false" to true)
-RUN sed -i "s/'enabled' => (bool) env('INERTIA_SSR_ENABLED', true)/'enabled' => false/" vendor/inertiajs/inertia-laravel/config/inertia.php
 RUN mkdir -p storage/framework/cache/data storage/framework/sessions storage/framework/views storage/logs /data \
     && chmod -R 775 storage bootstrap/cache /data
 

@@ -14,7 +14,6 @@ x-openfunnels-environment: &openfunnels-environment
   MAIL_MAILER: log
   DEMO_MODE: "true"
   DEMO_LIFETIME_HOURS: "24"
-  INERTIA_SSR_ENABLED: "0"
 
 services:
   web:

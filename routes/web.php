@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 use App\Http\Controllers\AutomationController;
 use App\Http\Controllers\AutomationRunController;
@@ -8,7 +8,6 @@ use App\Http\Controllers\DemoController;
 use App\Http\Controllers\DomainController;
 use App\Http\Controllers\EmailPreferenceController;
 use App\Http\Controllers\FunnelAnalyticsController;
-use App\Http\Controllers\Api\UploadController;
 use App\Http\Controllers\FunnelController;
 use App\Http\Controllers\FunnelGenerationController;
 use App\Http\Controllers\FunnelOpportunitySettingController;
@@ -40,7 +39,7 @@ Route::domain($appDomain)->group(function () {
     })->name('home');
     Route::get('/demo', DemoController::class)->middleware('throttle:20,1')->name('demo');
 
-    // Public funnel view тАФ accessible without authentication.
+    // Public funnel view — accessible without authentication.
     // Published funnels are open to all; unpublished funnels require ownership (enforced in controller).
     Route::get('/f/{funnel:slug}', [FunnelController::class, 'show'])->name('funnels.show');
     Route::get('email/unsubscribe/{preference}', [EmailPreferenceController::class, 'show'])
@@ -103,7 +102,7 @@ Route::domain($appDomain)->group(function () {
             ]);
         })->name('dashboard');
 
-        // Exclude 'show' тАФ it is handled by the public route above.
+        // Exclude 'show' — it is handled by the public route above.
         Route::get('contacts', [ContactController::class, 'index'])->name('contacts.index');
         Route::get('contacts/lookup', ContactLookupController::class)->name('contacts.lookup');
         Route::get('contacts/export', [ContactController::class, 'export'])->name('contacts.export');
@@ -136,9 +135,7 @@ Route::domain($appDomain)->group(function () {
         Route::post('automations/{workflow}/resume', [AutomationController::class, 'resume'])->name('automations.resume');
         Route::post('automations/{workflow}/duplicate', [AutomationController::class, 'duplicate'])->name('automations.duplicate');
         Route::delete('automations/{workflow}', [AutomationController::class, 'destroy'])->name('automations.destroy');
-        // Image upload (web UI)
         Route::resource('funnels', FunnelController::class)->except(['show']);
-        Route::post('upload', [UploadController::class, 'store'])->name('upload.store');
         Route::put('funnels/{funnel}/autosave', [FunnelController::class, 'autosave'])->name('funnels.autosave');
         Route::patch('funnels/{funnel}/crm-settings', [FunnelOpportunitySettingController::class, 'update'])->name('funnels.crm-settings.update');
         Route::get('funnels/{funnel}/responses', [FunnelResponseController::class, 'index'])->name('funnels.responses');
@@ -162,6 +159,9 @@ Route::domain($appDomain)->group(function () {
     require __DIR__.'/settings.php';
     require __DIR__.'/auth.php';
 });
+
+// Upload route (session auth, no verified middleware — needed by demo accounts)
+Route::middleware(['auth:web'])->post('upload', [\App\Http\Controllers\Api\UploadController::class, 'store'])->name('upload.store');
 
 // Custom Domain Fallback Route
 Route::fallback(function (Request $request) {

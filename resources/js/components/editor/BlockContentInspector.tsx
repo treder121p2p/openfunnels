@@ -187,7 +187,7 @@ function ImageUploadButton({ onUploaded }: { onUploaded: (url: string) => void }
             const formData = new FormData();
             formData.append('file', file);
 
-            const res = await fetch('/api/upload', {
+            const res = await fetch('/upload', {
                 method: 'POST',
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest',

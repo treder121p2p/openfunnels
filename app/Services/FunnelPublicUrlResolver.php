@@ -17,7 +17,7 @@ class FunnelPublicUrlResolver
             : $funnel->domains()->where('is_verified', true)->latest()->first();
 
         if ($domain) {
-            $scheme = config('publishing.custom_domain_scheme', 'https');
+            $scheme = config('publishing.custom_domain_scheme', 'http');
 
             return sprintf('%s://%s', $scheme, $domain->domain);
         }

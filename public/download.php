@@ -17,7 +17,6 @@ if (!file_exists($path)) {
 
 $size = filesize($path);
 $ext = pathinfo($file, PATHINFO_EXTENSION);
-
 $mime = $ext === 'json' ? 'application/json' : 'text/markdown';
 
 header('Content-Type: ' . $mime);
